@@ -8,11 +8,10 @@ import testPlan.TestPlan;
 public class firstTestPlan extends TestPlan{
 	
 	@Test
-	public void test() throws IOException{
-		first yahooPage=new first();
-		yahooPage.userName.type("xx");
-		yahooPage.password.type("yy");
-		yahooPage.submit.click();
-	}
-
-}
+  public void test() throws IOException{\n
+    first yahooPage=new first();\n
+    yahooPage.userName.type("xx");\n
+    yahooPage.password.type("yy");\n
+    yahooPage.submit.click();\n
+    }\n
+}\n
