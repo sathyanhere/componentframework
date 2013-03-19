@@ -1,0 +1,18 @@
+#labels sampleTestPlan
+A sample test plan will be like
+
+import java.io.IOException;
+import org.testng.annotations.Test;
+import testPlan.TestPlan;
+
+public class firstTestPlan extends TestPlan{
+	
+	@Test
+	public void test() throws IOException{
+		first yahooPage=new first();
+		yahooPage.userName.type("xx");
+		yahooPage.password.type("yy");
+		yahooPage.submit.click();
+	}
+
+}
