@@ -9,7 +9,6 @@ import org.openqa.selenium.interactions.Actions;
 
 import pages.WebPage;
 import reports.Report;
-import utils.TextUtil;
 
 public class EventsUtil implements MouseEvents, KeyEvents, WindowEvents {
 
