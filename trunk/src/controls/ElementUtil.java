@@ -22,9 +22,7 @@ public class ElementUtil {
 		String []elementID= elementName.split("=");
 		return WebPage.driver.findElement(By.name(elementID[1]));
 	}
-	/*
-	 * 
-	 */
+	
 	static WebElement findElementByCss(String elementCss){
 		String []elementID= elementCss.split("=");
 		return WebPage.driver.findElement(By.cssSelector(elementID[1]));
