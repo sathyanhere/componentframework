@@ -34,9 +34,6 @@ public class ElementUtil {
 	}
 	
 	
-	// new Select(driver.findElement(By.xpath("//select[@name='contactType']"))).selectByVisibleText("Unclassified");
-	
-	
 	static Select findSelectByXpath(String elementXpath){
 		return new Select(WebPage.driver.findElement(By.xpath(elementXpath)));
 	}
