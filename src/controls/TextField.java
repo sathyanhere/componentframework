@@ -126,5 +126,13 @@ public class TextField {
 	public boolean isDisplayed() {
 		return textField.isDisplayed();
 	}	
+	/**
+	 * will return true if the text field is enabled else false will be returned
+	 * 
+	 * @return
+	 */
+	public boolean isEnabled() {
+		return textField.isEnabled();
+	}
 	
 }
