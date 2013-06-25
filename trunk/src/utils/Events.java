@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -27,9 +29,21 @@ public class Events {
 	 * @throws IOException 
 	 */
 	public static void click(WebElement webElement) throws IOException {
-		element=webElement;
-		element.click();
-		write("<b>Clicking the element "+WebPage.elementList.get(element),counter++);
+		try{
+			element=webElement;
+			element.click();	
+		}
+		catch(UnhandledAlertException e){
+			System.out.println("inside catch block");
+			final String jsCode = "try { if(arguments[0].href && arguments[0].target){ "
+				+ " window.open(arguments[0].href,arguments[0].target)"
+				+ " } else { arguments[0].click(); }} catch(err) { }";
+		((JavascriptExecutor) WebPage.driver).executeScript(jsCode, element);
+		}
+		finally{
+			write("<b>Clicking the element "+WebPage.elementList.get(element),counter++);
+		}
+		
 	}
 	
 	/**
