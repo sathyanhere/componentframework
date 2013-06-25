@@ -115,4 +115,14 @@ public class RadioButton {
 		Report.log("Checking whether the field " + WebPage.elementList.get(radioButton)+" is displayed.<BR>");
       return radioButton.isDisplayed();
 	}
+	
+	/**
+	 * will return true when radio button is there in the page, will return true even it is not displayed in the page.
+	 * using java script the radio button may not be visible but radio button may there in the page.
+	 * @return
+	 */
+	public boolean isEnabled() {
+		Report.log("Checking whether the field " + WebPage.elementList.get(radioButton)+" is enabled.<BR>");
+      return radioButton.isEnabled();
+	}
 }
