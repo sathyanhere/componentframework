@@ -72,7 +72,6 @@ public class TestPlan {
 			oldfile.renameTo(newFolderName);
 		}
 		
-		
 		/*File directory = new File (".");
 		String path=directory.getCanonicalPath()+"\\test-output\\screenshot\\";
 		File f = new File(path);
@@ -123,10 +122,6 @@ public class TestPlan {
 	}
 	
 	public void pressEscKey()throws AWTException{
-		/*robot=new Robot();
-		robot.delay(1000);
-		robot.keyPress(KeyEvent.VK_ESCAPE);
-		Report.log("Pressing Esc key <BR>");*/
 		keyEvents=new EventsUtil();
 		keyEvents.pressEscKey();
 	}
@@ -136,10 +131,6 @@ public class TestPlan {
 	 * @throws AWTException
 	 */
 	public void pressBackSpace()throws AWTException{
-		/*robot=new Robot();
-		robot.delay(1000);
-		robot.keyPress(KeyEvent.VK_BACK_SPACE);
-		Report.log("Pressing back space key <BR>");*/
 		keyEvents=new EventsUtil();
 		keyEvents.pressBackSpace();
 		
@@ -155,10 +146,6 @@ public class TestPlan {
 	 * @throws AWTException
 	 */
 	public void pressTabKey() throws AWTException{
-		/*robot=new Robot();
-		robot.delay(1000);
-		robot.keyPress(KeyEvent.VK_TAB);
-		Report.log("Pressing TAB key <BR>");*/
 		keyEvents=new EventsUtil();
 		keyEvents.pressTabKey();
 	}
@@ -171,15 +158,6 @@ public class TestPlan {
 	 * @throws AWTException
 	 */
 	public void pressShiftTabKey(int howManyTimes) throws AWTException{
-		/*robot=new Robot();
-		robot.delay(500);
-		robot.keyPress(KeyEvent.VK_SHIFT);
-		robot.delay(500);
-		this.pressTabKey(howManyTimes);
-		robot.delay(500);
-		robot.keyRelease(KeyEvent.VK_SHIFT);
-		Report.log("Pressing Shift+TAB keys "+howManyTimes+" times <BR>");*/
-		
 		keyEvents=new EventsUtil();
 		keyEvents.pressShiftTabKey(howManyTimes);
 	}
@@ -192,12 +170,6 @@ public class TestPlan {
 	 * @throws AWTException
 	 */
 	public void pressTabKey(int howManyTimes) throws AWTException{
-		/*robot=new Robot();
-		for(int i=0;i<howManyTimes;i++){
-			robot.delay(1000);
-			robot.keyPress(KeyEvent.VK_TAB);
-		}
-		Report.log("Pressing TAB key for "+howManyTimes +" times <BR>");*/
 		keyEvents=new EventsUtil();
 		keyEvents.pressTabKey(howManyTimes);
 	}
@@ -209,10 +181,6 @@ public class TestPlan {
 	 * @throws AWTException
 	 */
 	public void pressEnterKey()throws AWTException{
-		/*robot=new Robot();
-		robot.delay(1000);
-		robot.keyPress(KeyEvent.VK_ENTER);
-		Report.log("Pressing ENTER key <BR>");*/
 		keyEvents=new EventsUtil();
 		keyEvents.pressEnterKey();
 	}
@@ -226,14 +194,6 @@ public class TestPlan {
 	 * @throws AWTException
 	 */
 	public void type(String text) throws AWTException{
-		/*robot=new Robot();
-		robot.delay(500);
-		String[] textArray =text.split("");
-		for (int i=1;i<textArray.length;i++){
-			robot.delay(500);
-			robot.keyPress(TextUtil.getAsciiValue(textArray[i]));
-			Report.log("Entering "+textArray[i]+"<BR>");
-		}*/
 		keyEvents=new EventsUtil();
 		keyEvents.type(text);
 	}
@@ -246,9 +206,6 @@ public class TestPlan {
 	 * @throws AWTException
 	 */
 	public void pressSpaceBar() throws AWTException{
-		/*robot = new Robot();
-		robot.delay(1000);
-		robot.keyPress(KeyEvent.VK_SPACE);*/
 		keyEvents=new EventsUtil();
 		keyEvents.pressSpaceBar();
 		
@@ -310,9 +267,6 @@ public class TestPlan {
 	 * @throws AWTException
 	 */
 		public void mouseOver(WebElement webElement) {
-			/*Actions builder=new Actions(WebPage.driver);
-	        builder.moveToElement(webElement).perform();
-	        Report.log("Moving mouse over "+WebPage.elementList.get(webElement)+"<BR>");*/
 			mouseEvents = new EventsUtil();
 			mouseEvents.mouseOver(webElement);
 		}
@@ -325,7 +279,6 @@ public class TestPlan {
 	 * @param frameName
 	 */
 	public void selectFrame(String frameName){
-		/*WebPage.driver.switchTo().frame(frameName);*/
 		windowEvents=new EventsUtil();
 		windowEvents.selectFrame(frameName);
 	}
@@ -337,7 +290,6 @@ public class TestPlan {
 	 * @param windowName
 	 */
 	public void selectWindow(String windowName){
-//		WebPage.driver.switchTo().window(windowName);
 		windowEvents=new EventsUtil();
 		windowEvents.selectWindow(windowName);
 	}
