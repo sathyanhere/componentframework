@@ -59,7 +59,7 @@ public class TestPlan {
 	@BeforeSuite(groups = "TestPlan")
 	public void setUp() throws IOException {
 		System.out.println("Test Execution starts");
-		WebPage.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+//		WebPage.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		File file = new File(".//src//ReportData.txt");
 		RandomAccessFile raf=new RandomAccessFile(file,"r");
 		String previousExecutionTime=raf.readLine();
@@ -97,6 +97,10 @@ public class TestPlan {
 		System.out.println("setting property file path");
 		File directory = new File (".");
 		properties.load(new FileInputStream(directory.getCanonicalPath()+"\\src\\properties\\"+dataFile));
+		String proxy=properties.getProperty("proxy");
+		String port=properties.getProperty("port");
+		String reqString=proxy+":"+port;
+		WebPage.setPROXY(reqString);
 		
 	}
 	/**
@@ -300,7 +304,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForTextField(TextField tf){
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(tf));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(tf.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(tf.getBy()));
 	}
@@ -310,7 +314,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForTextArea(TextArea ta) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(ta));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(ta.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(ta.getBy()));
 	}
@@ -320,7 +324,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForButton(Button button) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(button));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(button.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(button.getBy()));
 	}
@@ -330,7 +334,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForLabel(Label label) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(label));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(label.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(label.getBy()));
 	}
@@ -340,7 +344,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForCheckBox(CheckBox check) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(check));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(check.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(check.getBy()));
 	}
@@ -350,7 +354,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForDateControl(DateControl date) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(date));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(date.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(date.getBy()));
 	}
@@ -361,7 +365,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForLink(Link link) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(link));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(link.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(link.getBy()));
 	}
@@ -372,7 +376,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForSelect(SelectBox select) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(select));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(select.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(select.getBy()));
 	}
@@ -383,7 +387,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForTextField(TextField tf,Long timeToWait){
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(tf));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(tf.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(tf.getBy()));
 	}
@@ -393,7 +397,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForTextArea(TextArea ta,Long timeToWait) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(ta));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(ta.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(ta.getBy()));
 	}
@@ -403,7 +407,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForButton(Button button,Long timeToWait) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(button));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(button.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(button.getBy()));
 	}
@@ -413,7 +417,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForLabel(Label label,Long timeToWait) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(label));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(label.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(label.getBy()));
 	}
@@ -423,7 +427,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForCheckBox(CheckBox check,Long timeToWait) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(check));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(check.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(check.getBy()));
 	}
@@ -433,7 +437,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForDateControl(DateControl date,Long timeToWait) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(date));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(date.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(date.getBy()));
 	}
@@ -444,7 +448,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForLink(Link link,Long timeToWait) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(link));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(link.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(link.getBy()));
 	}
@@ -455,7 +459,7 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 */
 	public void waitForSelect(SelectBox select,Long timeToWait) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(select));
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(select.getWebElement()));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(select.getBy()));
 	}
