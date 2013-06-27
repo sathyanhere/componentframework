@@ -1,13 +1,23 @@
 package pages;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Properties;
+import java.util.Set;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -25,19 +35,40 @@ public class WebPage {
 	 */
 	public static HashMap<Object, String> elementList = new HashMap<Object, String>();
 	public static String PAGE_URL = "";
-	public static EventFiringWebDriver driver =null;
-	/*private static String ScreenShotInitial="<a href=\"./screenshot/";
-	private static String ScreenShotEnd=".png\"  target=\"_blank\"> SCREEN SHOT </a> \n";*/
-	static{
+	public static EventFiringWebDriver driver;
+	public static String PROXY;
+	
+	public static void setPROXY(String proxy) {
+		PROXY = proxy;
+	}
+
+	public static void setProxyAndProfile() throws FileNotFoundException, IOException{
+		File directory = new File (".");
+		Properties properties = new Properties();
+		properties.load(new FileInputStream(directory.getCanonicalPath()+"\\src\\properties\\data.properties"));
+		String proxy1=properties.getProperty("proxy");
+		String port=properties.getProperty("port");
+		String reqString=proxy1+":"+port;
+		WebPage.setPROXY(reqString);
+		
+		Proxy proxy = new Proxy();
+		System.out.println("proxy string is "+PROXY);
+		proxy.setHttpProxy(PROXY);
+		proxy.setFtpProxy(PROXY);
+		proxy.setSslProxy(PROXY);
+		DesiredCapabilities cap = DesiredCapabilities.firefox();
+		cap.setCapability(CapabilityType.PROXY, proxy);
+		
 		FirefoxProfile profile = new FirefoxProfile();
 	    profile.setPreference("network.http.phishy-userpass-length", 255);
 	    profile.setAssumeUntrustedCertificateIssuer(false);
-	    driver = new EventFiringWebDriver(new FirefoxDriver(profile));
+	    cap.setCapability(FirefoxDriver.PROFILE, profile);
+	    driver = new EventFiringWebDriver(new FirefoxDriver(cap));
+	    
 	    WebDriverEventListener errorListener = new WebDriverEventListenerClass();
 	    driver.register(errorListener);
+	    
 	}
-	
-	
 	
 	/**
 	 * Constructor method, initialize webdriver instance, initialize page URL
@@ -47,8 +78,19 @@ public class WebPage {
 	 * @author Pradeep Sundaram
 	 * @param webDriver
 	 * @param pageURL
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
 	public WebPage(WebDriver webDriver, String pageURL) {
+		try{
+			setProxyAndProfile();	
+		}
+		catch(FileNotFoundException FNNE){
+			FNNE.printStackTrace();
+		}
+		catch(IOException IOE){
+			IOE.printStackTrace();
+		} 
 		driver =(EventFiringWebDriver)webDriver;
 		PAGE_URL = pageURL;
 		webDriver.get(PAGE_URL);
@@ -62,8 +104,19 @@ public class WebPage {
 	 * 
 	 * @author Pradeep Sundaram
 	 * @param webDriver
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
-	public WebPage(WebDriver webDriver) {
+	public WebPage(WebDriver webDriver)  {
+		try{
+			setProxyAndProfile();	
+		}
+		catch(FileNotFoundException FNNE){
+			FNNE.printStackTrace();
+		}
+		catch(IOException IOE){
+			IOE.printStackTrace();
+		} 
 		driver = (EventFiringWebDriver)webDriver;
 		webDriver.get(PAGE_URL);
 	}
@@ -71,15 +124,37 @@ public class WebPage {
 	/**
 	 * Constructor, opens the page with passed URL
 	 * @param PageURL
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
 	public WebPage(String PageURL) {
+		try{
+			setProxyAndProfile();	
+		}
+		catch(FileNotFoundException FNNE){
+			FNNE.printStackTrace();
+		}
+		catch(IOException IOE){
+			IOE.printStackTrace();
+		} 
 		driver.get(PageURL);
 	}
 	
 	/**
 	 * Default Constructor
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
 	public WebPage() {
+		try{
+			setProxyAndProfile();	
+		}
+		catch(FileNotFoundException FNNE){
+			FNNE.printStackTrace();
+		}
+		catch(IOException IOE){
+			IOE.printStackTrace();
+		} 
 	}
 	
 	/**
@@ -88,8 +163,19 @@ public class WebPage {
 	 * @author Pradeep Sundaram
 	 * @param PageURL
 	 * @param env
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 */
 	public WebPage(String PageURL, String env) {
+		try{
+			setProxyAndProfile();	
+		}
+		catch(FileNotFoundException FNNE){
+			FNNE.printStackTrace();
+		}
+		catch(IOException IOE){
+			IOE.printStackTrace();
+		} 
 		if(PageURL.contains("dev")){
 			PageURL=PageURL.replaceAll("dev", env);
 		}
@@ -109,8 +195,7 @@ public class WebPage {
 	 * 
 	 */
 	public void waitForElementPresent(By by) {
-		
-		Report.log("Waiting for the element to load " + by.toString());
+		Report.log("Waiting for the element to load " + by.toString()+"<BR>");
 		WebDriverWait wait = new WebDriverWait(driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(by));
 	}
@@ -125,7 +210,7 @@ public class WebPage {
 	 * 
 	 */
 	public void waitForElementPresent(By by, long timeToWait) {
-		Report.log("Waiting for the element to load " + by.toString());
+		Report.log("Waiting for the element to load " + by.toString()+"<BR>");
 		WebDriverWait wait = new WebDriverWait(driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(by));
 
@@ -143,6 +228,47 @@ public class WebPage {
 		Report.log("Accepting the alert <BR>");
 		driver.switchTo().defaultContent();
 		
+	}
+	
+	
+	
+	public void MouseHoverByJavaScript(WebElement targetElement) {
+		String javaScript = "var evObj = document.createEvent('MouseEvents');"
+				+ "evObj.initMouseEvent(\"click\",true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);"
+				+ "arguments[0].dispatchEvent(evObj);";
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript(javaScript, targetElement);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void  jsClick(WebElement targetElement) {
+		final String jsCode = "try { " +
+				"alert(arguments[0]);" +
+				"if(arguments[0].href && arguments[0].target){ " +
+				"alert(\" if \");" 
+				+ " window.open(arguments[0].href,arguments[0].target)"
+				+ " } else { arguments[0].click(); alert(\" else \"); }} catch(err) {alert(\" catch \"); }";
+		((JavascriptExecutor) driver).executeScript(jsCode, targetElement);
+//		return jsCode;
+	}
+	      
+	
+	public void closePopUPWindow(){
+		String mainWinHander = driver.getWindowHandle();
+		Set<String> handles = driver.getWindowHandles();
+		for(String handle : handles)
+		{
+		   if(!mainWinHander.equals(handle))
+		    {
+		        WebDriver popup = driver.switchTo().window(handle);
+		        popup.close();
+		    }
+		}
 	}
 	
 	/**
