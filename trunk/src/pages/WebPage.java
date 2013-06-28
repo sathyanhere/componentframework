@@ -42,7 +42,7 @@ public class WebPage {
 		PROXY = proxy;
 	}
 
-	public static void setProxyAndProfile() throws FileNotFoundException, IOException{
+	/*public static void setProxyAndProfile() throws FileNotFoundException, IOException{
 		File directory = new File (".");
 		Properties properties = new Properties();
 		properties.load(new FileInputStream(directory.getCanonicalPath()+"\\src\\properties\\data.properties"));
@@ -52,7 +52,6 @@ public class WebPage {
 		WebPage.setPROXY(reqString);
 		
 		Proxy proxy = new Proxy();
-		System.out.println("proxy string is "+PROXY);
 		proxy.setHttpProxy(PROXY);
 		proxy.setFtpProxy(PROXY);
 		proxy.setSslProxy(PROXY);
@@ -62,12 +61,24 @@ public class WebPage {
 		FirefoxProfile profile = new FirefoxProfile();
 	    profile.setPreference("network.http.phishy-userpass-length", 255);
 	    profile.setAssumeUntrustedCertificateIssuer(false);
-	    cap.setCapability(FirefoxDriver.PROFILE, profile);
-	    driver = new EventFiringWebDriver(new FirefoxDriver(cap));
+//	    cap.setCapability(FirefoxDriver.PROFILE, profile);
+	    driver = new EventFiringWebDriver(new FirefoxDriver(profile));
 	    
 	    WebDriverEventListener errorListener = new WebDriverEventListenerClass();
 	    driver.register(errorListener);
 	    
+	}*/
+	
+	
+	static {
+		FirefoxProfile profile = new FirefoxProfile();
+	    profile.setPreference("network.http.phishy-userpass-length", 255);
+	    profile.setAssumeUntrustedCertificateIssuer(false);
+//	    cap.setCapability(FirefoxDriver.PROFILE, profile);
+	    driver = new EventFiringWebDriver(new FirefoxDriver(profile));
+	    
+	    WebDriverEventListener errorListener = new WebDriverEventListenerClass();
+	    driver.register(errorListener);
 	}
 	
 	/**
@@ -82,7 +93,7 @@ public class WebPage {
 	 * @throws FileNotFoundException 
 	 */
 	public WebPage(WebDriver webDriver, String pageURL) {
-		try{
+		/*try{
 			setProxyAndProfile();	
 		}
 		catch(FileNotFoundException FNNE){
@@ -90,7 +101,7 @@ public class WebPage {
 		}
 		catch(IOException IOE){
 			IOE.printStackTrace();
-		} 
+		} */
 		driver =(EventFiringWebDriver)webDriver;
 		PAGE_URL = pageURL;
 		webDriver.get(PAGE_URL);
@@ -108,7 +119,7 @@ public class WebPage {
 	 * @throws FileNotFoundException 
 	 */
 	public WebPage(WebDriver webDriver)  {
-		try{
+		/*try{
 			setProxyAndProfile();	
 		}
 		catch(FileNotFoundException FNNE){
@@ -116,7 +127,7 @@ public class WebPage {
 		}
 		catch(IOException IOE){
 			IOE.printStackTrace();
-		} 
+		} */
 		driver = (EventFiringWebDriver)webDriver;
 		webDriver.get(PAGE_URL);
 	}
@@ -128,7 +139,7 @@ public class WebPage {
 	 * @throws FileNotFoundException 
 	 */
 	public WebPage(String PageURL) {
-		try{
+		/*try{
 			setProxyAndProfile();	
 		}
 		catch(FileNotFoundException FNNE){
@@ -136,7 +147,7 @@ public class WebPage {
 		}
 		catch(IOException IOE){
 			IOE.printStackTrace();
-		} 
+		}*/ 
 		driver.get(PageURL);
 	}
 	
@@ -146,7 +157,7 @@ public class WebPage {
 	 * @throws FileNotFoundException 
 	 */
 	public WebPage() {
-		try{
+		/*try{
 			setProxyAndProfile();	
 		}
 		catch(FileNotFoundException FNNE){
@@ -154,7 +165,7 @@ public class WebPage {
 		}
 		catch(IOException IOE){
 			IOE.printStackTrace();
-		} 
+		}*/ 
 	}
 	
 	/**
@@ -167,7 +178,7 @@ public class WebPage {
 	 * @throws FileNotFoundException 
 	 */
 	public WebPage(String PageURL, String env) {
-		try{
+		/*try{
 			setProxyAndProfile();	
 		}
 		catch(FileNotFoundException FNNE){
@@ -175,7 +186,7 @@ public class WebPage {
 		}
 		catch(IOException IOE){
 			IOE.printStackTrace();
-		} 
+		} */
 		if(PageURL.contains("dev")){
 			PageURL=PageURL.replaceAll("dev", env);
 		}

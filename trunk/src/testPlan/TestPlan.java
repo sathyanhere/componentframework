@@ -13,7 +13,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -97,10 +96,10 @@ public class TestPlan {
 		System.out.println("setting property file path");
 		File directory = new File (".");
 		properties.load(new FileInputStream(directory.getCanonicalPath()+"\\src\\properties\\"+dataFile));
-		String proxy=properties.getProperty("proxy");
+		/*String proxy=properties.getProperty("proxy");
 		String port=properties.getProperty("port");
 		String reqString=proxy+":"+port;
-		WebPage.setPROXY(reqString);
+		WebPage.setPROXY(reqString);*/
 		
 	}
 	/**
