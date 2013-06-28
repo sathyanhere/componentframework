@@ -109,7 +109,7 @@ public class Button {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
-		Report.log("Checking whether the field " + WebPage.elementList.get(button)+" is displayed.<BR>");
+		Report.log("Checking whether the field \"" + WebPage.elementList.get(button)+"\" is displayed.<BR>");
 		return button.isDisplayed();
 	}
 }

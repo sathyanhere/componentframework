@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
+import reports.Report;
 import utils.Events;
 
 public class TextField {
@@ -124,6 +125,7 @@ public class TextField {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
+		Report.log("Checking whether the field \"" + WebPage.elementList.get(textField)+"\" is displayed.<BR>");
 		return textField.isDisplayed();
 	}	
 	/**
@@ -132,6 +134,7 @@ public class TextField {
 	 * @return
 	 */
 	public boolean isEnabled() {
+		Report.log("Checking whether the field \"" + WebPage.elementList.get(textField)+"\" is displayed.<BR>");
 		return textField.isEnabled();
 	}
 	

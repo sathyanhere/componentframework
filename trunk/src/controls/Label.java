@@ -88,7 +88,7 @@ public class Label {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
-		Report.log("Checking whether the field " + WebPage.elementList.get(lbl)+" is displayed.<BR>");
+		Report.log("Checking whether the field \"" + WebPage.elementList.get(lbl)+"\" is displayed.<BR>");
 		return lbl.isDisplayed();
 	}
 }
