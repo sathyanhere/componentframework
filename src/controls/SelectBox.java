@@ -158,7 +158,7 @@ public class SelectBox {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
-		Report.log("Checking whether the selectBox is displayed.<BR>");
+		Report.log("Checking whether the field \"" + WebPage.elementList.get(selectBox)+"\" is enabled.<BR>");
       return WebPage.driver.findElement(by).isDisplayed();
 	}
 }

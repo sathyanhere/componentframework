@@ -144,7 +144,7 @@ public class Link {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() { 
-		Report.log("Checking whether the field " + WebPage.elementList.get(link)+" is displayed.<BR>");
+		Report.log("Checking whether the field \"" + WebPage.elementList.get(link)+"\" is displayed.<BR>");
 		return link.isDisplayed();
 	}
 }

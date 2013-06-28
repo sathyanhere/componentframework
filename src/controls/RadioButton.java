@@ -112,7 +112,7 @@ public class RadioButton {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
-		Report.log("Checking whether the field " + WebPage.elementList.get(radioButton)+" is displayed.<BR>");
+		Report.log("Checking whether the field \"" + WebPage.elementList.get(radioButton)+"\" is displayed.<BR>");
       return radioButton.isDisplayed();
 	}
 	
@@ -122,7 +122,7 @@ public class RadioButton {
 	 * @return
 	 */
 	public boolean isEnabled() {
-		Report.log("Checking whether the field " + WebPage.elementList.get(radioButton)+" is enabled.<BR>");
+		Report.log("Checking whether the field \"" + WebPage.elementList.get(radioButton)+"\" is enabled.<BR>");
       return radioButton.isEnabled();
 	}
 }

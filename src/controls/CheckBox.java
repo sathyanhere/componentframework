@@ -130,7 +130,7 @@ public class CheckBox {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
-		Report.log("Checking whether the field " + WebPage.elementList.get(checkBox)+" is displayed.<BR>");
+		Report.log("Checking whether the field \"" + WebPage.elementList.get(checkBox)+"\" is displayed.<BR>");
 		return checkBox.isDisplayed();
 	}
 }
