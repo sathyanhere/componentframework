@@ -222,7 +222,13 @@ public class TestPlan {
 	 * @param bool
 	 */
 	public void assertTrue(boolean bool){
-		Assert.assertTrue(bool);
+		try{
+			Assert.assertTrue(bool);
+		}
+		catch(AssertionError error){
+			Report.log("<font color=\"#FF0000\"><h2><b>AssertTrue Failed </b></h2></font><BR>");
+			throw new AssertionError(error.getMessage());
+		}
 	}
 	
 	
@@ -233,8 +239,14 @@ public class TestPlan {
 	 * @param bool
 	 */
 	public void assertFalse(boolean bool){
-		Report.log("Asserting False <BR>");
-		Assert.assertFalse(bool);
+		try{
+			Report.log("Asserting False <BR>");
+			Assert.assertFalse(bool);
+		}
+		catch(AssertionError error){
+			Report.log("<font color=\"#FF0000\"><h2><b>AssertFalse Failed </b></h2></font><BR>");
+			throw new AssertionError(error.getMessage());
+		}
 	}
 	
 	/**
@@ -245,9 +257,16 @@ public class TestPlan {
 	 * @param actual
 	 */
 	public void assertEquals(String expected, String actual){
-		Report.log("Comparing two strings "+ expected +" and "+actual);
-		Assert.assertEquals(expected, actual);
-		Report.log(" Comparision result passed <BR>");
+		try{
+	
+			Report.log("Comparing two strings \""+ expected +"\" and \""+actual+"\"");
+			Assert.assertEquals(expected, actual);
+			Report.log(" Comparision result passed <BR>");
+		}
+		catch(AssertionError error){
+			Report.log("<font color=\"#FF0000\"><h2><b>AssertEquals Failed </b></h2></font><BR>");
+			throw new AssertionError(error.getMessage());
+		}
 	}
 	
 	/**
@@ -257,9 +276,28 @@ public class TestPlan {
 	 * @param actual
 	 */
 	public void assertEquals(int expected, int actual){
-		Report.log("Comparing two integers "+ expected +" and "+actual);
-		Assert.assertEquals(expected, actual);
-		Report.log(" Comparision result passed <BR>");
+		try{
+			Report.log("Comparing two integers \""+ expected +"\" and \""+actual+"\"");
+			Assert.assertEquals(expected, actual);
+			Report.log(" Comparision result passed <BR>");
+		}
+		catch(AssertionError error){
+			Report.log("<font color=\"#FF0000\"><h2><b>AssertEquals Failed </b></h2></font><BR>");
+			throw new AssertionError(error.getMessage());
+		}
+		
+	}
+	
+	public void assertNull(Object obj){
+		try{
+			Report.log("Assert Null <BR>");
+			Assert.assertNull(obj);
+			Report.log(" Comparision result passed <BR>");	
+		}
+		catch(AssertionError error){
+			Report.log("<font color=\"#FF0000\"><h2><b>AssertNull Failed </b></h2></font><BR>");
+			throw new AssertionError(error.getMessage());
+		}
 	}
 	
 	/**
