@@ -10,7 +10,7 @@
 	<classpathentry kind="lib" path="D:/selenium jars/selenium-java-2.25.0.jar" sourcepath="D:/jars/selenium-master.zip"/>
 	<classpathentry kind="lib" path="D:/selenium jars/selenium-java-2.25.0-srcs.jar"/>
 	<classpathentry kind="lib" path="D:/selenium jars/selenium-remote-common-2.0a5.jar"/>
-	<classpathentry kind="lib" path="D:/selenium jars/selenium-server-standalone-2.21.0.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/selenium-server-standalone-2.21.0.jar" sourcepath="D:/selenium jars/testng-6.7-sources.jar"/>
 	<classpathentry kind="lib" path="D:/selenium jars/selenium-server-standalone-2.28.0.jar" sourcepath="D:/jars/selenium-server-standalone-2.7.0-patched-sources.jar.zip"/>
 	<classpathentry kind="lib" path="D:/selenium jars/velocity-dep-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
