@@ -8,6 +8,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.UnhandledAlertException;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -21,7 +22,7 @@ public class Events {
 	private static String ScreenShotInitial="<a href=\"./screenshot/";
 	private static String ScreenShotEnd=".png\"  target=\"_blank\"> SCREEN SHOT </a> \n";
 	private static Integer counter=1;
-	
+	public static boolean screenShotReq;
 	/**
 	 * This method will click in the webElement passed as argument 
 	 * @author Pradeep Sundaram
@@ -41,7 +42,14 @@ public class Events {
 		((JavascriptExecutor) WebPage.driver).executeScript(jsCode, element);
 		}
 		finally{
-			write("<b>Clicking the element "+WebPage.elementList.get(element),counter++);
+			if(screenShotReq){
+//				write("<b>Clicking the element \""+WebPage.elementList.get(element)+"\"",counter++);
+				write("<b>Clicking the element \""+WebPage.elementList.get(element)+"\"");
+			}
+			else{
+				Report.log("<b>Clicking the element \""+WebPage.elementList.get(element)+"\""+"<BR>");
+			}
+			
 		}
 		
 	}
@@ -57,7 +65,14 @@ public class Events {
 		element=webElement;
 		element.clear();
 		element.sendKeys(text);
-		write("<b>Typing \'"+text+"\' in "+WebPage.elementList.get(element), counter++);
+		if(screenShotReq){
+//			write("<b>Typing \'"+text+"\' in "+WebPage.elementList.get(element), counter++);
+			write("<b>Typing \'"+text+"\' in "+WebPage.elementList.get(element), counter++);
+		}
+		else{
+			Report.log("<b>Typing \'"+text+"\' in "+WebPage.elementList.get(element)+"<BR>");
+		}
+		
 	}
 	
 	
@@ -73,8 +88,15 @@ public class Events {
 			int index) throws IOException {
 		select=selectField;
 		select.selectByIndex(index);
-		write("<b>Selecting the " + index + "th element in "
-				+ WebPage.elementList.get(select), counter++);
+		if(screenShotReq){
+			write("<b>Selecting the " + index + "th element in "
+					+ WebPage.elementList.get(select), counter++);	
+		}
+		else{
+			Report.log("<b>Selecting the " + index + "th element in "
+					+ WebPage.elementList.get(select)+"<BR>");
+		}
+		
 	}
 
 	/**
@@ -88,7 +110,14 @@ public class Events {
 	public static void selectByValue(Select selectField, String value) throws IOException {
 		select=selectField;
 		select.selectByValue(value);
-		write("<b>Selecting \'" + value + "\' in "+WebPage.elementList.get(select), counter++);
+		if(screenShotReq){
+//			write("<b>Selecting \'" + value + "\' in "+WebPage.elementList.get(select), counter++);
+			write("<b>Selecting \'" + value + "\' in "+WebPage.elementList.get(select), counter++);
+		}
+		else{
+			Report.log("<b>Selecting \'" + value + "\' in "+WebPage.elementList.get(select)+"<BR>");
+		}
+		
 	}
 
 	/**
@@ -103,7 +132,14 @@ public class Events {
 			String selectString) throws IOException {
 		select=selectField;
 		select.selectByVisibleText(selectString);
-		write("<b>Selecting \'" + selectString + "\' in "+ WebPage.elementList.get(select), counter++);
+		if(screenShotReq){
+//			write("<b>Selecting \'" + selectString + "\' in "+ WebPage.elementList.get(select), counter++);
+			write("<b>Selecting \'" + selectString + "\' in "+ WebPage.elementList.get(select), counter++);
+		}
+		else{
+			Report.log("<b>Selecting \'" + selectString + "\' in "+ WebPage.elementList.get(select)+"<BR>");
+		}
+		
 	}
 	
 	/**
@@ -120,7 +156,14 @@ public class Events {
 		if (!element.isSelected()) { //checks whether check box is unchecked
 			element.click();
 		}
-		write("<b>Checking \'"+ WebPage.elementList.get(webElement), counter++);
+		if(screenShotReq){
+//			write("<b>Checking \'"+ WebPage.elementList.get(webElement), counter++);
+			write("<b>Checking \'"+ WebPage.elementList.get(webElement), counter++);
+		}
+		else{
+			Report.log("<b>Checking \'"+ WebPage.elementList.get(webElement)+"<BR>");
+		}
+		
 	}
     
 	
@@ -138,7 +181,14 @@ public class Events {
 		if (element.isSelected()) { // checks whether check box is checked
 			element.click();
 		}
-		write("<b>Un Checking \'"+ WebPage.elementList.get(webElement), counter++);
+		if(screenShotReq){
+//			write("<b>Un Checking \'"+ WebPage.elementList.get(webElement), counter++);
+			write("<b>Un Checking \'"+ WebPage.elementList.get(webElement), counter++);
+		}
+		else{
+			Report.log("<b>Un Checking \'"+ WebPage.elementList.get(webElement)+"<BR>");
+		}
+		
 	}
 	
 	/**
@@ -153,13 +203,24 @@ public class Events {
 		String hyperLink=ScreenShotInitial+counter+ScreenShotEnd;
 		String message=logMessage+hyperLink+"<BR>";
 		Report.log(message);
-		File directory = new File (".");
-		String path=directory.getCanonicalPath()+"\\test-output\\screenshot\\";
-		File f=new File(path+counter+".png");
-//		File f=new File(WebPage.reportFilePath+counter+".png");
-		File scrFile = ((TakesScreenshot)WebPage.driver).getScreenshotAs(OutputType.FILE); 
-		FileUtils.copyFile(scrFile, f);
-		counter++;
+		try{
+			File directory = new File (".");
+			String path=directory.getCanonicalPath()+"\\test-output\\screenshot\\";
+			File f=new File(path+counter+".png");
+//			File f=new File(WebPage.reportFilePath+counter+".png");
+			File scrFile = ((TakesScreenshot)WebPage.driver).getScreenshotAs(OutputType.FILE); 
+			FileUtils.copyFile(scrFile, f);
+			counter++;	
+		}
+		catch(WebDriverException exception){
+			Report.log("Exception while taking screen shot<BR>");
+		}
+		
+	}
+	
+	public static void write(String logMessage) throws IOException{
+		String message=logMessage+"<BR>";
+		Report.log(message);
 	}
 	
 	/**
