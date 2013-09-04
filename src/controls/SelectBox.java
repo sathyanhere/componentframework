@@ -102,7 +102,10 @@ public class SelectBox {
 	public void select(String selectString) throws IOException {
 		Events.selectByText( selectBox, selectString);
 	}
-
+	/**
+	 * This method will return the selected value in the select box
+	 * @return
+	 */
 	public String getSelectedValue() {
 		return selectBox.getFirstSelectedOption().getText();
 	}

@@ -34,7 +34,7 @@ public class Button {
 			button=ElementUtil.findElementByID(buttonID);
 		}
 		else{
-			System.out.println("button is not found");
+			Report.log("button is not found");
 		}
 		WebPage.elementList.put(button, buttonDesc);
 	}
@@ -54,7 +54,7 @@ public class Button {
 			button=ElementUtil.findElementByID(buttonID);
 		}
 		else{
-			System.out.println("button is not found");
+			Report.log("button is not found");
 		}
 		by=byOfButton;
 		WebPage.elementList.put(button, buttonDesc);
