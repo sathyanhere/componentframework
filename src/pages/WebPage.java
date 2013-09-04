@@ -1,31 +1,22 @@
 package pages;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Properties;
 import java.util.Set;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.events.EventFiringWebDriver;
-import org.openqa.selenium.support.events.WebDriverEventListener;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import reports.Report;
-import utils.WebDriverEventListenerClass;
 
 public class WebPage {
 	/**
@@ -35,7 +26,7 @@ public class WebPage {
 	 */
 	public static HashMap<Object, String> elementList = new HashMap<Object, String>();
 	public static String PAGE_URL = "";
-	public static EventFiringWebDriver driver;
+	public static FirefoxDriver driver;
 	public static String PROXY;
 	
 	public static void setPROXY(String proxy) {
@@ -75,10 +66,11 @@ public class WebPage {
 	    profile.setPreference("network.http.phishy-userpass-length", 255);
 	    profile.setAssumeUntrustedCertificateIssuer(false);
 //	    cap.setCapability(FirefoxDriver.PROFILE, profile);
-	    driver = new EventFiringWebDriver(new FirefoxDriver(profile));
+//	    driver = new EventFiringWebDriver(new FirefoxDriver(profile));
+	    driver = new FirefoxDriver(profile);
 	    
-	    WebDriverEventListener errorListener = new WebDriverEventListenerClass();
-	    driver.register(errorListener);
+	    /*WebDriverEventListener errorListener = new WebDriverEventListenerClass();
+	    driver.register(errorListener);*/
 	}
 	
 	/**
@@ -102,7 +94,8 @@ public class WebPage {
 		catch(IOException IOE){
 			IOE.printStackTrace();
 		} */
-		driver =(EventFiringWebDriver)webDriver;
+//		driver =(EventFiringWebDriver)webDriver;
+		driver =(FirefoxDriver)webDriver;
 		PAGE_URL = pageURL;
 		webDriver.get(PAGE_URL);
 	}
@@ -128,7 +121,8 @@ public class WebPage {
 		catch(IOException IOE){
 			IOE.printStackTrace();
 		} */
-		driver = (EventFiringWebDriver)webDriver;
+//		driver = (EventFiringWebDriver)webDriver;
+		driver =(FirefoxDriver)webDriver;
 		webDriver.get(PAGE_URL);
 	}
 	
