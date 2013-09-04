@@ -22,7 +22,7 @@ public class Events {
 	private static String ScreenShotInitial="<a href=\"./screenshot/";
 	private static String ScreenShotEnd=".png\"  target=\"_blank\"> SCREEN SHOT </a> \n";
 	private static Integer counter=1;
-	public static boolean screenShotReq;
+	public static boolean screenShotReq=true;
 	/**
 	 * This method will click in the webElement passed as argument 
 	 * @author Pradeep Sundaram
@@ -131,6 +131,7 @@ public class Events {
 	public static void selectByText(Select selectField,
 			String selectString) throws IOException {
 		select=selectField;
+		
 		select.selectByVisibleText(selectString);
 		if(screenShotReq){
 //			write("<b>Selecting \'" + selectString + "\' in "+ WebPage.elementList.get(select), counter++);
