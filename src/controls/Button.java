@@ -10,6 +10,7 @@ import reports.Report;
 
 public class Button {
 	private WebElement button;
+	private String desc;
 	private By by;
 	private ElementUtil elementUtil;
 
@@ -25,6 +26,7 @@ public class Button {
 	 */
 	public Button(String buttonID, String buttonDesc, ElementUtil util) {
 		elementUtil=util;
+		desc=buttonDesc;
 		if (buttonID.startsWith("name")) {
 			by=util.byName(buttonID);
 		} else if (buttonID.startsWith("css")) {
@@ -36,7 +38,6 @@ public class Button {
 		} else {
 			Report.log("button is not found");
 		}
-		WebPage.elementList.put(button, buttonDesc);
 	}
 
 
@@ -58,6 +59,7 @@ public class Button {
 	 */
 	public void click() throws IOException {
 		button=elementUtil.findElement(by);
+		WebPage.elementList.put(button, desc);
 		elementUtil.click(button);
 //		events.click(button);
 	}
