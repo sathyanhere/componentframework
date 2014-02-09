@@ -22,13 +22,13 @@ public class ElementUtil {
 		return driver.findElement(by);
 	}
 
+	public Select findSelect(By by) {
+		return new Select(driver.findElement(by));
+	}
+	
 	public WebElement findElementByLinkText(String elementLinkText) {
 		String[] elementID = elementLinkText.split("=");
 		return driver.findElement(By.linkText(elementID[1]));
-	}
-
-	public Select findSelect(By by) {
-		return new Select(driver.findElement(by));
 	}
 
 	public By byXpath(String elementXpath) {
@@ -75,12 +75,15 @@ public class ElementUtil {
 		String[] elementID = elementCss.split("=");
 		return By.cssSelector(elementID[1]);
 	}
+	
 	public void click(WebElement webElement) throws IOException{
 		 events.click(webElement);
 	 }
+	
 	 public void type(WebElement webElement, String text) throws IOException {
 		 events.type(webElement, text);
 	 }
+	 
 	 public void select(Select selectField,
 				int index) throws IOException {
 		 events.select(selectField, index);
@@ -102,10 +105,6 @@ public class ElementUtil {
 	 public void unCheck(WebElement webElement)
 		throws IOException {
 		 events.unCheck(webElement);
-	 }
-	 
-	 public void write(String logMessage,Integer counter) throws IOException{
-		 events.write(logMessage,counter);
 	 }
 	 
 	 public void choose(WebElement webElement)

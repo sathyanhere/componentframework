@@ -49,7 +49,7 @@ public class TestPlan {
 
 	@Parameters({"screenshotRequired","retryCount"})
 	@BeforeSuite(groups = "TestPlan")
-	public void setUp(String screenshotRequired, String retryCnt) throws IOException {
+	public void setUp(@Optional("true")String screenshotRequired, @Optional("5")String retryCnt) throws IOException {
 		
 		Report.log("Test Execution starts");
 		WebPage.screenshotRequired=Boolean.parseBoolean(screenshotRequired);

@@ -2,6 +2,7 @@ package pages;
 
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -48,6 +49,7 @@ public class WebPage {
 	 */
 	public WebPage(WebDriver webDriver, String pageURL) {
 		driver =(FirefoxDriver)webDriver;
+		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		PAGE_URL = pageURL;
 		driver.get(pageURL);
 		driver.manage().window().maximize();
