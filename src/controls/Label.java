@@ -9,51 +9,19 @@ import reports.Report;
 public class Label {
 	private By by;
 	private WebElement lbl;
+	private ElementUtil elementUtil;
 	
-	/**
-	 * Normal constructor
-	 * @author Pradeep Sundaram
-	 * @param label
-	 * @param desc
-	 */
-	public Label(WebElement label, String desc) {
-		lbl = label;
-		WebPage.elementList.put(lbl, desc);
-	}
-	
-	/**
-	 * Constructor for Label when By of the label is required
-	 * @author Pradeep Sundaram
-	 * @param label
-	 * @param byOfLabel
-	 * @param desc
-	 */
-	public Label(WebElement label,By byOfLabel, String desc) {
-		lbl = label;
-		by=byOfLabel;
-		WebPage.elementList.put(lbl, desc);
-	}
-	
-	
-	
-	public Label(String label,String description){
+	public Label(String label,String description,ElementUtil util){
+		elementUtil=util;
 		if(label.startsWith("//")){
-			lbl=ElementUtil.findElementByXpath(label);
+			by=util.byXpath(label);
 		}
 		else if(label.startsWith("id")){
-			lbl=ElementUtil.findElementByID(label);
+			by=util.byID(label);
 		}
 		WebPage.elementList.put(lbl, description);
 	}
 	
-	public Label(String label,By byOfLabel, String description){
-		if(label.startsWith("//")){
-			lbl=ElementUtil.findElementByXpath(label);
-		}
-		by=byOfLabel;
-		WebPage.elementList.put(lbl, description);
-	}
-
 	/**
 	 * This method will return the content in the Label
 	 * 

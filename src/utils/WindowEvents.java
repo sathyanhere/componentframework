@@ -1,9 +1,11 @@
 package utils;
 
+import org.openqa.selenium.WebDriver;
+
 public interface WindowEvents {
 	
-	public void selectFrame(String frameName);
+	public void selectFrame(WebDriver driver, String frameName);
 
-	public void selectWindow(String windowName);
+	public void selectWindow(WebDriver driver, String windowName);
 	
 }

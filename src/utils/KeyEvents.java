@@ -1,22 +1,40 @@
 package utils;
 
-import java.awt.AWTException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
 
 public interface KeyEvents {
 	
-	public void pressEscKey()throws AWTException;
+	public void pressEscKey();
 	
-	public void pressBackSpace()throws AWTException;
+	public void pressBackSpace();
 	
-	public void pressTabKey() throws AWTException;
+	public void pressTabKey() ;
 	
-	public void pressShiftTabKey(int howManyTimes) throws AWTException;
+	public void keyDownAlt() ;
 	
-	public void pressTabKey(int howManyTimes) throws AWTException;
+	public void pressShiftTabKey(int howManyTimes) ;
 	
-	public void pressEnterKey()throws AWTException;
+	public void pressTabKey(int howManyTimes) ;
 	
-	public void pressSpaceBar() throws AWTException;
+	public void pressEnterKey();
 	
-	public void type(String text) throws AWTException;
+	public void pressSpaceBar() ;
+	
+	public void type(String text) ;
+	
+	public void pressShiftKey();
+	
+	public void releaseShiftKey();
+	
+	public void pressCtrlKey();
+	
+	public void releaseCtrlKey();
+	
+	public void doubleClick(WebDriver driver,WebElement webElement);
+	
+	public void pressDownKey();
+	
+	public void releaseDownKey();
 }

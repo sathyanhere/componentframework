@@ -7,64 +7,29 @@ import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
-import utils.Events;
 
 public class TextArea {
 	private WebElement textArea;
 	private By by;
-
-	public TextArea(WebElement textAreaName, String description) {
-		textArea = textAreaName;
-		WebPage.elementList.put(textAreaName, description);
-	}
+	private ElementUtil elementUtil;
 	
-	/**
-	 * Constructor for text area when By of the text area is required
-	 * @author Pradeep Sundaram
-	 * @param textAreaName
-	 * @param byOfTextArea
-	 * @param description
-	 */
-	public TextArea(WebElement textAreaName,By byOfTextArea, String description) {
-		textArea = textAreaName;
-		by=byOfTextArea;
-		WebPage.elementList.put(textAreaName, description);
-	}
-	
-	
-	public TextArea(String textAreaName,String description){
+	public TextArea(String textAreaName,String description, ElementUtil util){
+		elementUtil=util;
 		if(textAreaName.startsWith("name")){
-			textArea=ElementUtil.findElementByName(textAreaName);
+			by=elementUtil.byName(textAreaName);
 		}
 		else if(textAreaName.startsWith("css")){
-			textArea=ElementUtil.findElementByCss(textAreaName);
+			by=elementUtil.byCss(textAreaName);
 		}
 		else if(textAreaName.startsWith("//")){
-			textArea=ElementUtil.findElementByXpath(textAreaName);
+			by=elementUtil.byXpath(textAreaName);
 		}
 		else if(textAreaName.startsWith("id")){
-			textArea=ElementUtil.findElementByID(textAreaName);
+			by=elementUtil.byID(textAreaName);
 		}
 		else{
 			System.out.println("button is not found");
 		}
-		WebPage.elementList.put(textArea, description);
-	}
-	
-	public TextArea(String textAreaName,By byOfTA,String description){
-		if(textAreaName.startsWith("name")){
-			textArea=ElementUtil.findElementByName(textAreaName);
-		}
-		else if(textAreaName.startsWith("css")){
-			textArea=ElementUtil.findElementByCss(textAreaName);
-		}
-		else if(textAreaName.startsWith("//")){
-			textArea=ElementUtil.findElementByXpath(textAreaName);
-		}
-		else if(textAreaName.startsWith("id")){
-			textArea=ElementUtil.findElementByID(textAreaName);
-		}
-		by=byOfTA;
 		WebPage.elementList.put(textArea, description);
 	}
 	
@@ -76,7 +41,8 @@ public class TextArea {
 	 * @throws IOException
 	 */
 	public void type(String text) throws IOException {
-		Events.type(textArea, text);
+		elementUtil.findElement(by);
+		elementUtil.type(textArea, text);
 	}
 	
 	/**

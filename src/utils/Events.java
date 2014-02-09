@@ -8,6 +8,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.UnhandledAlertException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -17,6 +18,7 @@ import reports.Report;
 
 
 public class Events {
+	private WebDriver driver;
 	private static WebElement element;
 	private static Select select;
 	private static String ScreenShotInitial="<a href=\"./screenshot/";
@@ -29,7 +31,12 @@ public class Events {
 	 * @param webElement
 	 * @throws IOException 
 	 */
-	public static void click(WebElement webElement) throws IOException {
+	
+	public Events(WebDriver webDriver){
+		driver=webDriver;
+	}
+	
+	public  void click(WebElement webElement) throws IOException {
 		try{
 			element=webElement;
 			element.click();	
@@ -39,12 +46,12 @@ public class Events {
 			final String jsCode = "try { if(arguments[0].href && arguments[0].target){ "
 				+ " window.open(arguments[0].href,arguments[0].target)"
 				+ " } else { arguments[0].click(); }} catch(err) { }";
-		((JavascriptExecutor) WebPage.driver).executeScript(jsCode, element);
+		((JavascriptExecutor)driver).executeScript(jsCode, element);
 		}
 		finally{
 			if(screenShotReq){
 //				write("<b>Clicking the element \""+WebPage.elementList.get(element)+"\"",counter++);
-				write("<b>Clicking the element \""+WebPage.elementList.get(element)+"\"");
+//				write("<b>Clicking the element \""+WebPage.elementList.get(element)+"\"");
 			}
 			else{
 				Report.log("<b>Clicking the element \""+WebPage.elementList.get(element)+"\""+"<BR>");
@@ -61,7 +68,7 @@ public class Events {
 	 * @param text
 	 * @throws IOException 
 	 */
-	public static void type(WebElement webElement, String text) throws IOException {
+	public  void type(WebElement webElement, String text) throws IOException {
 		element=webElement;
 		element.clear();
 		element.sendKeys(text);
@@ -84,7 +91,7 @@ public class Events {
 	 * @param index
 	 * @throws IOException
 	 */
-	public static void select(Select selectField,
+	public  void select(Select selectField,
 			int index) throws IOException {
 		select=selectField;
 		select.selectByIndex(index);
@@ -107,7 +114,7 @@ public class Events {
 	 * @param value
 	 * @throws IOException
 	 */
-	public static void selectByValue(Select selectField, String value) throws IOException {
+	public  void selectByValue(Select selectField, String value) throws IOException {
 		select=selectField;
 		select.selectByValue(value);
 		if(screenShotReq){
@@ -128,7 +135,7 @@ public class Events {
 	 * @param selectString
 	 * @throws IOException
 	 */
-	public static void selectByText(Select selectField,
+	public  void selectByText(Select selectField,
 			String selectString) throws IOException {
 		select=selectField;
 		
@@ -151,7 +158,7 @@ public class Events {
 	 * @param text
 	 * @throws IOException
 	 */
-	public static void check(WebElement webElement)
+	public  void check(WebElement webElement)
 			throws IOException {
 		element = webElement;
 		if (!element.isSelected()) { //checks whether check box is unchecked
@@ -176,7 +183,7 @@ public class Events {
 	  * @param text
 	  * @throws IOException
 	  */
-	public static void unCheck(WebElement webElement)
+	public  void unCheck(WebElement webElement)
 			throws IOException {
 		element = webElement;
 		if (element.isSelected()) { // checks whether check box is checked
@@ -200,7 +207,7 @@ public class Events {
 	 * @param counter
 	 * @throws IOException
 	 */
-	public static void write(String logMessage,Integer counter) throws IOException{
+	public void write(String logMessage,Integer counter) throws IOException{
 		String hyperLink=ScreenShotInitial+counter+ScreenShotEnd;
 		String message=logMessage+hyperLink+"<BR>";
 		Report.log(message);
@@ -209,7 +216,7 @@ public class Events {
 			String path=directory.getCanonicalPath()+"\\test-output\\screenshot\\";
 			File f=new File(path+counter+".png");
 //			File f=new File(WebPage.reportFilePath+counter+".png");
-			File scrFile = ((TakesScreenshot)WebPage.driver).getScreenshotAs(OutputType.FILE); 
+			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE); 
 			FileUtils.copyFile(scrFile, f);
 			counter++;	
 		}
@@ -219,10 +226,10 @@ public class Events {
 		
 	}
 	
-	public static void write(String logMessage) throws IOException{
+	/*public  void write(String logMessage) throws IOException{
 		String message=logMessage+"<BR>";
 		Report.log(message);
-	}
+	}*/
 	
 	/**
 	 * This method will choose the radio button
@@ -231,7 +238,7 @@ public class Events {
 	 * @param webElement
 	 * @throws IOException
 	 */
-	public static void choose(WebElement webElement)
+	public  void choose(WebElement webElement)
 			throws IOException {
 		element = webElement;
 		if (!element.isSelected()) {// checks whether check box is unchecked

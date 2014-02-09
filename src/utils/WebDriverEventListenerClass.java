@@ -21,8 +21,8 @@ public class WebDriverEventListenerClass extends AbstractWebDriverEventListener{
 			File directory = new File(".");
 			String path = directory.getCanonicalPath()+ "\\test-output\\screenshot";
 			File f=new File(path + "\\failure.png");
-        	File scrFile = ((TakesScreenshot)WebPage.driver).getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(scrFile, f);
+        	/*File scrFile = ((TakesScreenshot)WebPage.driver).getScreenshotAs(OutputType.FILE);
+			FileUtils.copyFile(scrFile, f);*/
 			String hyperLink=ScreenShotInitial+"failure"+ScreenShotEnd;
 			Report.log("Error in this page "+hyperLink+"<BR>");
 		} catch (IOException e) {
