@@ -12,25 +12,7 @@ import utils.Events;
 public class RadioButton {
 	private WebElement radioButton;
 	private By by;
-	
-	
-	public RadioButton(WebElement radioButtonName, String description) {
-		radioButton = radioButtonName;
-		WebPage.elementList.put(radioButton, description);
-	}
-	/**
-	 * Constructor for Check Box when By of the check box is required
-	 * @author Pradeep Sundaram
-	 * @param radioButtonName
-	 * @param byOfCheckBox
-	 * @param description
-	 */
-	public RadioButton(WebElement radioButtonName,By byOfCheckBox, String description) {
-		radioButton = radioButtonName;
-		by=byOfCheckBox;
-		WebPage.elementList.put(radioButton, description);
-	}
-	
+	private ElementUtil elementUtil;
 	
 	/**
 	 * Constructor of radio button 
@@ -39,39 +21,23 @@ public class RadioButton {
 	 * @param radioButtonName
 	 * @param description
 	 */
-	public RadioButton(String radioButtonName,String description){
+	public RadioButton(String radioButtonName,String description, ElementUtil util){
+		elementUtil=util;
 		if(radioButtonName.startsWith("name")){
-			radioButton=ElementUtil.findElementByName(radioButtonName);
+			by=elementUtil.byName(radioButtonName);
 		}
 		else if(radioButtonName.startsWith("css")){
-			radioButton=ElementUtil.findElementByCss(radioButtonName);
+			by=elementUtil.byCss(radioButtonName);
 		}
 		else if(radioButtonName.startsWith("//")){
-			radioButton=ElementUtil.findElementByXpath(radioButtonName);
+			by=elementUtil.byXpath(radioButtonName);
 		}
 		else if(radioButtonName.startsWith("id")){
-			radioButton=ElementUtil.findElementByID(radioButtonName);
+			by=elementUtil.byID(radioButtonName);
 		}
 		else{
 			System.out.println("button is not found");
 		}
-		WebPage.elementList.put(radioButton, description);
-	}
-	
-	public RadioButton(String radioButtonName,By byOfRadio,String description){
-		if(radioButtonName.startsWith("name")){
-			radioButton=ElementUtil.findElementByName(radioButtonName);
-		}
-		else if(radioButtonName.startsWith("css")){
-			radioButton=ElementUtil.findElementByCss(radioButtonName);
-		}
-		else if(radioButtonName.startsWith("//")){
-			radioButton=ElementUtil.findElementByXpath(radioButtonName);
-		}
-		else if(radioButtonName.startsWith("id")){
-			radioButton=ElementUtil.findElementByID(radioButtonName);
-		}
-		by=byOfRadio;		
 		WebPage.elementList.put(radioButton, description);
 	}
 	
@@ -82,7 +48,8 @@ public class RadioButton {
 	 * @throws IOException
 	 */
 	public void choose() throws IOException{
-		Events.choose(radioButton);
+		radioButton=elementUtil.findElement(by);
+		elementUtil.choose(radioButton);
 	}
 	
 	/**

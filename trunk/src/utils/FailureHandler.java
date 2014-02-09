@@ -19,7 +19,7 @@ public class FailureHandler implements WebDriverEventListener {
 	private static String ScreenShotEnd=".png\"  target=\"_blank\"> SCREEN SHOT </a> \n";
 	private static Integer failureCounter=1;
 	public void onException(Throwable exception, WebDriver driver) {
-		try {
+		/*try {
 			System.out.println("inside failure handler on exception method");
 			File directory = new File (".");
 			String path=directory.getCanonicalPath()+"\\test-output\\screenshot\\";
@@ -31,7 +31,7 @@ public class FailureHandler implements WebDriverEventListener {
 		} catch (IOException e) 
 		{
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	@Override

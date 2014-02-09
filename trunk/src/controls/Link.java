@@ -7,96 +7,37 @@ import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
-import utils.Events;
 
 public class Link {
 	private WebElement link;
 	private By by;
-	
+	private ElementUtil elementUtil;
 	String linkName;
 
-	
-	/**
-	 * Constructor for Link when By of the link is required
-	 * @author Pradeep Sundaram
-	 * @param linkText
-	 * @param byOfLink
-	 * @param desc
-	 */
-	public Link(WebElement linkText,By byOfLink, String desc) {
-		link = linkText;
-		by=byOfLink;
-		WebPage.elementList.put(link, desc);
-	}
-	public Link(WebElement linkText, String desc) {
-		link = linkText;
-		WebPage.elementList.put(link, desc);
-	}
-
-	/*public Link(String text){
-		link=WebPage.driver.findElement(By.linkText(text));
-		WebPage.elementList.put(link, text);
-	}*/
-	
-	
-	public Link(String linkText,String desc){
+	public Link(String linkText,String desc, ElementUtil util){
+		elementUtil=util;
 		if(linkText.startsWith("id")){
-			link=ElementUtil.findElementByID(linkText);
+			by=elementUtil.byID(linkText);
 		}
 		
 		else if(linkText.startsWith("css")){
-			link=ElementUtil.findElementByCss(linkText);
+			by=elementUtil.byCss(linkText);
 		}
 		
 		else if(linkText.startsWith("//")){
-			link=ElementUtil.findElementByXpath(linkText);
+			by=elementUtil.byXpath(linkText);
 		}
 		
 		else if(linkText.startsWith("link")){
-			link=ElementUtil.findElementByLinkText(linkText);
+			by=elementUtil.byLinkText(linkText);
 		}
 		WebPage.elementList.put(link, desc);
 	}
 	
 	public Link(String linkText){
-		if(linkText.startsWith("id")){
-			link=ElementUtil.findElementByID(linkText);
-		}
-		
-		else if(linkText.startsWith("css")){
-			link=ElementUtil.findElementByCss(linkText);
-		}
-		
-		else if(linkText.startsWith("//")){
-			link=ElementUtil.findElementByXpath(linkText);
-		}
-		
-		else if(linkText.startsWith("link")){
-			link=ElementUtil.findElementByLinkText(linkText);
-		}
+		link=elementUtil.findElementByLinkText(linkText);
 		WebPage.elementList.put(link, linkText);
 	}
-	
-	public Link(String linkText,By byOfLink){
-		if(linkText.startsWith("id")){
-			link=ElementUtil.findElementByID(linkText);
-		}
-		
-		else if(linkText.startsWith("css")){
-			link=ElementUtil.findElementByCss(linkText);
-		}
-		
-		else if(linkText.startsWith("//")){
-			link=ElementUtil.findElementByXpath(linkText);
-		}
-		
-		else if(linkText.startsWith("link")){
-			link=ElementUtil.findElementByLinkText(linkText);
-		}
-		by=byOfLink;
-		WebPage.elementList.put(link, linkText);
-	}
-	
 	
 	/**
 	 * This method will click in the link passed as argument
@@ -105,7 +46,8 @@ public class Link {
 	 * @throws IOException
 	 */
 	public void click() throws IOException {
-		Events.click(link);
+		link=elementUtil.findElement(by);
+		elementUtil.click(link);
 	}
 	
 	/**

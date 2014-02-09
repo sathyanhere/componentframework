@@ -7,101 +7,80 @@ import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
-import utils.Events;
 
 public class Button {
 	private WebElement button;
 	private By by;
-	
-	public Button(WebElement buttonName, String buttonDesc) {
-		button = buttonName;
-		
-		WebPage.elementList.put(button, buttonDesc);
-	}
-	
-	
-	public Button(String buttonID,String buttonDesc){
-		if(buttonID.startsWith("name")){
-			button=ElementUtil.findElementByName(buttonID);
-		}
-		else if(buttonID.startsWith("css")){
-			button=ElementUtil.findElementByCss(buttonID);
-		}
-		else if(buttonID.startsWith("//")){
-			button=ElementUtil.findElementByXpath(buttonID);
-		}
-		else if(buttonID.startsWith("id")){
-			button=ElementUtil.findElementByID(buttonID);
-		}
-		else{
-			Report.log("button is not found");
-		}
-		WebPage.elementList.put(button, buttonDesc);
-	}
-	
-	
-	public Button(String buttonID,By byOfButton, String buttonDesc){
-		if(buttonID.startsWith("name")){
-			button=ElementUtil.findElementByName(buttonID);
-		}
-		else if(buttonID.startsWith("css")){
-			button=ElementUtil.findElementByCss(buttonID);
-		}
-		else if(buttonID.startsWith("//")){
-			button=ElementUtil.findElementByXpath(buttonID);
-		}
-		else if(buttonID.startsWith("id")){
-			button=ElementUtil.findElementByID(buttonID);
-		}
-		else{
-			Report.log("button is not found");
-		}
-		by=byOfButton;
-		WebPage.elementList.put(button, buttonDesc);
-	}
-	
-	
+	private ElementUtil elementUtil;
+
 	/**
-	 * Constructor for button when By of the button is required
-	 * @author Pradeep Sundaram
-	 * @param buttonName
-	 * @param byOfButton
+	 * Constructor for button when mouse over or double click is required for
+	 * the button
+	 * 
+	 * @author PSubramani33
+	 * @param buttonID
 	 * @param buttonDesc
+	 * @param util
+	 * @param events
 	 */
-	public Button(WebElement buttonName, By byOfButton, String buttonDesc) {
-		by=byOfButton;
-		button = buttonName;
+	public Button(String buttonID, String buttonDesc, ElementUtil util) {
+		elementUtil=util;
+		if (buttonID.startsWith("name")) {
+			by=util.byName(buttonID);
+		} else if (buttonID.startsWith("css")) {
+			by=util.byCss(buttonID);
+		} else if (buttonID.startsWith("//")) {
+			by=util.byXpath(buttonID);
+		} else if (buttonID.startsWith("id")) {
+			by=util.byID(buttonID);
+		} else {
+			Report.log("button is not found");
+		}
 		WebPage.elementList.put(button, buttonDesc);
 	}
-	
+
+
 	/**
 	 * This method will return the By of the text field
+	 * 
 	 * @author Pradeep Sundaram
-	 * @return
+	 * @return By
 	 */
-	public By getBy(){
+	public By getBy() {
 		return by;
 	}
-	
+
 	/**
 	 * This method will click in the button
 	 * 
 	 * @author Pradeep Sundaram
-	 * @throws IOException
+	 * @throws IOException 
 	 */
 	public void click() throws IOException {
-		Events.click(button);
+		button=elementUtil.findElement(by);
+		elementUtil.click(button);
+//		events.click(button);
 	}
+
+	/**
+	 * this method will double click on the button
+	 * 
+	 * @author PSubramani33
+	 */
+	/*public void doubleClick() {
+		events.doubleClick(button);
+	}*/
+
 	/**
 	 * This method will return the webElement of the button
+	 * 
 	 * @author Pradeep Sundaram
-	 * @return 
+	 * @return WebElement
 	 */
 	public WebElement getWebElement() {
 		return button;
 	}
-	
-	
+
 	/**
 	 * will return boolean based on the presence of the button
 	 * 
@@ -109,7 +88,20 @@ public class Button {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
-		Report.log("Checking whether the field \"" + WebPage.elementList.get(button)+"\" is displayed.<BR>");
+		Report.log("Checking whether the field "
+				+ WebPage.elementList.get(button) + " is displayed.<BR>");
 		return button.isDisplayed();
+	}
+
+	/**
+	 * This method will return the tool tip of the button
+	 * 
+	 * @author PSubramani33
+	 * @return String
+	 */
+	public String getToolTip() {
+		Report.log("Getting the tool tip of the button "
+				+ WebPage.elementList.get(button) + ".<BR>");
+		return button.getAttribute("title");
 	}
 }

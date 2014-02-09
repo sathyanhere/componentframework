@@ -7,67 +7,29 @@ import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
-import utils.Events;
 
 public class CheckBox {
 	private WebElement checkBox;
 	private By by;
+	private ElementUtil elementUtil;
 	
-	
-	public CheckBox(WebElement checkBoxName, String description) {
-		checkBox = checkBoxName;
-		WebPage.elementList.put(checkBox, description);
-	}
-	/**
-	 * Constructor for Check Box when By of the check box is required
-	 * @author Pradeep Sundaram
-	 * @param checkBoxName
-	 * @param byOfCheckBox
-	 * @param description
-	 */
-	public CheckBox(WebElement checkBoxName,By byOfCheckBox, String description) {
-		checkBox = checkBoxName;
-		by=byOfCheckBox;
-		WebPage.elementList.put(checkBox, description);
-	}
-	
-	
-	public CheckBox(String checkBoxName,String description){
+	public CheckBox(String checkBoxName,String description,ElementUtil util){
+		elementUtil=util;
 		if(checkBoxName.startsWith("name")){
-			checkBox=ElementUtil.findElementByName(checkBoxName);
+			by=util.byName(checkBoxName);
 		}
 		else if(checkBoxName.startsWith("css")){
-			checkBox=ElementUtil.findElementByCss(checkBoxName);
+			by=util.byCss(checkBoxName);
 		}
 		else if(checkBoxName.startsWith("//")){
-			checkBox=ElementUtil.findElementByXpath(checkBoxName);
+			by=util.byXpath(checkBoxName);
 		}
 		else if(checkBoxName.startsWith("id")){
-			checkBox=ElementUtil.findElementByID(checkBoxName);
+			by=util.byID(checkBoxName);
 		}
 		else{
 			Report.log("button is not found");
 		}
-		WebPage.elementList.put(checkBox, description);
-	}
-	
-	public CheckBox(String checkBoxName,By byOfCheckBox,String description){
-		if(checkBoxName.startsWith("name")){
-			checkBox=ElementUtil.findElementByName(checkBoxName);
-		}
-		else if(checkBoxName.startsWith("css")){
-			checkBox=ElementUtil.findElementByCss(checkBoxName);
-		}
-		else if(checkBoxName.startsWith("//")){
-			checkBox=ElementUtil.findElementByXpath(checkBoxName);
-		}
-		else if(checkBoxName.startsWith("id")){
-			checkBox=ElementUtil.findElementByID(checkBoxName);
-		}
-		else{
-			Report.log("button is not found");
-		}
-		by=byOfCheckBox;
 		WebPage.elementList.put(checkBox, description);
 	}
 	
@@ -78,8 +40,8 @@ public class CheckBox {
 	 * @throws IOException
 	 */
 	public void check() throws IOException {
-		Events.check(checkBox);
-
+		checkBox=elementUtil.findElement(by);
+		elementUtil.check(checkBox);
 	}
 
 	/**
@@ -90,7 +52,8 @@ public class CheckBox {
 	 * @throws IOException
 	 */
 	public void unCheck() throws IOException {
-		Events.unCheck(checkBox);
+		checkBox=elementUtil.findElement(by);
+		elementUtil.unCheck(checkBox);
 	}
 	
 	/**

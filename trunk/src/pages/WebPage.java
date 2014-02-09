@@ -1,13 +1,10 @@
 package pages;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.Set;
+import java.util.Hashtable;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -17,61 +14,28 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import reports.Report;
+import utils.Events;
+import controls.ElementUtil;
 
 public class WebPage {
+
+	
 	/**
 	 * elementList is a map which contains component and its description, this map is utilized in report generation for writing the details of the 
-	 * actions performed of the web elements
+	 * actions performed on the web elements
 	 * 
 	 */
 	public static HashMap<Object, String> elementList = new HashMap<Object, String>();
+	public static Hashtable<Object, String> elementList2 = new Hashtable<Object, String>();
 	public static String PAGE_URL = "";
-	public static FirefoxDriver driver;
-	public static String PROXY;
-	
-	public static void setPROXY(String proxy) {
-		PROXY = proxy;
-	}
-
-	/*public static void setProxyAndProfile() throws FileNotFoundException, IOException{
-		File directory = new File (".");
-		Properties properties = new Properties();
-		properties.load(new FileInputStream(directory.getCanonicalPath()+"\\src\\properties\\data.properties"));
-		String proxy1=properties.getProperty("proxy");
-		String port=properties.getProperty("port");
-		String reqString=proxy1+":"+port;
-		WebPage.setPROXY(reqString);
-		
-		Proxy proxy = new Proxy();
-		proxy.setHttpProxy(PROXY);
-		proxy.setFtpProxy(PROXY);
-		proxy.setSslProxy(PROXY);
-		DesiredCapabilities cap = DesiredCapabilities.firefox();
-		cap.setCapability(CapabilityType.PROXY, proxy);
-		
-		FirefoxProfile profile = new FirefoxProfile();
-	    profile.setPreference("network.http.phishy-userpass-length", 255);
-	    profile.setAssumeUntrustedCertificateIssuer(false);
-//	    cap.setCapability(FirefoxDriver.PROFILE, profile);
-	    driver = new EventFiringWebDriver(new FirefoxDriver(profile));
-	    
-	    WebDriverEventListener errorListener = new WebDriverEventListenerClass();
-	    driver.register(errorListener);
-	    
-	}*/
-	
-	
-	static {
-		FirefoxProfile profile = new FirefoxProfile();
-	    profile.setPreference("network.http.phishy-userpass-length", 255);
-	    profile.setAssumeUntrustedCertificateIssuer(false);
-//	    cap.setCapability(FirefoxDriver.PROFILE, profile);
-//	    driver = new EventFiringWebDriver(new FirefoxDriver(profile));
-	    driver = new FirefoxDriver(profile);
-	    
-	    /*WebDriverEventListener errorListener = new WebDriverEventListenerClass();
-	    driver.register(errorListener);*/
-	}
+	public FirefoxDriver driver =null;
+	public ElementUtil util=new ElementUtil(driver);
+	public Events events=new Events(driver);
+//	public String env=""; 
+	public static boolean screenshotRequired=true;
+	public static Integer  retryCount;
+	/*private static String ScreenShotInitial="<a href=\"./screenshot/";
+	private static String ScreenShotEnd=".png\"  target=\"_blank\"> SCREEN SHOT </a> \n";*/
 	
 	/**
 	 * Constructor method, initialize webdriver instance, initialize page URL
@@ -81,23 +45,14 @@ public class WebPage {
 	 * @author Pradeep Sundaram
 	 * @param webDriver
 	 * @param pageURL
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
 	 */
 	public WebPage(WebDriver webDriver, String pageURL) {
-		/*try{
-			setProxyAndProfile();	
-		}
-		catch(FileNotFoundException FNNE){
-			FNNE.printStackTrace();
-		}
-		catch(IOException IOE){
-			IOE.printStackTrace();
-		} */
-//		driver =(EventFiringWebDriver)webDriver;
 		driver =(FirefoxDriver)webDriver;
 		PAGE_URL = pageURL;
-		webDriver.get(PAGE_URL);
+		driver.get(pageURL);
+		driver.manage().window().maximize();
+		util=new ElementUtil(driver);
+		events=new Events(driver);
 	}
 	
 	
@@ -108,58 +63,35 @@ public class WebPage {
 	 * 
 	 * @author Pradeep Sundaram
 	 * @param webDriver
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
 	 */
-	public WebPage(WebDriver webDriver)  {
-		/*try{
-			setProxyAndProfile();	
-		}
-		catch(FileNotFoundException FNNE){
-			FNNE.printStackTrace();
-		}
-		catch(IOException IOE){
-			IOE.printStackTrace();
-		} */
-//		driver = (EventFiringWebDriver)webDriver;
-		driver =(FirefoxDriver)webDriver;
-		webDriver.get(PAGE_URL);
+	public WebPage(WebDriver webDriver) {
+		driver = (FirefoxDriver)webDriver;
+		util=new ElementUtil(driver);
+		events=new Events(driver);
 	}
 	
 	/**
 	 * Constructor, opens the page with passed URL
 	 * @param PageURL
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
 	 */
-	public WebPage(String PageURL) {
-		/*try{
-			setProxyAndProfile();	
-		}
-		catch(FileNotFoundException FNNE){
-			FNNE.printStackTrace();
-		}
-		catch(IOException IOE){
-			IOE.printStackTrace();
-		}*/ 
+	public WebPage(String PageURL){
+		/*FirefoxProfile profile = new FirefoxProfile();
+	    profile.setPreference("network.http.phishy-userpass-length", 255);
+	    profile.setAssumeUntrustedCertificateIssuer(false);
+	    driver = new EventFiringWebDriver(new FirefoxDriver(profile));
+	    WebDriverEventListener errorListener = new WebDriverEventListenerClass();
+	    driver.register(errorListener);*/
 		driver.get(PageURL);
+		util=new ElementUtil(driver);
+		events=new Events(driver);
 	}
 	
 	/**
 	 * Default Constructor
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
 	 */
 	public WebPage() {
-		/*try{
-			setProxyAndProfile();	
-		}
-		catch(FileNotFoundException FNNE){
-			FNNE.printStackTrace();
-		}
-		catch(IOException IOE){
-			IOE.printStackTrace();
-		}*/ 
+	    util=new ElementUtil(driver);
+		events=new Events(driver);
 	}
 	
 	/**
@@ -168,19 +100,16 @@ public class WebPage {
 	 * @author Pradeep Sundaram
 	 * @param PageURL
 	 * @param env
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
 	 */
 	public WebPage(String PageURL, String env) {
-		/*try{
-			setProxyAndProfile();	
-		}
-		catch(FileNotFoundException FNNE){
-			FNNE.printStackTrace();
-		}
-		catch(IOException IOE){
-			IOE.printStackTrace();
-		} */
+		FirefoxProfile profile = new FirefoxProfile();
+	    profile.setPreference("network.http.phishy-userpass-length", 255);
+	    profile.setAssumeUntrustedCertificateIssuer(false);
+	    driver = new FirefoxDriver(profile);
+	    /*WebDriverEventListener errorListener = new WebDriverEventListenerClass();
+	    driver.register(errorListener);*/
+	    util=new ElementUtil(driver);
+		events=new Events(driver);
 		if(PageURL.contains("dev")){
 			PageURL=PageURL.replaceAll("dev", env);
 		}
@@ -192,17 +121,39 @@ public class WebPage {
 		}
 		driver.get(PageURL);
 	}
+	
+	public WebPage(WebDriver webDriver,String PageURL, String env) {
+//		this.env=env;
+	    driver = (FirefoxDriver)webDriver;
+	    util=new ElementUtil(driver);
+		events=new Events(driver);
+		if(PageURL.contains("dev")){
+			PageURL=PageURL.replaceAll("dev", env);
+		}
+		if(PageURL.contains("test")){
+			PageURL=PageURL.replaceAll("test", env);
+		}
+		if(PageURL.contains("stage")){
+			PageURL=PageURL.replaceAll("stage", env);
+		}
+		driver.get(PageURL);
+	}
+	
 
 	/**
 	 * This method will wait for the element specified for 60 seconds 
 	 * @author Pradeep Sundaram
 	 * @param by
-	 * 
 	 */
 	public void waitForElementPresent(By by) {
-		Report.log("Waiting for the element to load " + by.toString()+"<BR>");
+		Report.log("Waiting for the element to load " + by.toString());
 		WebDriverWait wait = new WebDriverWait(driver, 60);
+		ExpectedConditions.visibilityOf(null);
 		wait.until(ExpectedConditions.presenceOfElementLocated(by));
+	}
+	
+	public void sleep(long timeInSec) throws InterruptedException{
+		Thread.sleep(timeInSec);
 	}
 	
 	/**
@@ -215,10 +166,9 @@ public class WebPage {
 	 * 
 	 */
 	public void waitForElementPresent(By by, long timeToWait) {
-		Report.log("Waiting for the element to load " + by.toString()+"<BR>");
+		Report.log("Waiting for the element to load " + by.toString());
 		WebDriverWait wait = new WebDriverWait(driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(by));
-
 	}
 	
 	
@@ -235,45 +185,13 @@ public class WebPage {
 		
 	}
 	
-	
-	
-	public void MouseHoverByJavaScript(WebElement targetElement) {
-		String javaScript = "var evObj = document.createEvent('MouseEvents');"
-				+ "evObj.initMouseEvent(\"click\",true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);"
-				+ "arguments[0].dispatchEvent(evObj);";
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript(javaScript, targetElement);
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void  jsClick(WebElement targetElement) {
-		final String jsCode = "try { " +
-				"alert(arguments[0]);" +
-				"if(arguments[0].href && arguments[0].target){ " +
-				"alert(\" if \");" 
-				+ " window.open(arguments[0].href,arguments[0].target)"
-				+ " } else { arguments[0].click(); alert(\" else \"); }} catch(err) {alert(\" catch \"); }";
-		((JavascriptExecutor) driver).executeScript(jsCode, targetElement);
-//		return jsCode;
-	}
-	      
-	
-	public void closePopUPWindow(){
-		String mainWinHander = driver.getWindowHandle();
-		Set<String> handles = driver.getWindowHandles();
-		for(String handle : handles)
-		{
-		   if(!mainWinHander.equals(handle))
-		    {
-		        WebDriver popup = driver.switchTo().window(handle);
-		        popup.close();
-		    }
-		}
+	/**
+	 * This method will return the alert text
+	 * @return
+	 */
+	public String getAlertText(){
+		Alert alert = driver.switchTo().alert();
+		return alert.getText();
 	}
 	
 	/**
@@ -371,4 +289,25 @@ public class WebPage {
 		Assert.assertFalse(isTextPresent(text));
 	}
 	
+	/**
+	 * This method will close all the browsers opened 
+	 * 
+	 * @author pradeep
+	 */
+	public void quit()
+	{
+		driver.quit();
+	}
+	
+	/**
+	 * This method will return true if the element is available in the page
+	 * and false if not
+	 * 
+	 * @author pradeep
+	 * @param by
+	 * @return
+	 */
+	public boolean isElementPresent(WebElement webElement){
+		return webElement.isDisplayed();
+	}
 }

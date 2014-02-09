@@ -1,6 +1,5 @@
 package testPlan;
 
-import java.awt.AWTException;
 import java.awt.Robot;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,9 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
@@ -25,19 +24,12 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import pages.WebPage;
+
 import reports.Report;
 import utils.EventsUtil;
 import utils.KeyEvents;
 import utils.MouseEvents;
 import utils.WindowEvents;
-import controls.Button;
-import controls.CheckBox;
-import controls.DateControl;
-import controls.Label;
-import controls.Link;
-import controls.SelectBox;
-import controls.TextArea;
-import controls.TextField;
 
 public class TestPlan {
 
@@ -46,7 +38,7 @@ public class TestPlan {
 	public KeyEvents keyEvents;
 	public MouseEvents mouseEvents;
 	public WindowEvents windowEvents;
-	
+	private WebDriver driver;
 	
 	/**
 	 * This method will clear the screen shot files of previous run
@@ -54,11 +46,15 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 * @throws IOException 
 	 */
-	
+
+	@Parameters({"screenshotRequired","retryCount"})
 	@BeforeSuite(groups = "TestPlan")
-	public void setUp() throws IOException {
-		System.out.println("Test Execution starts");
-//		WebPage.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+	public void setUp(String screenshotRequired, String retryCnt) throws IOException {
+		
+		Report.log("Test Execution starts");
+		WebPage.screenshotRequired=Boolean.parseBoolean(screenshotRequired);
+		WebPage.retryCount=Integer.parseInt(retryCnt);
+		/*WebPage.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);*/
 		File file = new File(".//src//ReportData.txt");
 		RandomAccessFile raf=new RandomAccessFile(file,"r");
 		String previousExecutionTime=raf.readLine();
@@ -71,6 +67,7 @@ public class TestPlan {
 			oldfile.renameTo(newFolderName);
 		}
 		
+		
 		/*File directory = new File (".");
 		String path=directory.getCanonicalPath()+"\\test-output\\screenshot\\";
 		File f = new File(path);
@@ -82,7 +79,19 @@ public class TestPlan {
 		}*/
 		
 	}
+	/*@BeforeMethod
+	public void beforeMethod(){
+		driver=new FirefoxDriver();
+	}*/
+	
+	/*@AfterMethod
+	public void afterMethod(){
+		driver.quit();
+	}*/
 
+	public WebDriver getDriver(){
+		return driver;
+	}
 	/**
 	 * This method will assign the name of the property file where the data is stored
 	 * 
@@ -96,10 +105,6 @@ public class TestPlan {
 		System.out.println("setting property file path");
 		File directory = new File (".");
 		properties.load(new FileInputStream(directory.getCanonicalPath()+"\\src\\properties\\"+dataFile));
-		/*String proxy=properties.getProperty("proxy");
-		String port=properties.getProperty("port");
-		String reqString=proxy+":"+port;
-		WebPage.setPROXY(reqString);*/
 		
 	}
 	/**
@@ -110,7 +115,7 @@ public class TestPlan {
 	 */
 	@AfterTest(groups = "TestPlan")
 	public void tearDown() throws Exception {
-		WebPage.driver.quit();
+		/*WebPage.driver.quit();*/
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 		Date date = new Date();
 		String exeTime = dateFormat.format(date);
@@ -123,20 +128,84 @@ public class TestPlan {
 		String reportPath = directory.getCanonicalPath() + "\\test-output\\index.html";
 		System.out.println("Test Execution stops and Report is generated in the location \""+reportPath+"\"");
 	}
-	
-	public void pressEscKey()throws AWTException{
+	/**
+	 * presses esc key
+	 * 
+	 * @author Pradeep Sundaram
+	 */
+	public void pressEscKey(){
 		keyEvents=new EventsUtil();
 		keyEvents.pressEscKey();
 	}
 	
 	/**
-	 * This method will press backspace key
-	 * @throws AWTException
+	 * 
+	 * presses down arrow key
+	 * 
+	 * @author Pradeep Sundaram
 	 */
-	public void pressBackSpace()throws AWTException{
+	public void pressDownKey(){
+		keyEvents=new EventsUtil();
+		keyEvents.pressDownKey();
+	}
+	
+	
+	/**
+	 * presses down arrow key
+	 * 
+	 * @author Pradeep Sundaram
+	 */
+	public void releaseDownKey(){
+		keyEvents=new EventsUtil();
+		keyEvents.releaseDownKey();
+	}
+	
+	/**
+	 * presses shift key
+	 * 
+	 * @author Pradeep Sundaram
+	 */
+	public void pressShiftKey(){
+		keyEvents=new EventsUtil();
+		keyEvents.pressShiftKey();
+	}
+	
+	/**
+	 * Presses control key
+	 * 
+	 * @author Pradeep Sundaram
+	 */
+	public void pressCtrlKey(){
+		keyEvents=new EventsUtil();
+		keyEvents.pressCtrlKey();
+	}
+	
+	/**
+	 * releases shift key
+	 * 
+	 * @author Pradeep Sundaram
+	 */
+	public void releaseShiftKey(){
+		keyEvents=new EventsUtil();
+		keyEvents.releaseShiftKey();
+	}
+	
+	/**
+	 * releases control key
+	 * 
+	 * @author Pradeep Sundaram
+	 */
+	public void releaseCtrlKey(){
+		keyEvents=new EventsUtil();
+		keyEvents.releaseCtrlKey();
+	}
+	
+	/**
+	 * This method will press backspace key
+	 */
+	public void pressBackSpace(){
 		keyEvents=new EventsUtil();
 		keyEvents.pressBackSpace();
-		
 	}
 	
 	
@@ -146,11 +215,10 @@ public class TestPlan {
 	 * Use this method when the frame of popup is not identified
 	 * 
 	 * @author Pradeep Sundaram
-	 * @throws AWTException
 	 */
-	public void pressTabKey() throws AWTException{
+	public void pressTabKey() {
 		keyEvents=new EventsUtil();
-		keyEvents.pressTabKey();
+		keyEvents.pressTabKey();	
 	}
 	
 	/**
@@ -158,11 +226,10 @@ public class TestPlan {
 	 * 
 	 * @author Pradeep Sundaram 
 	 * @param howManyTimes
-	 * @throws AWTException
 	 */
-	public void pressShiftTabKey(int howManyTimes) throws AWTException{
+	public void pressShiftTabKey(int howManyTimes){
 		keyEvents=new EventsUtil();
-		keyEvents.pressShiftTabKey(howManyTimes);
+		keyEvents.pressShiftTabKey(howManyTimes);	
 	}
 	
 	/**
@@ -170,10 +237,9 @@ public class TestPlan {
 	 * 
 	 * @author Pradeep Sundaram
 	 * @param howManyTimes
-	 * @throws AWTException
 	 */
-	public void pressTabKey(int howManyTimes) throws AWTException{
-		keyEvents=new EventsUtil();
+	public void pressTabKey(int howManyTimes) {
+		keyEvents = new EventsUtil();
 		keyEvents.pressTabKey(howManyTimes);
 	}
 	
@@ -181,11 +247,10 @@ public class TestPlan {
 	 * This method will press ENTER key
 	 * 
 	 * @author Pradeep Sundaram
-	 * @throws AWTException
 	 */
-	public void pressEnterKey()throws AWTException{
+	public void pressEnterKey(){
 		keyEvents=new EventsUtil();
-		keyEvents.pressEnterKey();
+		keyEvents.pressEnterKey();	
 	}
 	
 	
@@ -194,11 +259,11 @@ public class TestPlan {
 	 * 
 	 * @author Pradeep Sundaram 
 	 * @param text
-	 * @throws AWTException
 	 */
-	public void type(String text) throws AWTException{
+	public void type(String text){
 		keyEvents=new EventsUtil();
-		keyEvents.type(text);
+		keyEvents.type(text);	
+		
 	}
 	
 	
@@ -206,14 +271,11 @@ public class TestPlan {
 	 * This method will press SPACE bar
 	 * 
 	 * @author Pradeep Sundaram
-	 * @throws AWTException
 	 */
-	public void pressSpaceBar() throws AWTException{
+	public void pressSpaceBar() {
 		keyEvents=new EventsUtil();
-		keyEvents.pressSpaceBar();
-		
+		keyEvents.pressSpaceBar();	
 	}
-	
 	
 	/**
 	 * Normal assert true method
@@ -222,13 +284,8 @@ public class TestPlan {
 	 * @param bool
 	 */
 	public void assertTrue(boolean bool){
-		try{
-			Assert.assertTrue(bool);
-		}
-		catch(AssertionError error){
-			Report.log("<font color=\"#FF0000\"><h2><b>AssertTrue Failed </b></h2></font><BR>");
-			throw new AssertionError(error.getMessage());
-		}
+		Report.log("Asserting True ");
+		Assert.assertTrue(bool);
 	}
 	
 	
@@ -239,14 +296,8 @@ public class TestPlan {
 	 * @param bool
 	 */
 	public void assertFalse(boolean bool){
-		try{
-			Report.log("Asserting False <BR>");
-			Assert.assertFalse(bool);
-		}
-		catch(AssertionError error){
-			Report.log("<font color=\"#FF0000\"><h2><b>AssertFalse Failed </b></h2></font><BR>");
-			throw new AssertionError(error.getMessage());
-		}
+		Report.log("Asserting False ");
+		Assert.assertFalse(bool);
 	}
 	
 	/**
@@ -257,16 +308,9 @@ public class TestPlan {
 	 * @param actual
 	 */
 	public void assertEquals(String expected, String actual){
-		try{
-	
-			Report.log("Comparing two strings \""+ expected +"\" and \""+actual+"\"");
-			Assert.assertEquals(expected, actual);
-			Report.log(" Comparision result passed <BR>");
-		}
-		catch(AssertionError error){
-			Report.log("<font color=\"#FF0000\"><h2><b>AssertEquals Failed </b></h2></font><BR>");
-			throw new AssertionError(error.getMessage());
-		}
+		Report.log("Comparing two strings "+ expected +" and "+actual);
+		Assert.assertEquals(expected, actual);
+		Report.log(" Comparision result passed");
 	}
 	
 	/**
@@ -276,28 +320,9 @@ public class TestPlan {
 	 * @param actual
 	 */
 	public void assertEquals(int expected, int actual){
-		try{
-			Report.log("Comparing two integers \""+ expected +"\" and \""+actual+"\"");
-			Assert.assertEquals(expected, actual);
-			Report.log(" Comparision result passed <BR>");
-		}
-		catch(AssertionError error){
-			Report.log("<font color=\"#FF0000\"><h2><b>AssertEquals Failed </b></h2></font><BR>");
-			throw new AssertionError(error.getMessage());
-		}
-		
-	}
-	
-	public void assertNull(Object obj){
-		try{
-			Report.log("Assert Null <BR>");
-			Assert.assertNull(obj);
-			Report.log(" Comparision result passed <BR>");	
-		}
-		catch(AssertionError error){
-			Report.log("<font color=\"#FF0000\"><h2><b>AssertNull Failed </b></h2></font><BR>");
-			throw new AssertionError(error.getMessage());
-		}
+		Report.log("Comparing two integers "+ expected +" and "+actual);
+		Assert.assertEquals(expected, actual);
+		Report.log(" Comparision result passed ");
 	}
 	
 	/**
@@ -306,11 +331,11 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 * @param webElement
 	 * @throws AWTException
-	 */
+	 *//*
 		public void mouseOver(WebElement webElement) {
 			mouseEvents = new EventsUtil();
 			mouseEvents.mouseOver(webElement);
-		}
+		}*/
 	
 	
 	/**
@@ -319,9 +344,9 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 * @param frameName
 	 */
-	public void selectFrame(String frameName){
+	public void selectFrame(WebDriver driver, String frameName){
 		windowEvents=new EventsUtil();
-		windowEvents.selectFrame(frameName);
+		windowEvents.selectFrame(driver, frameName);
 	}
 	
 	/**
@@ -330,9 +355,9 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 * @param windowName
 	 */
-	public void selectWindow(String windowName){
+	public void selectWindow(WebDriver driver,String windowName){
 		windowEvents=new EventsUtil();
-		windowEvents.selectWindow(windowName);
+		windowEvents.selectWindow(driver, windowName);
 	}
 	
 	
@@ -340,165 +365,176 @@ public class TestPlan {
 	 * This method will wait for TextField for 60 seconds 
 	 * @author Pradeep Sundaram
 	 */
-	public void waitForTextField(TextField tf){
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(tf.getWebElement())+"<BR>");
+	/*public void waitForTextField(TextField tf){
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(tf));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(tf.getBy()));
 	}
 	
-	/**
+	*//**
 	 * This method will wait for TextArea for 60 seconds 
 	 * @author Pradeep Sundaram
-	 */
+	 *//*
 	public void waitForTextArea(TextArea ta) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(ta.getWebElement())+"<BR>");
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(ta));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(ta.getBy()));
 	}
 	
-	/**
+	*//**
 	 * This method will wait for Button for 60 seconds 
 	 * @author Pradeep Sundaram
-	 */
+	 *//*
 	public void waitForButton(Button button) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(button.getWebElement())+"<BR>");
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(button));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(button.getBy()));
 	}
 	
-	/**
+	*//**
 	 * This method will wait for Label for 60 seconds 
 	 * @author Pradeep Sundaram
-	 */
+	 *//*
 	public void waitForLabel(Label label) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(label.getWebElement())+"<BR>");
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(label));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(label.getBy()));
 	}
 	
-	/**
+	*//**
 	 * This method will wait for Check Box for 60 seconds 
 	 * @author Pradeep Sundaram
-	 */
+	 *//*
 	public void waitForCheckBox(CheckBox check) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(check.getWebElement())+"<BR>");
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(check));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(check.getBy()));
 	}
 	
-	/**
+	*//**
 	 * This method will wait for Date Control for 60 seconds 
 	 * @author Pradeep Sundaram
-	 */
+	 *//*
 	public void waitForDateControl(DateControl date) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(date.getWebElement())+"<BR>");
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(date));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(date.getBy()));
 	}
 	
 	
-	/**
+	*//**
 	 * This method will wait for Link for 60 seconds 
 	 * @author Pradeep Sundaram
-	 */
+	 *//*
 	public void waitForLink(Link link) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(link.getWebElement())+"<BR>");
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(link));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(link.getBy()));
 	}
 	
 	
-	/**
+	*//**
 	 * This method will wait for SelectBox for 60 seconds 
 	 * @author Pradeep Sundaram
-	 */
+	 *//*
 	public void waitForSelect(SelectBox select) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(select.getWebElement())+"<BR>");
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(select));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(select.getBy()));
 	}
 	
 	
-	/**
+	*//**
 	 * This method will wait for TextField for 60 seconds 
 	 * @author Pradeep Sundaram
-	 */
+	 *//*
 	public void waitForTextField(TextField tf,Long timeToWait){
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(tf.getWebElement())+"<BR>");
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(tf));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(tf.getBy()));
 	}
 	
-	/**
+	*//**
 	 * This method will wait for TextArea for 60 seconds 
 	 * @author Pradeep Sundaram
-	 */
+	 *//*
 	public void waitForTextArea(TextArea ta,Long timeToWait) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(ta.getWebElement())+"<BR>");
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(ta));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(ta.getBy()));
 	}
 	
-	/**
+	*//**
 	 * This method will wait for Button for 60 seconds 
 	 * @author Pradeep Sundaram
-	 */
+	 *//*
 	public void waitForButton(Button button,Long timeToWait) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(button.getWebElement())+"<BR>");
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(button));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(button.getBy()));
 	}
 	
-	/**
+	*//**
 	 * This method will wait for Label for 60 seconds 
 	 * @author Pradeep Sundaram
-	 */
+	 *//*
 	public void waitForLabel(Label label,Long timeToWait) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(label.getWebElement())+"<BR>");
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(label));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(label.getBy()));
 	}
 	
-	/**
+	*//**
 	 * This method will wait for Check Box for 60 seconds 
 	 * @author Pradeep Sundaram
-	 */
+	 *//*
 	public void waitForCheckBox(CheckBox check,Long timeToWait) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(check.getWebElement())+"<BR>");
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(check));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(check.getBy()));
 	}
 	
-	/**
+	*//**
 	 * This method will wait for Date Control for 60 seconds 
 	 * @author Pradeep Sundaram
-	 */
+	 *//*
 	public void waitForDateControl(DateControl date,Long timeToWait) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(date.getWebElement())+"<BR>");
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(date));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(date.getBy()));
 	}
 	
 	
-	/**
+	*//**
 	 * This method will wait for Link for 60 seconds 
 	 * @author Pradeep Sundaram
-	 */
+	 *//*
 	public void waitForLink(Link link,Long timeToWait) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(link.getWebElement())+"<BR>");
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(link));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(link.getBy()));
 	}
 	
 	
-	/**
+	*//**
 	 * This method will wait for SelectBox for 60 seconds 
 	 * @author Pradeep Sundaram
-	 */
+	 *//*
 	public void waitForSelect(SelectBox select,Long timeToWait) {
-		Report.log("Waiting for the element to load " + WebPage.elementList.get(select.getWebElement())+"<BR>");
+		Report.log("Waiting for the element to load " + WebPage.elementList.get(select));
 		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(select.getBy()));
+	}*/
+	
+	
+	/**
+	 * Triggers a JS click 
+	 */
+	public void jsClick(WebDriver driver, WebElement element){
+		JavascriptExecutor executor = (JavascriptExecutor)driver;
+		executor.executeScript("arguments[0].click();", element);	
+		Report.log("clicking the element \'"+ WebPage.elementList.get(element));
 	}
+	
 	
 }

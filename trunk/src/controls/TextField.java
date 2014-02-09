@@ -14,7 +14,7 @@ public class TextField {
 	private WebElement textField;
 	private By by;
 	String txtDescription;
-	
+	private ElementUtil elementUtil;	
 	/**
 	 * This method will return the By of the text field
 	 * @author Pradeep Sundaram
@@ -33,61 +33,23 @@ public class TextField {
 		return textField;
 	}
 	
-	/**
-	 * Normal Constructor for Text field
-	 * @author Pradeep Sundaram
-	 * @param txtField
-	 * @param desc
-	 */
-	public TextField(WebElement txtField, String desc) {
-		textField = txtField;
-		WebPage.elementList.put(textField, desc);
-	}
-	
-	
-	public TextField(String textID,String fieldDesc){
+	public TextField(String textID,String fieldDesc, ElementUtil util){
+		elementUtil=util;
+		txtDescription=fieldDesc;
 		if(textID.startsWith("id")){
-			textField=ElementUtil.findElementByID(textID);
+			by=util.byID(textID);
 		}
 		else if(textID.startsWith("name")){
-			textField=ElementUtil.findElementByName(textID);
+			by=util.byName(textID);
 		}
 		else if(textID.startsWith("css")){
-			textField=ElementUtil.findElementByCss(textID);
+			by=util.byCss(textID);
 		}
 		else if(textID.startsWith("//")){
-			textField=ElementUtil.findElementByXpath(textID);
+			by=util.byXpath(textID);
 		}
-		WebPage.elementList.put(textField, fieldDesc);
 	}
 	
-	public TextField(String textID,By byOfTf,String fieldDesc){
-		if(textID.startsWith("id")){
-			textField=ElementUtil.findElementByID(textID);
-		}
-		else if(textID.startsWith("name")){
-			textField=ElementUtil.findElementByName(textID);
-		}
-		else if(textID.startsWith("css")){
-			textField=ElementUtil.findElementByCss(textID);
-		}
-		by=byOfTf;
-		WebPage.elementList.put(textField, fieldDesc);
-	}
-	
-	/**
-	 * Constructor for text field when By of the text field is required
-	 * @author Pradeep Sundaram
-	 * @param txtField
-	 * @param by
-	 * @param desc
-	 */
-	public TextField(WebElement txtField, By byOfTextField, String desc) {
-		by=byOfTextField;
-		textField = txtField;
-		WebPage.elementList.put(textField, desc);
-	}
-
 	/**
 	 * This method will type the text in Text Field
 	 * 
@@ -96,7 +58,9 @@ public class TextField {
 	 * @throws IOException
 	 */
 	public void type(String text) throws IOException {
-		Events.type(textField, text);
+		textField=elementUtil.findElement(by);
+		WebPage.elementList.put(textField, txtDescription);
+		elementUtil.type(textField, text);
 	}
 	
 	/**
@@ -105,9 +69,9 @@ public class TextField {
 	 * @author Pradeep Sundaram
 	 * @throws IOException
 	 */
-	public void click() throws IOException {
+	/*public void click() throws IOException {
 		Events.click(textField);
-	}
+	}*/
 	
 	/**
 	 * This method will return the text in the text field
