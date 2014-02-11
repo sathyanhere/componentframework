@@ -11,21 +11,20 @@ import reports.Report;
 public class TextArea {
 	private WebElement textArea;
 	private By by;
-	private ElementUtil elementUtil;
+//	private ElementUtil elementUtil;
 	
-	public TextArea(String textAreaName,String description, ElementUtil util){
-		elementUtil=util;
+	public TextArea(String textAreaName,String description){
 		if(textAreaName.startsWith("name")){
-			by=elementUtil.byName(textAreaName);
+			by=ElementUtil.byName(textAreaName);
 		}
 		else if(textAreaName.startsWith("css")){
-			by=elementUtil.byCss(textAreaName);
+			by=ElementUtil.byCss(textAreaName);
 		}
 		else if(textAreaName.startsWith("//")){
-			by=elementUtil.byXpath(textAreaName);
+			by=ElementUtil.byXpath(textAreaName);
 		}
 		else if(textAreaName.startsWith("id")){
-			by=elementUtil.byID(textAreaName);
+			by=ElementUtil.byID(textAreaName);
 		}
 		else{
 			System.out.println("button is not found");
@@ -41,8 +40,8 @@ public class TextArea {
 	 * @throws IOException
 	 */
 	public void type(String text) throws IOException {
-		elementUtil.findElement(by);
-		elementUtil.type(textArea, text);
+		textArea=ElementUtil.findElement(by);
+		ElementUtil.type(textArea, text);
 	}
 	
 	/**
@@ -61,6 +60,7 @@ public class TextArea {
 	 * @return
 	 */
 	public WebElement getWebElement(){
+		textArea=ElementUtil.findElement(by);
 		return textArea;
 	}
 	
@@ -70,6 +70,7 @@ public class TextArea {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
+		textArea=ElementUtil.findElement(by);
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(textArea)+"\" is displayed.<BR>");
 		return textArea.isDisplayed();
 	}

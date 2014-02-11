@@ -11,21 +11,20 @@ import reports.Report;
 public class CheckBox {
 	private WebElement checkBox;
 	private By by;
-	private ElementUtil elementUtil;
+//	private ElementUtil elementUtil;
 	
-	public CheckBox(String checkBoxName,String description,ElementUtil util){
-		elementUtil=util;
+	public CheckBox(String checkBoxName,String description){
 		if(checkBoxName.startsWith("name")){
-			by=util.byName(checkBoxName);
+			by=ElementUtil.byName(checkBoxName);
 		}
 		else if(checkBoxName.startsWith("css")){
-			by=util.byCss(checkBoxName);
+			by=ElementUtil.byCss(checkBoxName);
 		}
 		else if(checkBoxName.startsWith("//")){
-			by=util.byXpath(checkBoxName);
+			by=ElementUtil.byXpath(checkBoxName);
 		}
 		else if(checkBoxName.startsWith("id")){
-			by=util.byID(checkBoxName);
+			by=ElementUtil.byID(checkBoxName);
 		}
 		else{
 			Report.log("button is not found");
@@ -40,8 +39,8 @@ public class CheckBox {
 	 * @throws IOException
 	 */
 	public void check() throws IOException {
-		checkBox=elementUtil.findElement(by);
-		elementUtil.check(checkBox);
+		checkBox=ElementUtil.findElement(by);
+		ElementUtil.check(checkBox);
 	}
 
 	/**
@@ -52,8 +51,8 @@ public class CheckBox {
 	 * @throws IOException
 	 */
 	public void unCheck() throws IOException {
-		checkBox=elementUtil.findElement(by);
-		elementUtil.unCheck(checkBox);
+		checkBox=ElementUtil.findElement(by);
+		ElementUtil.unCheck(checkBox);
 	}
 	
 	/**
@@ -61,6 +60,7 @@ public class CheckBox {
 	 * @throws IOException
 	 */
 	public boolean isChecked() throws IOException {
+		checkBox=ElementUtil.findElement(by);
 		return checkBox.isSelected();
 	}
 	
@@ -82,6 +82,7 @@ public class CheckBox {
 	 * @return
 	 */
 	public WebElement getWebElement(){
+		checkBox=ElementUtil.findElement(by);
 		return checkBox;
 	}
 	
@@ -93,6 +94,7 @@ public class CheckBox {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
+		checkBox=ElementUtil.findElement(by);
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(checkBox)+"\" is displayed.<BR>");
 		return checkBox.isDisplayed();
 	}
