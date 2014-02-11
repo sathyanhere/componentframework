@@ -11,31 +11,30 @@ import reports.Report;
 public class Link {
 	private WebElement link;
 	private By by;
-	private ElementUtil elementUtil;
+//	private ElementUtil elementUtil;
 	String linkName;
 
-	public Link(String linkText,String desc, ElementUtil util){
-		elementUtil=util;
+	public Link(String linkText,String desc){
 		if(linkText.startsWith("id")){
-			by=elementUtil.byID(linkText);
+			by=ElementUtil.byID(linkText);
 		}
 		
 		else if(linkText.startsWith("css")){
-			by=elementUtil.byCss(linkText);
+			by=ElementUtil.byCss(linkText);
 		}
 		
 		else if(linkText.startsWith("//")){
-			by=elementUtil.byXpath(linkText);
+			by=ElementUtil.byXpath(linkText);
 		}
 		
 		else if(linkText.startsWith("link")){
-			by=elementUtil.byLinkText(linkText);
+			by=ElementUtil.byLinkText(linkText);
 		}
 		WebPage.elementList.put(link, desc);
 	}
 	
 	public Link(String linkText){
-		link=elementUtil.findElementByLinkText(linkText);
+		link=ElementUtil.findElementByLinkText(linkText);
 		WebPage.elementList.put(link, linkText);
 	}
 	
@@ -46,8 +45,8 @@ public class Link {
 	 * @throws IOException
 	 */
 	public void click() throws IOException {
-		link=elementUtil.findElement(by);
-		elementUtil.click(link);
+		link=ElementUtil.findElement(by);
+		ElementUtil.click(link);
 	}
 	
 	/**
@@ -67,6 +66,7 @@ public class Link {
 	 * @return
 	 */
 	public String getText(){
+		link=ElementUtil.findElement(by);
 		return link.getText();
 	}
 	/**
@@ -75,6 +75,7 @@ public class Link {
 	 * @return
 	 */
 	public WebElement getWebElement(){
+		link=ElementUtil.findElement(by);
 		return link;
 	}
 	
@@ -85,7 +86,8 @@ public class Link {
 	 * @author Pradeep Sundaram 
 	 * @return boolean
 	 */
-	public boolean isDisplayed() { 
+	public boolean isDisplayed() {
+		link=ElementUtil.findElement(by);
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(link)+"\" is displayed.<BR>");
 		return link.isDisplayed();
 	}

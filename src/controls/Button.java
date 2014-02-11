@@ -12,7 +12,7 @@ public class Button {
 	private WebElement button;
 	private String desc;
 	private By by;
-	private ElementUtil elementUtil;
+//	private ElementUtil elementUtil;
 
 	/**
 	 * Constructor for button when mouse over or double click is required for
@@ -24,17 +24,17 @@ public class Button {
 	 * @param util
 	 * @param events
 	 */
-	public Button(String buttonID, String buttonDesc, ElementUtil util) {
-		elementUtil=util;
+	public Button(String buttonID, String buttonDesc) {
+//		elementUtil=util;
 		desc=buttonDesc;
 		if (buttonID.startsWith("name")) {
-			by=util.byName(buttonID);
+			by=ElementUtil.byName(buttonID);
 		} else if (buttonID.startsWith("css")) {
-			by=util.byCss(buttonID);
+			by=ElementUtil.byCss(buttonID);
 		} else if (buttonID.startsWith("//")) {
-			by=util.byXpath(buttonID);
+			by=ElementUtil.byXpath(buttonID);
 		} else if (buttonID.startsWith("id")) {
-			by=util.byID(buttonID);
+			by=ElementUtil.byID(buttonID);
 		} else {
 			Report.log("button is not found");
 		}
@@ -57,10 +57,10 @@ public class Button {
 	 * @author Pradeep Sundaram
 	 * @throws IOException 
 	 */
-	public void click() throws IOException {
-		button=elementUtil.findElement(by);
+	public void click() {
+		button=ElementUtil.findElement(by);
 		WebPage.elementList.put(button, desc);
-		elementUtil.click(button);
+		ElementUtil.click(button);
 //		events.click(button);
 	}
 
@@ -69,9 +69,9 @@ public class Button {
 	 * 
 	 * @author PSubramani33
 	 */
-	/*public void doubleClick() {
-		events.doubleClick(button);
-	}*/
+	public void doubleClick() {
+		ElementUtil.doubleClick(button);
+	}
 
 	/**
 	 * This method will return the webElement of the button
@@ -80,6 +80,7 @@ public class Button {
 	 * @return WebElement
 	 */
 	public WebElement getWebElement() {
+		button=ElementUtil.findElement(by);
 		return button;
 	}
 
@@ -90,8 +91,8 @@ public class Button {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
-		Report.log("Checking whether the field "
-				+ WebPage.elementList.get(button) + " is displayed.<BR>");
+		button=ElementUtil.findElement(by);
+		Report.log("Checking whether the field "+WebPage.elementList.get(button) + " is displayed.<BR>");
 		return button.isDisplayed();
 	}
 
@@ -102,8 +103,8 @@ public class Button {
 	 * @return String
 	 */
 	public String getToolTip() {
-		Report.log("Getting the tool tip of the button "
-				+ WebPage.elementList.get(button) + ".<BR>");
+		button=ElementUtil.findElement(by);
+		Report.log("Getting the tool tip of the button "+WebPage.elementList.get(button) + ".<BR>");
 		return button.getAttribute("title");
 	}
 }

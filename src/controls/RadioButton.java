@@ -7,12 +7,11 @@ import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
-import utils.Events;
 
 public class RadioButton {
 	private WebElement radioButton;
 	private By by;
-	private ElementUtil elementUtil;
+//	private ElementUtil elementUtil;
 	
 	/**
 	 * Constructor of radio button 
@@ -21,19 +20,18 @@ public class RadioButton {
 	 * @param radioButtonName
 	 * @param description
 	 */
-	public RadioButton(String radioButtonName,String description, ElementUtil util){
-		elementUtil=util;
+	public RadioButton(String radioButtonName,String description){
 		if(radioButtonName.startsWith("name")){
-			by=elementUtil.byName(radioButtonName);
+			by=ElementUtil.byName(radioButtonName);
 		}
 		else if(radioButtonName.startsWith("css")){
-			by=elementUtil.byCss(radioButtonName);
+			by=ElementUtil.byCss(radioButtonName);
 		}
 		else if(radioButtonName.startsWith("//")){
-			by=elementUtil.byXpath(radioButtonName);
+			by=ElementUtil.byXpath(radioButtonName);
 		}
 		else if(radioButtonName.startsWith("id")){
-			by=elementUtil.byID(radioButtonName);
+			by=ElementUtil.byID(radioButtonName);
 		}
 		else{
 			System.out.println("button is not found");
@@ -47,9 +45,9 @@ public class RadioButton {
 	 * @author Pradeep Sundaram
 	 * @throws IOException
 	 */
-	public void choose() throws IOException{
-		radioButton=elementUtil.findElement(by);
-		elementUtil.choose(radioButton);
+	public void choose() {
+		radioButton=ElementUtil.findElement(by);
+		ElementUtil.choose(radioButton);
 	}
 	
 	/**
@@ -69,6 +67,7 @@ public class RadioButton {
 	 * @return
 	 */
 	public WebElement getWebElement(){
+		radioButton=ElementUtil.findElement(by);
 		return radioButton;
 	}
 	
@@ -79,6 +78,7 @@ public class RadioButton {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
+		radioButton=ElementUtil.findElement(by);
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(radioButton)+"\" is displayed.<BR>");
       return radioButton.isDisplayed();
 	}
@@ -89,6 +89,7 @@ public class RadioButton {
 	 * @return
 	 */
 	public boolean isEnabled() {
+		radioButton=ElementUtil.findElement(by);
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(radioButton)+"\" is enabled.<BR>");
       return radioButton.isEnabled();
 	}

@@ -14,21 +14,20 @@ import reports.Report;
 public class SelectBox {
 	private Select selectBox;
 	private By by;
-	private ElementUtil elementUtil;
+//	private ElementUtil elementUtil;
 		
-	public SelectBox(String textID,String fieldDesc, ElementUtil util){
-		elementUtil=util;
+	public SelectBox(String textID,String fieldDesc){
 		if(textID.startsWith("id")){
-			by=elementUtil.byID(textID);
+			by=ElementUtil.byID(textID);
 		}
 		else if(textID.startsWith("name")){
-			by=elementUtil.byName(textID);
+			by=ElementUtil.byName(textID);
 		}
 		else if(textID.startsWith("css")){
-			by=elementUtil.byCss(textID);
+			by=ElementUtil.byCss(textID);
 		}
 		else if(textID.startsWith("//")){
-			by=elementUtil.byXpath(textID);
+			by=ElementUtil.byXpath(textID);
 		}
 		WebPage.elementList.put(selectBox, fieldDesc);
 	}
@@ -40,9 +39,9 @@ public class SelectBox {
 	 * @param index
 	 * @throws IOException
 	 */
-	public void select(int index) throws IOException {
-		selectBox=elementUtil.findSelect(by);
-		elementUtil.select(selectBox, index);
+	public void select(int index){
+		selectBox=ElementUtil.findSelect(by);
+		ElementUtil.select(selectBox, index);
 	}
 
 	
@@ -53,9 +52,9 @@ public class SelectBox {
 	 * @param value
 	 * @throws IOException
 	 */
-	public void selectByValue(String value) throws IOException {
-		selectBox=elementUtil.findSelect(by);
-		elementUtil.selectByValue(selectBox, value);
+	public void selectByValue(String value){
+		selectBox=ElementUtil.findSelect(by);
+		ElementUtil.selectByValue(selectBox, value);
 	}
 
 	/**
@@ -65,15 +64,16 @@ public class SelectBox {
 	 * @param selectString
 	 * @throws IOException
 	 */
-	public void select(String selectString) throws IOException {
-		selectBox=elementUtil.findSelect(by);
-		elementUtil.selectByText(selectBox, selectString);
+	public void select(String selectString)  {
+		selectBox=ElementUtil.findSelect(by);
+		ElementUtil.selectByText(selectBox, selectString);
 	}
 	/**
 	 * This method will return the selected value in the select box
 	 * @return
 	 */
 	public String getSelectedValue() {
+		selectBox=ElementUtil.findSelect(by);
 		return selectBox.getFirstSelectedOption().getText();
 	}
 
@@ -93,6 +93,7 @@ public class SelectBox {
 	 * @return
 	 */
 	public Select getSelect(){
+		selectBox=ElementUtil.findSelect(by);
 		return selectBox;
 	}
 	
@@ -102,6 +103,7 @@ public class SelectBox {
 	 * @return
 	 */
 	public List<String> getOptions(){
+		selectBox=ElementUtil.findSelect(by);
 		List<String> options=new ArrayList<String>();
 		List<WebElement> list=selectBox.getOptions();
 		int size=list.size();
@@ -118,7 +120,7 @@ public class SelectBox {
 	 * @return WebElement
 	 */
 	public WebElement getWebElement(){
-		return elementUtil.findElement(by);
+		return ElementUtil.findElement(by);
 	}
 	
 	
@@ -128,7 +130,8 @@ public class SelectBox {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
+		selectBox=ElementUtil.findSelect(by);
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(selectBox)+"\" is enabled.<BR>");
-      return elementUtil.findElement(by).isDisplayed();
+      return ElementUtil.findElement(by).isDisplayed();
 	}
 }

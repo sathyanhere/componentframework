@@ -40,6 +40,7 @@ public class Events implements MouseEvents{
 		webElement.click();
 		write("<b>Clicking the element "+WebPage.elementList.get(webElement));
 	}
+	
 	/**
 	 * This method will double click on the webelement passed as argument
 	 * 

@@ -10,25 +10,25 @@ import pages.WebPage;
 public class DateControl {
 	private WebElement dateControl;
 	private By by;
-	private ElementUtil elementUtil;
+//	private ElementUtil elementUtil;
+	
 	public DateControl(WebElement date, String desc) {
 		dateControl = date;
 		WebPage.elementList.put(dateControl, desc);
 	}
 	
-	public DateControl(String dateControlName,String description,ElementUtil util){
-		elementUtil=util;
+	public DateControl(String dateControlName,String description){
 		if(dateControlName.startsWith("name")){
-			by=util.byName(dateControlName);
+			by=ElementUtil.byName(dateControlName);
 		}
 		else if(dateControlName.startsWith("css")){
-			by=util.byCss(dateControlName);
+			by=ElementUtil.byCss(dateControlName);
 		}
 		else if(dateControlName.startsWith("//")){
-			by=util.byXpath(dateControlName);
+			by=ElementUtil.byXpath(dateControlName);
 		}
 		else if(dateControlName.startsWith("id")){
-			by=util.byID(dateControlName);
+			by=ElementUtil.byID(dateControlName);
 		}
 		else{
 			System.out.println("button is not found");
@@ -43,8 +43,8 @@ public class DateControl {
 	 * @throws IOException
 	 */
 	public void click() throws IOException {
-		dateControl=elementUtil.findElement(by);
-		elementUtil.click(dateControl);
+		dateControl=ElementUtil.findElement(by);
+		ElementUtil.click(dateControl);
 	}
 	/**
 	 * This method will return By of the dateControl
@@ -61,6 +61,7 @@ public class DateControl {
 	 * @return
 	 */
 	public WebElement getWebElement(){
+		dateControl=ElementUtil.findElement(by);
 		return dateControl;
 	}
 }
