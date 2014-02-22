@@ -3,12 +3,15 @@ package utils;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -49,8 +52,14 @@ public class Events implements MouseEvents{
 	 */
 	@Override
 	public void doubleClick(WebElement webElement) {
-		action = new Actions(driver);
-		action.doubleClick(webElement).perform();
+		try{
+			action = new Actions(driver);
+			action.doubleClick(webElement).perform();
+			Thread.sleep(500);	
+		}
+		catch(InterruptedException e){
+			
+		}
 		write("<b>Double clicking the element "+WebPage.elementList.get(webElement));
 	}
 	/**
@@ -206,19 +215,25 @@ public class Events implements MouseEvents{
 	 * @param counter
 	 */
 	public void write(String logMessage){
+		System.out.println(WebPage.screenshotRequired);
+		String path=null;
 		if(WebPage.screenshotRequired){
 			try{
 				String hyperLink=ScreenShotInitial+counter+ScreenShotEnd;
 				String message=logMessage+hyperLink;
-				Report.log(message);
+				
 				File directory = new File (".");
-				String path=directory.getCanonicalPath()+"\\test-output\\screenshot\\";
+				path=directory.getCanonicalPath()+"\\test-output\\screenshot\\";
 				File f=new File(path+counter+".png");
 				File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE); 
 				FileUtils.copyFile(scrFile, f);
-				counter++;	
+				Report.log(message);
+				counter++;
 			}
-			catch(IOException ioe){
+			catch(UnhandledAlertException alertException){
+				Report.log(logMessage+"<font color=\"#FF0000\"> \"Due to Alert box, not able to take screen shot\" </font>");
+			}
+			catch(Exception ioe){
 				ioe.printStackTrace();
 			}	
 		}

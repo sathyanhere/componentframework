@@ -61,7 +61,6 @@ public class Button {
 		button=ElementUtil.findElement(by);
 		WebPage.elementList.put(button, desc);
 		ElementUtil.click(button);
-//		events.click(button);
 	}
 
 	/**
@@ -70,6 +69,8 @@ public class Button {
 	 * @author PSubramani33
 	 */
 	public void doubleClick() {
+		button=ElementUtil.findElement(by);
+		WebPage.elementList.put(button, desc);
 		ElementUtil.doubleClick(button);
 	}
 
