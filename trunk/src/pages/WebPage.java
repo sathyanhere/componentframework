@@ -29,7 +29,7 @@ public class WebPage {
 	public static HashMap<Object, String> elementList = new HashMap<Object, String>();
 	public static Hashtable<Object, String> elementList2 = new Hashtable<Object, String>();
 	public static String PAGE_URL = "";
-	public FirefoxDriver driver =null;
+	public WebDriver driver =null;
 	public ElementUtil util=new ElementUtil(driver);
 	public Events events=new Events(driver);
 //	public String env=""; 
@@ -48,7 +48,7 @@ public class WebPage {
 	 * @param pageURL
 	 */
 	public WebPage(WebDriver webDriver, String pageURL) {
-		driver =(FirefoxDriver)webDriver;
+		driver =webDriver;
 		driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		PAGE_URL = pageURL;
 		driver.get(pageURL);
@@ -67,7 +67,7 @@ public class WebPage {
 	 * @param webDriver
 	 */
 	public WebPage(WebDriver webDriver) {
-		driver = (FirefoxDriver)webDriver;
+		driver = webDriver;
 		util=new ElementUtil(driver);
 		events=new Events(driver);
 	}
@@ -126,7 +126,7 @@ public class WebPage {
 	
 	public WebPage(WebDriver webDriver,String PageURL, String env) {
 //		this.env=env;
-	    driver = (FirefoxDriver)webDriver;
+	    driver = webDriver;
 	    util=new ElementUtil(driver);
 		events=new Events(driver);
 		if(PageURL.contains("dev")){
