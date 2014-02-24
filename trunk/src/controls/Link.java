@@ -11,10 +11,13 @@ import reports.Report;
 public class Link {
 	private WebElement link;
 	private By by;
+//	private String linkName;
+	private String linkDesc;
 //	private ElementUtil elementUtil;
-	String linkName;
+	
 
 	public Link(String linkText,String desc){
+		linkDesc=desc;
 		if(linkText.startsWith("id")){
 			by=ElementUtil.byID(linkText);
 		}
@@ -30,7 +33,7 @@ public class Link {
 		else if(linkText.startsWith("link")){
 			by=ElementUtil.byLinkText(linkText);
 		}
-		WebPage.elementList.put(link, desc);
+		
 	}
 	
 	public Link(String linkText){
@@ -44,8 +47,9 @@ public class Link {
 	 * @author Pradeep Sundaram
 	 * @throws IOException
 	 */
-	public void click() throws IOException {
+	public void click(){
 		link=ElementUtil.findElement(by);
+		WebPage.elementList.put(link, linkDesc);
 		ElementUtil.click(link);
 	}
 	
@@ -67,6 +71,7 @@ public class Link {
 	 */
 	public String getText(){
 		link=ElementUtil.findElement(by);
+		WebPage.elementList.put(link, linkDesc);
 		return link.getText();
 	}
 	/**
@@ -76,6 +81,7 @@ public class Link {
 	 */
 	public WebElement getWebElement(){
 		link=ElementUtil.findElement(by);
+		WebPage.elementList.put(link, linkDesc);
 		return link;
 	}
 	
@@ -88,7 +94,9 @@ public class Link {
 	 */
 	public boolean isDisplayed() {
 		link=ElementUtil.findElement(by);
+		WebPage.elementList.put(link, linkDesc);
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(link)+"\" is displayed.<BR>");
 		return link.isDisplayed();
 	}
+
 }
