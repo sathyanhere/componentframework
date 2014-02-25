@@ -1,6 +1,7 @@
 package testPlan;
 
-import java.awt.Robot;
+import static org.testng.Assert.fail;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,21 +25,17 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 import pages.WebPage;
-
 import reports.Report;
 import utils.EventsUtil;
 import utils.KeyEvents;
-import utils.MouseEvents;
 import utils.WindowEvents;
 
 public class TestPlan {
 
-	public Properties properties = new Properties();
-	public Robot robot;
-	public KeyEvents keyEvents;
-	public MouseEvents mouseEvents;
-	public WindowEvents windowEvents;
-	private WebDriver driver;
+	private Properties properties = new Properties();
+	private KeyEvents keyEvents;
+	private WindowEvents windowEvents;
+	private StringBuffer verificationErrors = new StringBuffer();
 	
 	/**
 	 * This method will clear the screen shot files of previous run
@@ -89,9 +86,6 @@ public class TestPlan {
 		driver.quit();
 	}*/
 
-	public WebDriver getDriver(){
-		return driver;
-	}
 	/**
 	 * This method will assign the name of the property file where the data is stored
 	 * 
@@ -115,7 +109,6 @@ public class TestPlan {
 	 */
 	@AfterTest(groups = "TestPlan")
 	public void tearDown() throws Exception {
-		/*WebPage.driver.quit();*/
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 		Date date = new Date();
 		String exeTime = dateFormat.format(date);
@@ -126,7 +119,13 @@ public class TestPlan {
 		output.close();
 		File directory = new File(".");
 		String reportPath = directory.getCanonicalPath() + "\\test-output\\index.html";
+		String verificationErrorString = verificationErrors.toString();
+		System.out.println("error message is "+verificationErrors.toString());
 		System.out.println("Test Execution stops and Report is generated in the location \""+reportPath+"\"");
+		if (!"".equals(verificationErrorString)) {
+		      Report.log(verificationErrorString);
+		      fail(verificationErrorString);
+		    }
 	}
 	/**
 	 * presses esc key
@@ -287,6 +286,36 @@ public class TestPlan {
 		Report.log("Asserting True ");
 		Assert.assertTrue(bool);
 	}
+
+	/**
+	 * Normal Verify true method
+	 * 
+	 * @author PSubramani33
+	 * @param bool
+	 */
+	public void verifyTrue(boolean bool) {
+		Report.log("Verifying True");
+		try {
+			Assert.assertTrue(bool);
+		} catch (Error e) {
+			verificationErrors.append(e.toString());
+		}
+	}
+	
+	/**
+	 * Normal Verify false method
+	 * 
+	 * @author Pradeep Sundaram 
+	 * @param bool
+	 */
+	public void verifyFalse(boolean bool){
+		Report.log("Verifying False ");
+		try {
+			Assert.assertFalse(bool);
+		} catch (Error e) {
+			verificationErrors.append(e.toString());
+		}
+	}
 	
 	
 	/**
@@ -314,6 +343,22 @@ public class TestPlan {
 	}
 	
 	/**
+	 * This method will verify two strings
+	 * 
+	 * @author Pradeep Sundaram
+	 * @param expected
+	 * @param actual
+	 */
+	public void verifyEquals(String expected, String actual){
+		Report.log("Comparing two strings "+ expected +" and "+actual);
+		try {
+			Assert.assertEquals(expected, actual);
+		} catch (Error e) {
+			verificationErrors.append(e.toString());
+		}
+	}
+	
+	/**
 	 * This method will compare two integers
 	 * 
 	 * @param expected
@@ -323,6 +368,21 @@ public class TestPlan {
 		Report.log("Comparing two integers "+ expected +" and "+actual);
 		Assert.assertEquals(expected, actual);
 		Report.log(" Comparision result passed ");
+	}
+	
+	/**
+	 * This method will verify two integers
+	 * 
+	 * @param expected
+	 * @param actual
+	 */
+	public void verifyEquals(int expected, int actual){
+		Report.log("Comparing two integers "+ expected +" and "+actual);
+		try {
+			Assert.assertEquals(expected, actual);
+		} catch (Error e) {
+			verificationErrors.append(e.toString());
+		}
 	}
 	
 	/**
