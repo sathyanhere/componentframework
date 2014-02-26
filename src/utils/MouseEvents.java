@@ -2,9 +2,11 @@ package utils;
 
 import org.openqa.selenium.WebElement;
 
+import exception.CFException;
+
 public interface MouseEvents {
 	
-	public void mouseOver(WebElement webElement);
+	public void mouseOver(WebElement webElement) throws CFException ;
 	
-	public void doubleClick(WebElement webElement);
+	public void doubleClick(WebElement webElement) throws CFException ;
 }

@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
+import exception.CFException;
 
 public class CheckBox {
 	private WebElement checkBox;
@@ -36,11 +37,14 @@ public class CheckBox {
 	 * This method will check the check box if it is unchecked
 	 * 
 	 * @author Pradeep Sundaram
-	 * @throws IOException
 	 */
-	public void check() throws IOException {
+	public void check() {
 		checkBox=ElementUtil.findElement(by);
-		ElementUtil.check(checkBox);
+		try {
+			ElementUtil.check(checkBox);
+		} catch (CFException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -48,18 +52,21 @@ public class CheckBox {
 	 * check box is not checked
 	 * 
 	 * @author Pradeep Sundaram
-	 * @throws IOException
 	 */
-	public void unCheck() throws IOException {
+	public void unCheck() {
 		checkBox=ElementUtil.findElement(by);
-		ElementUtil.unCheck(checkBox);
+		try {
+			ElementUtil.unCheck(checkBox);
+		} catch (CFException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * This method will return whether the Check box is checked in the page 
 	 * @throws IOException
 	 */
-	public boolean isChecked() throws IOException {
+	public boolean isChecked() {
 		checkBox=ElementUtil.findElement(by);
 		return checkBox.isSelected();
 	}

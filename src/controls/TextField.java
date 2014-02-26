@@ -1,12 +1,11 @@
 package controls;
 
-import java.io.IOException;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
+import exception.CFException;
 
 public class TextField {
 	
@@ -53,21 +52,23 @@ public class TextField {
 	 * 
 	 * @author Pradeep Sundaram
 	 * @param text
-	 * @throws IOException
 	 */
 	public void type(String text){
 		textField=ElementUtil.findElement(by);
 		WebPage.elementList.put(textField, txtDescription);
-		ElementUtil.type(textField, text);
+		try {
+			ElementUtil.type(textField, text);
+		} catch (CFException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * This method will click in the Text Field for Date controls
 	 * 
 	 * @author Pradeep Sundaram
-	 * @throws IOException
 	 */
-	/*public void click() throws IOException {
+	/*public void click()  {
 		Events.click(textField);
 	}*/
 	
@@ -75,8 +76,8 @@ public class TextField {
 	 * This method will return the text in the text field
 	 * 
 	 * @author Pradeep Sundaram
-	 * @return
-	 */
+	 * @return String
+	 */ 
 	public String getText(){
 		textField=ElementUtil.findElement(by);
 		return textField.getAttribute("value");	
@@ -85,6 +86,7 @@ public class TextField {
 	/**
 	 * will return boolean based on the presence of the text field
 	 * 
+	 * @author Pradeep Sundaram S
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
@@ -95,7 +97,8 @@ public class TextField {
 	/**
 	 * will return true if the text field is enabled else false will be returned
 	 * 
-	 * @return
+	 * @author Pradeep Sundaram 
+	 * @return boolean
 	 */
 	public boolean isEnabled() {
 		textField=ElementUtil.findElement(by);

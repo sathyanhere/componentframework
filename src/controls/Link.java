@@ -1,12 +1,11 @@
 package controls;
 
-import java.io.IOException;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
+import exception.CFException;
 
 public class Link {
 	private WebElement link;
@@ -45,19 +44,22 @@ public class Link {
 	 * This method will click in the link passed as argument
 	 * 
 	 * @author Pradeep Sundaram
-	 * @throws IOException
 	 */
 	public void click(){
 		link=ElementUtil.findElement(by);
 		WebPage.elementList.put(link, linkDesc);
-		ElementUtil.click(link);
+		try {
+			ElementUtil.click(link);
+		} catch (CFException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * This method will return the By for the button
+	 * 
 	 * @author Pradeep Sundaram
-	 * @param elem
-	 * @return
+	 * @return By
 	 */
 	public By getBy() {
 		return by;
@@ -67,7 +69,7 @@ public class Link {
 	 * This method will return the text displayed in the text
 	 * 
 	 * @author Pradeep Sundaram
-	 * @return
+	 * @return String
 	 */
 	public String getText(){
 		link=ElementUtil.findElement(by);
@@ -77,7 +79,7 @@ public class Link {
 	/**
 	 * This method will return the webelement of the link
 	 * @author Pradeep Sundaram
-	 * @return
+	 * @return WebElement
 	 */
 	public WebElement getWebElement(){
 		link=ElementUtil.findElement(by);

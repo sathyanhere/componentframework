@@ -4,7 +4,6 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
@@ -17,6 +16,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import pages.WebPage;
 import reports.Report;
+import exception.CFException;
 
 
 public class Events implements MouseEvents{
@@ -35,9 +35,9 @@ public class Events implements MouseEvents{
 	 *  
 	 * @author Pradeep Sundaram
 	 * @param webElement
-	 * @throws IOException 
+	 * @throws CFException 
 	 */
-	public void click(WebElement webElement)  {
+	public void click(WebElement webElement) throws CFException  {
 		webElement.click();
 		write("<b>Clicking the element "+WebPage.elementList.get(webElement));
 	}
@@ -47,9 +47,10 @@ public class Events implements MouseEvents{
 	 * 
 	 * @author Pradeep Sundaram
 	 * @param webElement
+	 * @throws CFException 
 	 */
 	@Override
-	public void doubleClick(WebElement webElement) {
+	public void doubleClick(WebElement webElement) throws CFException {
 		try{
 			action = new Actions(driver);
 			action.doubleClick(webElement).perform();
@@ -61,11 +62,12 @@ public class Events implements MouseEvents{
 		write("<b>Double clicking the element "+WebPage.elementList.get(webElement));
 	}
 	/**
-	 * 
+	 * This method will scroll down if positive value is passed and scroll up on negative input.
+	 * The input max value is 100 + or -
 	 * 
 	 * @author Pradeep Sundaram
-	 * @param xposition
-	 * @param yposition
+	 * @param no. of rotations
+	 * 
 	 */
 	public void scrollDown(int rotations){
 		/*JavascriptExecutor jsx = (JavascriptExecutor)driver;
@@ -106,14 +108,17 @@ public class Events implements MouseEvents{
 			Report.log("AWT Exception");
 			ie.printStackTrace();
 		}
-		
-		/*builder = new Actions(driver);
-		builder.moveByOffset(xPosition, yPosition);*/
 	}
 	
-	
+	/**
+	 * This method will type the text in webElement passed as arguments
+	 * 
+	 * @author Pradeep Sundaram
+	 * @param webElement
+	 * @throws CFException 
+	 */
 	@Override
-	public void mouseOver(WebElement webElement) {
+	public void mouseOver(WebElement webElement) throws CFException {
 		action = new Actions(driver);
 		action.moveToElement(webElement).perform();
 		write("Moving mouse over " + WebPage.elementList.get(webElement)
@@ -122,11 +127,13 @@ public class Events implements MouseEvents{
 	
 	/**
 	 * This method will type the text in webElement passed as arguments
+	 * 
 	 * @author Pradeep Sundaram
 	 * @param webElement
 	 * @param text
+	 * @throws CFException 
 	 */
-	public void type(WebElement webElement, String text)  {
+	public void type(WebElement webElement, String text) throws CFException  {
 		webElement.clear();
 		webElement.sendKeys(text);
 		write("<b>Typing \'"+text+"\' in "+WebPage.elementList.get(webElement));
@@ -139,9 +146,9 @@ public class Events implements MouseEvents{
 	 * @author Pradeep Sundaram
 	 * @param selectField
 	 * @param index
-	 * @throws IOException
+	 * @throws CFException 
 	 */
-	public void select(Select selectField,int index) {
+	public void select(Select selectField,int index) throws CFException {
 		selectField.selectByIndex(index);
 		write("<b>Selecting the " + index + "th element in "+ WebPage.elementList.get(selectField));	
 		
@@ -153,9 +160,9 @@ public class Events implements MouseEvents{
 	 * @author Pradeep Sundaram
 	 * @param selectField
 	 * @param value
-	 * @throws IOException
+	 * @throws CFException 
 	 */
-	public  void selectByValue(Select selectField, String value) {
+	public  void selectByValue(Select selectField, String value) throws CFException {
 		selectField.selectByValue(value);
 		write("<b>Selecting \'" + value + "\' in "+WebPage.elementList.get(selectField));
 		
@@ -168,9 +175,9 @@ public class Events implements MouseEvents{
 	 * @author Pradeep Sundaram
 	 * @param selectField
 	 * @param selectString
-	 * @throws IOException
+	 * @throws CFException 
 	 */
-	public void selectByText(Select selectField, String selectString) {
+	public void selectByText(Select selectField, String selectString) throws CFException {
 		selectField.selectByVisibleText(selectString);
 		write("<b>Selecting \'" + selectString + "\' in "+ WebPage.elementList.get(selectField));	
 	}
@@ -181,8 +188,9 @@ public class Events implements MouseEvents{
 	 * @author Pradeep Sundaram
 	 * @param webElement
 	 * @param text
+	 * @throws CFException 
 	 */
-	public void check(WebElement webElement) {
+	public void check(WebElement webElement) throws CFException {
 		if (!webElement.isSelected()) { //checks whether check box is unchecked
 			webElement.click();
 		}
@@ -194,11 +202,13 @@ public class Events implements MouseEvents{
 	 /**
 	  * this method will uncheck the check box if it is checked, leaves it if the check 
 	  * box is not checked
+	  * 
 	  * @author Pradeep Sundaram
 	  * @param webElement
 	  * @param text
+	 * @throws CFException 
 	  */
-	public void unCheck(WebElement webElement){
+	public void unCheck(WebElement webElement) throws CFException{
 		if (webElement.isSelected()) { // checks whether check box is checked
 			webElement.click();
 		}
@@ -211,8 +221,9 @@ public class Events implements MouseEvents{
 	 * @author Pradeep Sundaram
 	 * @param logMessage
 	 * @param counter
+	 * @throws CFException 
 	 */
-	public void write(String logMessage){
+	public void write(String logMessage) throws CFException{
 		String path=null;
 		if(WebPage.screenshotRequired){
 			try{
@@ -230,7 +241,7 @@ public class Events implements MouseEvents{
 				Report.log(logMessage+"<font color=\"#FF0000\"> \"Due to Alert box, not able to take screen shot\" </font>");
 			}
 			catch(Exception ioe){
-				ioe.printStackTrace();
+				throw new CFException(ioe.getMessage());
 			}	
 		}
 		else{
@@ -243,9 +254,9 @@ public class Events implements MouseEvents{
 	 * 
 	 * @author Pradeep Sundaram
 	 * @param webElement
-	 * @throws IOException
+	 * @throws CFException 
 	 */
-	public void choose(WebElement webElement){
+	public void choose(WebElement webElement) throws CFException{
 		if (!webElement.isSelected()) {// checks whether check box is unchecked
 			webElement.click();
 		}
