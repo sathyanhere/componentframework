@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import pages.WebPage;
 import reports.Report;
+import exception.CFException;
 
 public class SelectBox {
 	private Select selectBox;
@@ -41,7 +42,11 @@ public class SelectBox {
 	 */
 	public void select(int index){
 		selectBox=ElementUtil.findSelect(by);
-		ElementUtil.select(selectBox, index);
+		try {
+			ElementUtil.select(selectBox, index);
+		} catch (CFException e) {
+			e.printStackTrace();
+		}
 	}
 
 	
@@ -50,11 +55,14 @@ public class SelectBox {
 	 * 
 	 * @author Pradeep Sundaram
 	 * @param value
-	 * @throws IOException
 	 */
 	public void selectByValue(String value){
 		selectBox=ElementUtil.findSelect(by);
-		ElementUtil.selectByValue(selectBox, value);
+		try {
+			ElementUtil.selectByValue(selectBox, value);
+		} catch (CFException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -62,15 +70,20 @@ public class SelectBox {
 	 * 
 	 * @author Pradeep Sundaram
 	 * @param selectString
-	 * @throws IOException
 	 */
 	public void select(String selectString)  {
 		selectBox=ElementUtil.findSelect(by);
-		ElementUtil.selectByText(selectBox, selectString);
+		try {
+			ElementUtil.selectByText(selectBox, selectString);
+		} catch (CFException e) {
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * This method will return the selected value in the select box
-	 * @return
+	 * 
+	 * @author Pradeep Sundaram
+	 * @return String
 	 */
 	public String getSelectedValue() {
 		selectBox=ElementUtil.findSelect(by);
@@ -81,16 +94,16 @@ public class SelectBox {
 	 * This method will return By of the passed Select
 	 * 
 	 * @author Pradeep Sundaram
-	 * @param elem
-	 * @return
+	 * @return By
 	 */
 	public By getBy() {
 		return by;
 	}
 	/**
 	 * This method will return the select of the selectBox
+	 * 
 	 * @author Pradeep Sundaram
-	 * @return
+	 * @return Select
 	 */
 	public Select getSelect(){
 		selectBox=ElementUtil.findSelect(by);
@@ -99,8 +112,9 @@ public class SelectBox {
 	
 	/**
 	 * This method will return all the options in the select box
+	 * 
 	 * @author Pradeep Sundaram
-	 * @return
+	 * @return List
 	 */
 	public List<String> getOptions(){
 		selectBox=ElementUtil.findSelect(by);
@@ -127,6 +141,7 @@ public class SelectBox {
 	/**
 	 * will return boolean based on the presence of the select box
 	 * 
+	 * @author Pradeep Sundaram S
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {

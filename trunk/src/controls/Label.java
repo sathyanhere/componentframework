@@ -25,7 +25,8 @@ public class Label {
 	 * This method will return the content in the Label
 	 * 
 	 * @author Pradeep Sundaram
-	 * @return
+	 * @return String
+	 * 
 	 */
 	public String getText() {
 		lbl=ElementUtil.findElement(by);
@@ -44,7 +45,7 @@ public class Label {
 	/**
 	 * This method will return the webElement of the label
 	 * @author Pradeep Sundaram
-	 * @return 
+	 * @return  WebElement
 	 */
 	public WebElement getWebElement() {
 		lbl=ElementUtil.findElement(by);
@@ -54,6 +55,7 @@ public class Label {
 	/**
 	 * will return boolean based on the presence of the label
 	 * 
+	 * @author Pradeep Sundaram
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {

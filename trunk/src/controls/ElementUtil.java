@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import exception.CFException;
+
 import utils.Events;
 
 public class ElementUtil {
@@ -74,40 +76,40 @@ public class ElementUtil {
 		return By.cssSelector(elementID[1]);
 	}
 	
-	public static void click(WebElement webElement){
+	public static void click(WebElement webElement) throws CFException {
 		 events.click(webElement);
 	 }
 	
-	 public  static void type(WebElement webElement, String text) {
+	 public  static void type(WebElement webElement, String text) throws CFException {
 		 events.type(webElement, text);
 	 }
 	 
 	 public static void select(Select selectField,
-				int index) {
+				int index) throws CFException {
 		 events.select(selectField, index);
 	 }
 	 
-	 public static void selectByValue(Select selectField, String value) {
+	 public static void selectByValue(Select selectField, String value) throws CFException {
 		 events.selectByValue(selectField, value);
 	 }
 	 
 	 public static void selectByText(Select selectField,
-				String selectString) {
+				String selectString) throws CFException {
 		 events.selectByText(selectField, selectString);
 	 }
 	 
-	 public static void check(WebElement webElement){
+	 public static void check(WebElement webElement) throws CFException {
 		 events.check(webElement);
 	 }
-	 public static void unCheck(WebElement webElement) {
+	 public static void unCheck(WebElement webElement) throws CFException {
 		 events.unCheck(webElement);
 	 }
 	 
-	 public static void choose(WebElement webElement) {
+	 public static void choose(WebElement webElement) throws CFException {
 		 events.choose(webElement);
 	 }
 	 
-	 public static void doubleClick(WebElement webElement) {
+	 public static void doubleClick(WebElement webElement) throws CFException {
 		 events.doubleClick(webElement);
 	 }
 	 

@@ -1,12 +1,11 @@
 package controls;
 
-import java.io.IOException;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
+import exception.CFException;
 
 public class RadioButton {
 	private WebElement radioButton;
@@ -43,18 +42,21 @@ public class RadioButton {
 	 * This method will choose the radio button
 	 * 
 	 * @author Pradeep Sundaram
-	 * @throws IOException
 	 */
 	public void choose() {
 		radioButton=ElementUtil.findElement(by);
-		ElementUtil.choose(radioButton);
+		try {
+			ElementUtil.choose(radioButton);
+		} catch (CFException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * This method will return the By for the Check Box
+	 * 
 	 * @author Pradeep Sundaram
-	 * @param elem
-	 * @return
+	 * @return By
 	 */
 	public By getBy() {
 		return by;
@@ -64,7 +66,7 @@ public class RadioButton {
 	 * This method will return the webelement of the check box
 	 * 
 	 * @author Pradeep Sundaram
-	 * @return
+	 * @return WebElement
 	 */
 	public WebElement getWebElement(){
 		radioButton=ElementUtil.findElement(by);
@@ -75,6 +77,7 @@ public class RadioButton {
 	/**
 	 * will return boolean based on the presence of the radio button
 	 * 
+	 * @author Pradeep Sundaram
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
@@ -86,7 +89,9 @@ public class RadioButton {
 	/**
 	 * will return true when radio button is there in the page, will return true even it is not displayed in the page.
 	 * using java script the radio button may not be visible but radio button may there in the page.
-	 * @return
+	 * 
+	 * @author Pradeep Sundaram
+	 * @return boolean
 	 */
 	public boolean isEnabled() {
 		radioButton=ElementUtil.findElement(by);

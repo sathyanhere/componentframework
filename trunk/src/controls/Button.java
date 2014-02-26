@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
+import exception.CFException;
 
 public class Button {
 	private WebElement button;
@@ -60,7 +61,11 @@ public class Button {
 	public void click() {
 		button=ElementUtil.findElement(by);
 		WebPage.elementList.put(button, desc);
-		ElementUtil.click(button);
+		try {
+			ElementUtil.click(button);
+		} catch (CFException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -71,7 +76,11 @@ public class Button {
 	public void doubleClick() {
 		button=ElementUtil.findElement(by);
 		WebPage.elementList.put(button, desc);
-		ElementUtil.doubleClick(button);
+		try {
+			ElementUtil.doubleClick(button);
+		} catch (CFException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

@@ -1,11 +1,10 @@
 package controls;
 
-import java.io.IOException;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
+import exception.CFException;
 
 public class DateControl {
 	private WebElement dateControl;
@@ -40,16 +39,20 @@ public class DateControl {
 	 * This method will select a date in Date controls
 	 * 
 	 * @author Pradeep Sundaram
-	 * @throws IOException
 	 */
-	public void click() throws IOException {
+	public void click() {
 		dateControl=ElementUtil.findElement(by);
-		ElementUtil.click(dateControl);
+		try {
+			ElementUtil.click(dateControl);
+		} catch (CFException e) {
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * This method will return By of the dateControl
+	 * 
 	 * @author Pradeep Sundaram
-	 * @return
+	 * @return By
 	 */
 	public By getBy(){
 		return by;
@@ -58,7 +61,7 @@ public class DateControl {
 	/**
 	 * This method will return the webelement for date control
 	 * @author Pradeep Sundaram
-	 * @return
+	 * @return WebElement
 	 */
 	public WebElement getWebElement(){
 		dateControl=ElementUtil.findElement(by);

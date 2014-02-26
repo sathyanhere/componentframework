@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
+import exception.CFException;
 
 public class TextArea {
 	private WebElement textArea;
@@ -39,16 +40,20 @@ public class TextArea {
 	 * @param text
 	 * @throws IOException
 	 */
-	public void type(String text) throws IOException {
+	public void type(String text){
 		textArea=ElementUtil.findElement(by);
-		ElementUtil.type(textArea, text);
+		try {
+			ElementUtil.type(textArea, text);
+		} catch (CFException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * This method will return the By for the Text Area
+	 * 
 	 * @author Pradeep Sundaram
-	 * @param elem
-	 * @return
+	 * @return By
 	 */
 	public By getBy() {
 		return by;
@@ -57,7 +62,7 @@ public class TextArea {
 	/**
 	 * This method will return the webelement of the textarea
 	 * @author Pradeep Sundaram
-	 * @return
+	 * @return WebElement
 	 */
 	public WebElement getWebElement(){
 		textArea=ElementUtil.findElement(by);
@@ -67,6 +72,7 @@ public class TextArea {
 	/**
 	 * will return boolean based on the presence of the text area
 	 * 
+	 * @author Pradeep Sundaram
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
