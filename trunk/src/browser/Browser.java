@@ -10,7 +10,7 @@ import utils.WebDriverEventListenerClass;
 
 public class Browser {
 
-	public static EventFiringWebDriver getBrowser(String browerType) {
+	public static EventFiringWebDriver getInstance(String browerType) {
 		WebDriverEventListenerClass eventListener = new WebDriverEventListenerClass();
 		
 		if (browerType.equals("firefox")) {
