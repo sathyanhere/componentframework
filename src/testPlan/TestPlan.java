@@ -17,12 +17,23 @@ import java.util.Properties;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+
+import controls.Button;
+import controls.CheckBox;
+import controls.DateControl;
+import controls.Label;
+import controls.Link;
+import controls.SelectBox;
+import controls.TextArea;
+import controls.TextField;
 
 import pages.WebPage;
 import reports.Report;
@@ -64,27 +75,7 @@ public class TestPlan {
 			oldfile.renameTo(newFolderName);
 		}
 		
-		
-		/*File directory = new File (".");
-		String path=directory.getCanonicalPath()+"\\test-output\\screenshot\\";
-		File f = new File(path);
-		File files[] = f.listFiles();
-		if(files!=null){
-			for (int index = 0; index < files.length; index++) {
-				files[index].delete();
-			}	
-		}*/
-		
 	}
-	/*@BeforeMethod
-	public void beforeMethod(){
-		driver=new FirefoxDriver();
-	}*/
-	
-	/*@AfterMethod
-	public void afterMethod(){
-		driver.quit();
-	}*/
 
 	/**
 	 * This method will assign the name of the property file where the data is stored
@@ -424,166 +415,166 @@ public class TestPlan {
 	 * This method will wait for TextField for 60 seconds 
 	 * @author Pradeep Sundaram
 	 */
-	/*public void waitForTextField(TextField tf){
+	public void waitForTextField(TextField tf,WebDriver driver){
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(tf));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
+		WebDriverWait wait = new WebDriverWait(driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(tf.getBy()));
 	}
 	
-	*//**
+	/**
 	 * This method will wait for TextArea for 60 seconds 
 	 * @author Pradeep Sundaram
-	 *//*
-	public void waitForTextArea(TextArea ta) {
+	 */
+	public void waitForTextArea(TextArea ta,WebDriver driver){
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(ta));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
+		WebDriverWait wait = new WebDriverWait(driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(ta.getBy()));
 	}
 	
-	*//**
+	/**
 	 * This method will wait for Button for 60 seconds 
 	 * @author Pradeep Sundaram
-	 *//*
-	public void waitForButton(Button button) {
+	 */
+	public void waitForButton(Button button,WebDriver driver){
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(button));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
+		WebDriverWait wait = new WebDriverWait(driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(button.getBy()));
 	}
 	
-	*//**
+	/**
 	 * This method will wait for Label for 60 seconds 
 	 * @author Pradeep Sundaram
-	 *//*
-	public void waitForLabel(Label label) {
+	 */
+	public void waitForLabel(Label label,WebDriver driver){
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(label));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
+		WebDriverWait wait = new WebDriverWait(driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(label.getBy()));
 	}
 	
-	*//**
+	/**
 	 * This method will wait for Check Box for 60 seconds 
 	 * @author Pradeep Sundaram
-	 *//*
-	public void waitForCheckBox(CheckBox check) {
+	 */
+	public void waitForCheckBox(CheckBox check,WebDriver driver){
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(check));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
+		WebDriverWait wait = new WebDriverWait(driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(check.getBy()));
 	}
 	
-	*//**
+	/**
 	 * This method will wait for Date Control for 60 seconds 
 	 * @author Pradeep Sundaram
-	 *//*
-	public void waitForDateControl(DateControl date) {
+	 */
+	public void waitForDateControl(DateControl date,WebDriver driver){
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(date));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
+		WebDriverWait wait = new WebDriverWait(driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(date.getBy()));
 	}
 	
 	
-	*//**
+	/**
 	 * This method will wait for Link for 60 seconds 
 	 * @author Pradeep Sundaram
-	 *//*
-	public void waitForLink(Link link) {
+	 */
+	public void waitForLink(Link link,WebDriver driver){
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(link));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
+		WebDriverWait wait = new WebDriverWait(driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(link.getBy()));
 	}
 	
 	
-	*//**
+	/**
 	 * This method will wait for SelectBox for 60 seconds 
 	 * @author Pradeep Sundaram
-	 *//*
-	public void waitForSelect(SelectBox select) {
+	 */
+	public void waitForSelect(SelectBox select,WebDriver driver){
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(select));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, 60);
+		WebDriverWait wait = new WebDriverWait(driver, 60);
 		wait.until(ExpectedConditions.presenceOfElementLocated(select.getBy()));
 	}
 	
 	
-	*//**
+	/**
 	 * This method will wait for TextField for 60 seconds 
 	 * @author Pradeep Sundaram
-	 *//*
-	public void waitForTextField(TextField tf,Long timeToWait){
+	 */
+	public void waitForTextField(TextField tf,Long timeToWait, WebDriver driver){
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(tf));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
+		WebDriverWait wait = new WebDriverWait(driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(tf.getBy()));
 	}
 	
-	*//**
+	/**
 	 * This method will wait for TextArea for 60 seconds 
 	 * @author Pradeep Sundaram
-	 *//*
-	public void waitForTextArea(TextArea ta,Long timeToWait) {
+	 */
+	public void waitForTextArea(TextArea ta,Long timeToWait, WebDriver driver) {
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(ta));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
+		WebDriverWait wait = new WebDriverWait(driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(ta.getBy()));
 	}
 	
-	*//**
+	/**
 	 * This method will wait for Button for 60 seconds 
 	 * @author Pradeep Sundaram
-	 *//*
-	public void waitForButton(Button button,Long timeToWait) {
+	 */
+	public void waitForButton(Button button,Long timeToWait, WebDriver driver) {
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(button));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
+		WebDriverWait wait = new WebDriverWait(driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(button.getBy()));
 	}
 	
-	*//**
+	/**
 	 * This method will wait for Label for 60 seconds 
 	 * @author Pradeep Sundaram
-	 *//*
-	public void waitForLabel(Label label,Long timeToWait) {
+	 */
+	public void waitForLabel(Label label,Long timeToWait, WebDriver driver) {
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(label));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
+		WebDriverWait wait = new WebDriverWait(driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(label.getBy()));
 	}
 	
-	*//**
+	/**
 	 * This method will wait for Check Box for 60 seconds 
 	 * @author Pradeep Sundaram
-	 *//*
-	public void waitForCheckBox(CheckBox check,Long timeToWait) {
+	 */
+	public void waitForCheckBox(CheckBox check,Long timeToWait, WebDriver driver) {
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(check));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
+		WebDriverWait wait = new WebDriverWait(driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(check.getBy()));
 	}
 	
-	*//**
+	/**
 	 * This method will wait for Date Control for 60 seconds 
 	 * @author Pradeep Sundaram
-	 *//*
-	public void waitForDateControl(DateControl date,Long timeToWait) {
+	 */
+	public void waitForDateControl(DateControl date,Long timeToWait, WebDriver driver) {
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(date));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
+		WebDriverWait wait = new WebDriverWait(driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(date.getBy()));
 	}
 	
 	
-	*//**
+	/**
 	 * This method will wait for Link for 60 seconds 
 	 * @author Pradeep Sundaram
-	 *//*
-	public void waitForLink(Link link,Long timeToWait) {
+	 */
+	public void waitForLink(Link link,Long timeToWait, WebDriver driver) {
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(link));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
+		WebDriverWait wait = new WebDriverWait(driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(link.getBy()));
 	}
 	
 	
-	*//**
+	/**
 	 * This method will wait for SelectBox for 60 seconds 
 	 * @author Pradeep Sundaram
-	 *//*
-	public void waitForSelect(SelectBox select,Long timeToWait) {
+	 */
+	public void waitForSelect(SelectBox select,Long timeToWait, WebDriver driver) {
 		Report.log("Waiting for the element to load " + WebPage.elementList.get(select));
-		WebDriverWait wait = new WebDriverWait(WebPage.driver, timeToWait);
+		WebDriverWait wait = new WebDriverWait(driver, timeToWait);
 		wait.until(ExpectedConditions.presenceOfElementLocated(select.getBy()));
-	}*/
+	}
 	
 	
 	/**
