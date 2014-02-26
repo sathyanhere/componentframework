@@ -213,13 +213,11 @@ public class Events implements MouseEvents{
 	 * @param counter
 	 */
 	public void write(String logMessage){
-		System.out.println(WebPage.screenshotRequired);
 		String path=null;
 		if(WebPage.screenshotRequired){
 			try{
 				String hyperLink=ScreenShotInitial+counter+ScreenShotEnd;
 				String message=logMessage+hyperLink;
-				
 				File directory = new File (".");
 				path=directory.getCanonicalPath()+"\\test-output\\screenshot\\";
 				File f=new File(path+counter+".png");
