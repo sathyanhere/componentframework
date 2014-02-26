@@ -120,7 +120,6 @@ public class TestPlan {
 		File directory = new File(".");
 		String reportPath = directory.getCanonicalPath() + "\\test-output\\index.html";
 		String verificationErrorString = verificationErrors.toString();
-		System.out.println("error message is "+verificationErrors.toString());
 		System.out.println("Test Execution stops and Report is generated in the location \""+reportPath+"\"");
 		if (!"".equals(verificationErrorString)) {
 		      Report.log(verificationErrorString);
