@@ -4,6 +4,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
@@ -12,6 +13,7 @@ import utils.WebDriverEventListenerClass;
 public class Browser {
 	public static String IEDriverPath=null;
 	public static String ChromeDriverPath=null;
+	
 	public static EventFiringWebDriver getInstance(String browerType) {
 		WebDriverEventListenerClass eventListener = new WebDriverEventListenerClass();
 		
@@ -27,6 +29,8 @@ public class Browser {
 			System.out.println("driver path is "+IEDriverPath);
 			System.setProperty("webdriver.ie.driver",IEDriverPath);
 			DesiredCapabilities ieCapabilities = DesiredCapabilities.internetExplorer();
+			ieCapabilities.setCapability("ignore-certificate",true);
+			ieCapabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 			EventFiringWebDriver driver = new EventFiringWebDriver(new InternetExplorerDriver(ieCapabilities));
 			driver.register(eventListener);
 			return driver;
