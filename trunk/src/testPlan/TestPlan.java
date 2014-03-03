@@ -26,6 +26,12 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
+import pages.WebPage;
+import reports.Report;
+import utils.EventsUtil;
+import utils.KeyEvents;
+import utils.WindowEvents;
+import browser.Browser;
 import controls.Button;
 import controls.CheckBox;
 import controls.DateControl;
@@ -34,12 +40,6 @@ import controls.Link;
 import controls.SelectBox;
 import controls.TextArea;
 import controls.TextField;
-
-import pages.WebPage;
-import reports.Report;
-import utils.EventsUtil;
-import utils.KeyEvents;
-import utils.WindowEvents;
 
 public class TestPlan {
 
@@ -55,13 +55,16 @@ public class TestPlan {
 	 * @throws IOException 
 	 */
 
-	@Parameters({"screenshotRequired","retryCount"})
+	@Parameters({"screenshotRequired","retryCount","IEDriverPath","ChromeDriverPath"})
 	@BeforeSuite(groups = "TestPlan")
-	public void setUp(@Optional("true")String screenshotRequired, @Optional("5")String retryCnt) throws IOException {
-		
+	public void setUp(@Optional("true") String screenshotRequired,
+			@Optional("5") String retryCount, @Optional("D:\\selenium drivers\\IEDriverServer.exe") String IEDriverPath,
+			@Optional("D:\\selenium drivers\\chromedriver.exe") String ChromeDriverPath) throws IOException {
 		Report.log("Test Execution starts");
+		Browser.IEDriverPath=IEDriverPath;
+		Browser.ChromeDriverPath=ChromeDriverPath;
 		WebPage.screenshotRequired=Boolean.parseBoolean(screenshotRequired);
-		WebPage.retryCount=Integer.parseInt(retryCnt);
+		WebPage.retryCount=Integer.parseInt(retryCount);
 		/*WebPage.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);*/
 		File file = new File(".//src//ReportData.txt");
 		RandomAccessFile raf=new RandomAccessFile(file,"r");
@@ -74,7 +77,6 @@ public class TestPlan {
 			File newFolderName=new File(newName);
 			oldfile.renameTo(newFolderName);
 		}
-		
 	}
 
 	/**
