@@ -37,7 +37,10 @@ public class Browser {
 		}
 		else if (browerType.equals("chrome")) {
 			System.setProperty("webdriver.chrome.driver",ChromeDriverPath);
-			EventFiringWebDriver driver = new EventFiringWebDriver(new ChromeDriver());
+			DesiredCapabilities chromeCapabilities = DesiredCapabilities.chrome();
+			chromeCapabilities.setCapability("ignore-certificate",true);
+			chromeCapabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+			EventFiringWebDriver driver = new EventFiringWebDriver(new ChromeDriver(chromeCapabilities));
 			driver.register(eventListener);
 			return driver;
 		}
