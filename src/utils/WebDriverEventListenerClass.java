@@ -15,6 +15,7 @@ public class WebDriverEventListenerClass extends AbstractWebDriverEventListener{
 	private static String ScreenShotInitial="<a href=\"./screenshot/";
 	private static String ScreenShotEnd=".png\"  target=\"_blank\"> SCREEN SHOT </a> \n";
 	
+	@Override
 	public void onException(Throwable throwable, WebDriver driver) {
 		try {
 			File directory = new File(".");
@@ -28,5 +29,4 @@ public class WebDriverEventListenerClass extends AbstractWebDriverEventListener{
 			e.printStackTrace();
 		}
 	  }
-
 }
