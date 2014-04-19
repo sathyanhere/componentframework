@@ -167,22 +167,20 @@ public class EventsUtil implements KeyEvents, WindowEvents {
 	}
 
 	@Override
-	public void type(String text)  {
-		try{
+	public void type(String text) {
+		try {
 			robot = new Robot();
-			robot.delay(500);
-			String[] textArray = text.split("");
-			for (int i = 1; i < textArray.length; i++) {
+			char[] textArr = text.toCharArray();
+			int size = textArr.length;
+			for (int i = 0; i < size; i++) {
 				robot.delay(500);
-//				robot.keyPress(TextUtil.getAsciiValue(textArray[i]));
-				robot.keyPress(Character.getNumericValue('a'));
-				Report.log("Entering " + textArray[i]);
+				robot.keyPress((int)textArr[i]);
+				Report.log("Entering " + textArr[i]);
 			}
-		}
-		catch(AWTException awte){
+		} catch (AWTException awte) {
 			awte.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
