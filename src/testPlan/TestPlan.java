@@ -107,7 +107,6 @@ public class TestPlan {
 		String exeTime = dateFormat.format(date);
 		File file = new File(".//src//ReportData.txt");
 		Writer output = new BufferedWriter(new FileWriter(file));
-		System.out.println("before writing into the file");
 		output.write(exeTime);
 		output.close();
 		File directory = new File(".");
