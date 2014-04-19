@@ -37,6 +37,7 @@ public class EventsUtil implements KeyEvents, WindowEvents {
 			robot = new Robot();
 			robot.delay(500);
 			robot.keyPress(KeyEvent.VK_ESCAPE);
+			robot.keyRelease(KeyEvent.VK_ESCAPE);
 			Report.log("Pressing Esc key ");
 
 		}
@@ -52,6 +53,7 @@ public class EventsUtil implements KeyEvents, WindowEvents {
 			robot = new Robot();
 			robot.delay(500);
 			robot.keyPress(KeyEvent.VK_BACK_SPACE);
+			robot.keyRelease(KeyEvent.VK_BACK_SPACE);
 			Report.log("Pressing back space key ");
 		}
 		catch(AWTException awte){
@@ -66,6 +68,7 @@ public class EventsUtil implements KeyEvents, WindowEvents {
 			robot = new Robot();
 			robot.delay(500);
 			robot.keyPress(KeyEvent.VK_TAB);
+			robot.keyRelease(KeyEvent.VK_TAB);
 			Report.log("Pressing TAB key ");
 		}
 		catch(AWTException awte){
@@ -79,6 +82,7 @@ public class EventsUtil implements KeyEvents, WindowEvents {
 			robot = new Robot();
 			robot.delay(500);
 			robot.keyPress(KeyEvent.VK_ALT);
+			robot.keyRelease(KeyEvent.VK_ALT);
 			Report.log("key down Alt key ");
 		}
 		catch(AWTException awte){
@@ -112,6 +116,7 @@ public class EventsUtil implements KeyEvents, WindowEvents {
 			for (int i = 0; i < howManyTimes; i++) {
 				robot.delay(500);
 				robot.keyPress(KeyEvent.VK_TAB);
+				robot.keyRelease(KeyEvent.VK_TAB);
 			}
 			Report.log("Pressing TAB key for " + howManyTimes + " times ");	
 		}
@@ -127,6 +132,7 @@ public class EventsUtil implements KeyEvents, WindowEvents {
 			robot = new Robot();
 			robot.delay(500);
 			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
 			Report.log("Pressing ENTER key ");	
 		}
 		catch(AWTException awte){
@@ -140,7 +146,8 @@ public class EventsUtil implements KeyEvents, WindowEvents {
 		try{
 			robot = new Robot();
 			robot.delay(1000);
-			robot.keyPress(KeyEvent.VK_SPACE);	
+			robot.keyPress(KeyEvent.VK_SPACE);
+			robot.keyRelease(KeyEvent.VK_ENTER);
 		}
 		catch(AWTException awte){
 			awte.printStackTrace();
@@ -167,7 +174,8 @@ public class EventsUtil implements KeyEvents, WindowEvents {
 			String[] textArray = text.split("");
 			for (int i = 1; i < textArray.length; i++) {
 				robot.delay(500);
-				robot.keyPress(TextUtil.getAsciiValue(textArray[i]));
+//				robot.keyPress(TextUtil.getAsciiValue(textArray[i]));
+				robot.keyPress(Character.getNumericValue('a'));
 				Report.log("Entering " + textArray[i]);
 			}
 		}
