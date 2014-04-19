@@ -23,7 +23,7 @@ public class DateControl {
 		else if(dateControlName.startsWith("css")){
 			by=ElementUtil.byCss(dateControlName);
 		}
-		else if(dateControlName.startsWith("//")){
+		else if(dateControlName.startsWith("//")|| dateControlName.startsWith("(")){
 			by=ElementUtil.byXpath(dateControlName);
 		}
 		else if(dateControlName.startsWith("id")){

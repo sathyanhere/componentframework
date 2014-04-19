@@ -27,7 +27,7 @@ public class SelectBox {
 		else if(textID.startsWith("css")){
 			by=ElementUtil.byCss(textID);
 		}
-		else if(textID.startsWith("//")){
+		else if(textID.startsWith("//")|| textID.startsWith("(")){
 			by=ElementUtil.byXpath(textID);
 		}
 		WebPage.elementList.put(selectBox, fieldDesc);

@@ -25,7 +25,7 @@ public class Link {
 			by=ElementUtil.byCss(linkText);
 		}
 		
-		else if(linkText.startsWith("//")){
+		else if(linkText.startsWith("//")|| linkText.startsWith("(")){
 			by=ElementUtil.byXpath(linkText);
 		}
 		

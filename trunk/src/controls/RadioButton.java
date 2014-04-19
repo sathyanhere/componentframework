@@ -26,7 +26,7 @@ public class RadioButton {
 		else if(radioButtonName.startsWith("css")){
 			by=ElementUtil.byCss(radioButtonName);
 		}
-		else if(radioButtonName.startsWith("//")){
+		else if(radioButtonName.startsWith("//")|| radioButtonName.startsWith("(")){
 			by=ElementUtil.byXpath(radioButtonName);
 		}
 		else if(radioButtonName.startsWith("id")){
