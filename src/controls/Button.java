@@ -32,7 +32,7 @@ public class Button {
 			by=ElementUtil.byName(buttonID);
 		} else if (buttonID.startsWith("css")) {
 			by=ElementUtil.byCss(buttonID);
-		} else if (buttonID.startsWith("//")) {
+		} else if (buttonID.startsWith("//")|| buttonID.startsWith("(")) {
 			by=ElementUtil.byXpath(buttonID);
 		} else if (buttonID.startsWith("id")) {
 			by=ElementUtil.byID(buttonID);

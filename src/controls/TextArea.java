@@ -21,7 +21,7 @@ public class TextArea {
 		else if(textAreaName.startsWith("css")){
 			by=ElementUtil.byCss(textAreaName);
 		}
-		else if(textAreaName.startsWith("//")){
+		else if(textAreaName.startsWith("//")|| textAreaName.startsWith("(")){
 			by=ElementUtil.byXpath(textAreaName);
 		}
 		else if(textAreaName.startsWith("id")){

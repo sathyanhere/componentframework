@@ -21,7 +21,7 @@ public class CheckBox {
 		else if(checkBoxName.startsWith("css")){
 			by=ElementUtil.byCss(checkBoxName);
 		}
-		else if(checkBoxName.startsWith("//")){
+		else if(checkBoxName.startsWith("//")|| checkBoxName.startsWith("(")){
 			by=ElementUtil.byXpath(checkBoxName);
 		}
 		else if(checkBoxName.startsWith("id")){

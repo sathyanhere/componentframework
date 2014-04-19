@@ -12,11 +12,17 @@ public class Label {
 //	private ElementUtil elementUtil;
 	
 	public Label(String label,String description){
-		if(label.startsWith("//")){
-			by=ElementUtil.byXpath(label);
-		}
-		else if(label.startsWith("id")){
+		if(label.startsWith("id")){
 			by=ElementUtil.byID(label);
+		}
+		else if(label.startsWith("name")){
+			by=ElementUtil.byName(label);
+		}
+		else if(label.startsWith("css")){
+			by=ElementUtil.byCss(label);
+		}
+		else if(label.startsWith("//")|| label.startsWith("(")){
+			by=ElementUtil.byXpath(label);
 		}
 		WebPage.elementList.put(lbl, description);
 	}
