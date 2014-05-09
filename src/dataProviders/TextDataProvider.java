@@ -42,21 +42,8 @@ public class TextDataProvider {
 			while ((strLine = br.readLine()) != null) {
 				DataObject data=new DataObject();
 				String dataArray[]=strLine.split("/");
-				data.setQty(dataArray[0]);
-				data.setItemCode(dataArray[1]);
-				data.setAsFrequency(dataArray[2]);
-				data.setAsShipdate(dataArray[3]);
-				data.setCardHolderName(dataArray[4]);
-				data.setCardNumber(dataArray[5]);
-				data.setCardType(dataArray[6]);
-				data.setCardExpMonth(dataArray[7]);
-				data.setCardExpYear(dataArray[8]);
-				/*data.setQty(dataArray[0]);
-				data.setItemCode(dataArray[1]);
-				data.setQty1(dataArray[2]);
-				data.setItemCode(dataArray[3]);
-				data.setQty2(dataArray[3]);
-				data.setItemCode(dataArray[1]);*/
+				data.setUserName(dataArray[0]);
+				data.setPassword(dataArray[1]);
 				lines.add(data);
 			}
 			in.close();

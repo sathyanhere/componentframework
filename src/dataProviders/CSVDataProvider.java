@@ -42,8 +42,8 @@ public class CSVDataProvider {
 			while ((strLine = br.readLine()) != null) {
 				DataObject data = new DataObject();
 				String dataArray[] = strLine.split(",");
-//				data.setUserName(dataArray[0]);
-				//data.setPassword(dataArray[1]);
+				data.setUserName(dataArray[0]);
+				data.setPassword(dataArray[1]);
 				lines.add(data);
 			}
 			in.close();
