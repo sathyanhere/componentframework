@@ -2,6 +2,8 @@ package pages;
 
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
@@ -311,5 +313,25 @@ public class WebPage {
 	 */
 	public boolean isElementPresent(WebElement webElement){
 		return webElement.isDisplayed();
+	}
+	
+	/**
+	 * Pass the part of the frame name to this method. this will return the exact frame name
+	 * 
+	 * @author Pradeep Sundaram
+	 * @param frameNamePart
+	 * @return
+	 */
+	public String getFrame(String frameNamePart){
+		String frameName="";
+		List<WebElement> frameList=driver.findElements(By.tagName("iframe"));
+		Iterator<WebElement>iterator=frameList.iterator();
+		while(iterator.hasNext()){
+				String temp=iterator.next().getAttribute("id");
+				if(temp.contains(frameNamePart)){
+					frameName=temp;
+				}
+		}
+		return frameName;
 	}
 }
