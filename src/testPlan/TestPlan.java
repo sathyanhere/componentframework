@@ -413,6 +413,17 @@ public class TestPlan {
 	
 	
 	/**
+	 * This method will switch the control to the main page
+	 * 
+	 * @author Pradeep Sundaram
+	 * @param windowName
+	 */
+	public void switchToMainPage(WebDriver driver){
+		windowEvents=new EventsUtil();
+		windowEvents.switchToMainPage(driver);
+	}
+	
+	/**
 	 * This method will wait for TextField for 60 seconds 
 	 * @author Pradeep Sundaram
 	 */
