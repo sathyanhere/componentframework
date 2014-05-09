@@ -157,14 +157,24 @@ public class EventsUtil implements KeyEvents, WindowEvents {
 
 	@Override
 	public void selectFrame(WebDriver driver, String frameName) {
+		Report.log("switching to the frame '"+frameName+"'");
 		driver.switchTo().frame(frameName);
 		
 	}
 
 	@Override
 	public void selectWindow(WebDriver driver, String windowName) {
+		Report.log("switching to the window '"+windowName+"'");
 		driver.switchTo().window(windowName);
 	}
+	
+	
+	@Override
+	public void switchToMainPage(WebDriver driver) {
+		Report.log("switching the control to main window");
+		driver.switchTo().defaultContent();
+	}
+	
 
 	@Override
 	public void type(String text) {
