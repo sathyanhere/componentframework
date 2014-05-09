@@ -14,10 +14,24 @@ public class Browser {
 	public static String IEDriverPath=null;
 	public static String ChromeDriverPath=null;
 	
+	/**
+	 * This method will return the EventFiringWebDriver's Instance which can be stored in WebDriver's reference
+	 * <BR><BR>
+	 * pass "firefox" to get firefox browser
+	 * <BR><BR>
+	 * pass "ie" for Internet Explorer browser
+	 * <BR><BR>
+	 * pass "chrome" to get Chrome browser
+	 * 
+	 * @author Pradeep Sundaram
+	 * @param browerType
+	 * @return
+	 */
 	public static EventFiringWebDriver getInstance(String browerType) {
 		WebDriverEventListenerClass eventListener = new WebDriverEventListenerClass();
 		
 		if (browerType.equals("firefox")) {
+			System.setProperty("webdriver.firefox.bin","C:\\ProgramData\\Mozilla Firefox\\firefox.exe");
 			FirefoxProfile profile = new FirefoxProfile();
 			profile.setPreference("network.http.phishy-userpass-length", 255);
 			profile.setAssumeUntrustedCertificateIssuer(false);
