@@ -3,12 +3,22 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="D:/selenium_jars/selenium-server-standalone-2.39.0.jar"/>
-	<classpathentry kind="lib" path="D:/selenium_jars/jxl-2.6.jar"/>
-	<classpathentry kind="lib" path="D:/selenium_jars/selenium-server-standalone-2.21.0.jar"/>
-	<classpathentry kind="lib" path="D:/selenium_jars/aopalliance.jar"/>
-	<classpathentry kind="lib" path="D:/selenium_jars/javax.inject.jar"/>
-	<classpathentry kind="lib" path="D:/selenium_jars/reportng-1.1.3.jar"/>
-	<classpathentry kind="lib" path="D:/selenium_jars/velocity-dep-1.4.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/aopalliance.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/guice-3.0.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/guice-assistedinject-3.0.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/guice-grapher-3.0.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/guice-jmx-3.0.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/guice-jndi-3.0.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/guice-multibindings-3.0.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/guice-persist-3.0.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/guice-servlet-3.0.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/guice-spring-3.0.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/guice-struts2-plugin-3.0.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/guice-throwingproviders-3.0.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/javax.inject.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/reportng-1.1.3.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/selenium-server-standalone-2.39.0.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/velocity-dep-1.4.jar"/>
+	<classpathentry kind="lib" path="D:/selenium jars/jxl-2.6.12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
