@@ -8,4 +8,6 @@ public interface WindowEvents {
 
 	public void selectWindow(WebDriver driver, String windowName);
 	
+	public void switchToMainPage(WebDriver driver);
+	
 }
