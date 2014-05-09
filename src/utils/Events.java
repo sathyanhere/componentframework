@@ -39,7 +39,7 @@ public class Events implements MouseEvents{
 	 */
 	public void click(WebElement webElement) throws CFException  {
 		webElement.click();
-		write("<b>Clicking the element "+WebPage.elementList.get(webElement));
+		write("<b>Clicking the '"+WebPage.elementList.get(webElement)+"'");
 	}
 	
 	/**
@@ -136,7 +136,7 @@ public class Events implements MouseEvents{
 	public void type(WebElement webElement, String text) throws CFException  {
 		webElement.clear();
 		webElement.sendKeys(text);
-		write("<b>Typing \'"+text+"\' in "+WebPage.elementList.get(webElement));
+		write("<b>Typing \'"+text+"\' in '"+WebPage.elementList.get(webElement)+"'");
 	}
 	
 	
