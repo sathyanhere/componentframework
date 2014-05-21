@@ -55,6 +55,8 @@ public class TestPlan {
 	 * @throws IOException 
 	 */
 
+	
+	
 	@Parameters({"screenshotRequired","retryCount","IEDriverPath","ChromeDriverPath"})
 	@BeforeSuite(groups = "TestPlan")
 	public void setUp(@Optional("true") String screenshotRequired,
