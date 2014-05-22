@@ -1,7 +1,9 @@
 package events;
 
+import exception.CFException;
+
 public interface FlashEvents {
-	public String flashClick(final String objectId);
-	public String getString(final String objectId);
-	public String typeString(final String objectId,String string);
+	public void flashClick(final String objectId) throws CFException;
+	public String getString(final String objectId)throws CFException;
+	public void typeString(final String objectId,String string)throws CFException;
 }
