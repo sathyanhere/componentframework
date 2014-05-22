@@ -9,7 +9,7 @@ import exception.CFException;
 
 import utils.Events;
 
-public class FlashHandler {
+public class FlashHandler implements FlashEvents {
 	private final WebDriver webDriver;
 	private final String flashObjectId;
 	private Events events;
