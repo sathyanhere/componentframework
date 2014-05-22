@@ -8,6 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import events.KeyEvents;
+import events.WindowEvents;
+
 import pages.WebPage;
 import reports.Report;
 
@@ -282,4 +285,5 @@ public class EventsUtil implements KeyEvents, WindowEvents {
 			awte.printStackTrace();
 		}
 	}
+	
 }
