@@ -1,5 +1,6 @@
 package pages;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -334,4 +335,16 @@ public class WebPage {
 		}
 		return frameName;
 	}
+	
+	public List<String> getFrames(String frameNamePart){
+		List<String> frames=new ArrayList<String>();
+		List<WebElement> frameList=driver.findElements(By.tagName("iframe"));
+		Iterator<WebElement>iterator=frameList.iterator();
+		while(iterator.hasNext()){
+				String temp=iterator.next().getAttribute("id");
+				frames.add(temp);
+		}
+		return frames;
+	}
+	
 }
