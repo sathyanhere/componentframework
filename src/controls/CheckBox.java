@@ -12,9 +12,12 @@ import exception.CFException;
 public class CheckBox {
 	private WebElement checkBox;
 	private By by;
+	private String desc;
+	
 //	private ElementUtil elementUtil;
 	
 	public CheckBox(String checkBoxName,String description){
+		desc=description;
 		if(checkBoxName.startsWith("name")){
 			by=ElementUtil.byName(checkBoxName);
 		}
@@ -33,17 +36,26 @@ public class CheckBox {
 		WebPage.elementList.put(checkBox, description);
 	}
 	
+	
+	public CheckBox(WebElement webElement,String description){
+		checkBox=webElement;
+		desc=description;
+	}
+	
 	/**
 	 * This method will check the check box if it is unchecked
 	 * 
 	 * @author Pradeep Sundaram
 	 */
 	public void check() {
-		checkBox=ElementUtil.findElement(by);
-		try {
-			ElementUtil.check(checkBox);
-		} catch (CFException e) {
-			e.printStackTrace();
+		if (by != null) {
+			checkBox = ElementUtil.findElement(by);
+			try {
+				WebPage.elementList.put(checkBox, desc);
+				ElementUtil.click(checkBox);
+			} catch (CFException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -54,7 +66,9 @@ public class CheckBox {
 	 * @author Pradeep Sundaram
 	 */
 	public void unCheck() {
-		checkBox=ElementUtil.findElement(by);
+		if (by != null) {
+			checkBox=ElementUtil.findElement(by);			
+		}
 		try {
 			ElementUtil.unCheck(checkBox);
 		} catch (CFException e) {
@@ -67,7 +81,9 @@ public class CheckBox {
 	 * @throws IOException
 	 */
 	public boolean isChecked() {
-		checkBox=ElementUtil.findElement(by);
+		if (by != null) {
+			checkBox=ElementUtil.findElement(by);			
+		}
 		return checkBox.isSelected();
 	}
 	
@@ -89,7 +105,9 @@ public class CheckBox {
 	 * @return
 	 */
 	public WebElement getWebElement(){
-		checkBox=ElementUtil.findElement(by);
+		if (by != null) {
+			checkBox=ElementUtil.findElement(by);	
+		}
 		return checkBox;
 	}
 	
@@ -101,7 +119,9 @@ public class CheckBox {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
-		checkBox=ElementUtil.findElement(by);
+		if (by != null) {
+			checkBox=ElementUtil.findElement(by);	
+		}
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(checkBox)+"\" is displayed.<BR>");
 		return checkBox.isDisplayed();
 	}

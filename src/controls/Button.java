@@ -15,6 +15,13 @@ public class Button {
 	private By by;
 //	private ElementUtil elementUtil;
 
+	
+	public Button(WebElement element, String description){
+		button=element;
+		desc=description;
+	}
+	
+	
 	/**
 	 * Constructor for button when mouse over or double click is required for
 	 * the button
@@ -59,9 +66,11 @@ public class Button {
 	 * @throws IOException 
 	 */
 	public void click() {
-		button=ElementUtil.findElement(by);
-		WebPage.elementList.put(button, desc);
+		if (by != null) {
+			button = ElementUtil.findElement(by);
+		}
 		try {
+			WebPage.elementList.put(button, desc);
 			ElementUtil.click(button);
 		} catch (CFException e) {
 			e.printStackTrace();
@@ -74,7 +83,9 @@ public class Button {
 	 * @author PSubramani33
 	 */
 	public void doubleClick() {
-		button=ElementUtil.findElement(by);
+		if (by != null) {
+			button=ElementUtil.findElement(by);	
+		}
 		WebPage.elementList.put(button, desc);
 		try {
 			ElementUtil.doubleClick(button);
@@ -90,7 +101,9 @@ public class Button {
 	 * @return WebElement
 	 */
 	public WebElement getWebElement() {
-		button=ElementUtil.findElement(by);
+		if (by != null) {
+			button=ElementUtil.findElement(by);	
+		}
 		return button;
 	}
 
@@ -101,7 +114,9 @@ public class Button {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
-		button=ElementUtil.findElement(by);
+		if (by != null) {
+			button=ElementUtil.findElement(by);	
+		}
 		Report.log("Checking whether the field "+WebPage.elementList.get(button) + " is displayed.<BR>");
 		return button.isDisplayed();
 	}
@@ -113,7 +128,9 @@ public class Button {
 	 * @return String
 	 */
 	public String getToolTip() {
-		button=ElementUtil.findElement(by);
+		if (by != null) {
+			button=ElementUtil.findElement(by);	
+		}
 		Report.log("Getting the tool tip of the button "+WebPage.elementList.get(button) + ".<BR>");
 		return button.getAttribute("title");
 	}

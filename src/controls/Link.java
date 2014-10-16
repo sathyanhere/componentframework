@@ -35,6 +35,13 @@ public class Link {
 		
 	}
 	
+	public Link(WebElement webElement,String desc){
+		link=webElement;
+		linkDesc=desc;
+		
+	}
+	
+	
 	public Link(String linkText){
 		link=ElementUtil.findElementByLinkText(linkText);
 		WebPage.elementList.put(link, linkText);
@@ -46,7 +53,9 @@ public class Link {
 	 * @author Pradeep Sundaram
 	 */
 	public void click(){
-		link=ElementUtil.findElement(by);
+		if(by!=null){
+			link=ElementUtil.findElement(by);	
+		}
 		WebPage.elementList.put(link, linkDesc);
 		try {
 			ElementUtil.click(link);
@@ -72,7 +81,9 @@ public class Link {
 	 * @return String
 	 */
 	public String getText(){
-		link=ElementUtil.findElement(by);
+		if(by!=null){
+			link=ElementUtil.findElement(by);	
+		}
 		WebPage.elementList.put(link, linkDesc);
 		return link.getText();
 	}
@@ -82,7 +93,9 @@ public class Link {
 	 * @return WebElement
 	 */
 	public WebElement getWebElement(){
-		link=ElementUtil.findElement(by);
+		if(by!=null){
+			link=ElementUtil.findElement(by);	
+		}
 		WebPage.elementList.put(link, linkDesc);
 		return link;
 	}
@@ -95,7 +108,9 @@ public class Link {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
-		link=ElementUtil.findElement(by);
+		if(by!=null){
+			link=ElementUtil.findElement(by);	
+		}
 		WebPage.elementList.put(link, linkDesc);
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(link)+"\" is displayed.<BR>");
 		return link.isDisplayed();

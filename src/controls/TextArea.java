@@ -12,7 +12,13 @@ import exception.CFException;
 public class TextArea {
 	private WebElement textArea;
 	private By by;
+	String desc;
 //	private ElementUtil elementUtil;
+	
+	public TextArea(WebElement textAreaName,String description){
+		textArea=textAreaName;
+		desc=description;
+	}
 	
 	public TextArea(String textAreaName,String description){
 		if(textAreaName.startsWith("name")){
@@ -41,7 +47,9 @@ public class TextArea {
 	 * @throws IOException
 	 */
 	public void type(String text){
-		textArea=ElementUtil.findElement(by);
+		if (by != null) {
+			textArea=ElementUtil.findElement(by);			
+		}
 		try {
 			ElementUtil.type(textArea, text);
 		} catch (CFException e) {
@@ -65,7 +73,9 @@ public class TextArea {
 	 * @return WebElement
 	 */
 	public WebElement getWebElement(){
-		textArea=ElementUtil.findElement(by);
+		if (by != null) {
+			textArea=ElementUtil.findElement(by);			
+		}
 		return textArea;
 	}
 	
@@ -76,7 +86,9 @@ public class TextArea {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
-		textArea=ElementUtil.findElement(by);
+		if (by != null) {
+			textArea=ElementUtil.findElement(by);			
+		}
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(textArea)+"\" is displayed.<BR>");
 		return textArea.isDisplayed();
 	}
