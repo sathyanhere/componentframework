@@ -14,7 +14,7 @@ import events.WindowEvents;
 import pages.WebPage;
 import reports.Report;
 
-public class EventsUtil implements KeyEvents, WindowEvents {
+public class EventsUtil implements KeyEvents, WindowEvents{
 
 	public Robot robot;
 	public Actions builder;
