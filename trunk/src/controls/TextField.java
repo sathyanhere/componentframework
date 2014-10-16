@@ -12,6 +12,20 @@ public class TextField {
 	private WebElement textField;
 	private By by;
 	String txtDescription;
+	
+	
+	/**
+	 * @author Pradeep Sundaram 
+	 * @param textID
+	 * @param fieldDesc
+	 */
+	public TextField(WebElement textID,String fieldDesc){
+		textField=textID;
+		txtDescription=fieldDesc;
+	}
+	
+	
+	
 	/**
 	 * This method will return the By of the text field
 	 * @author Pradeep Sundaram
@@ -27,7 +41,10 @@ public class TextField {
 	 * @return 
 	 */
 	public WebElement getWebElement(){
-		textField=ElementUtil.findElement(by);
+		if (by != null) {
+			textField=ElementUtil.findElement(by);	
+		}
+		
 		return textField;
 	}
 	
@@ -54,7 +71,9 @@ public class TextField {
 	 * @param text
 	 */
 	public void type(String text){
-		textField=ElementUtil.findElement(by);
+		if (by != null) {
+			textField=ElementUtil.findElement(by);	
+		}
 		WebPage.elementList.put(textField, txtDescription);
 		try {
 			ElementUtil.type(textField, text);
@@ -79,7 +98,9 @@ public class TextField {
 	 * @return String
 	 */ 
 	public String getText(){
-		textField=ElementUtil.findElement(by);
+		if (by != null) {
+			textField=ElementUtil.findElement(by);			
+		}
 		return textField.getAttribute("value");	
 	}
 	
@@ -90,7 +111,9 @@ public class TextField {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
-		textField=ElementUtil.findElement(by);
+		if (by != null) {
+			textField=ElementUtil.findElement(by);			
+		}
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(textField)+"\" is displayed.<BR>");
 		return textField.isDisplayed();
 	}	
@@ -101,7 +124,9 @@ public class TextField {
 	 * @return boolean
 	 */
 	public boolean isEnabled() {
-		textField=ElementUtil.findElement(by);
+		if (by != null) {
+			textField=ElementUtil.findElement(by);			
+		}
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(textField)+"\" is displayed.<BR>");
 		return textField.isEnabled();
 	}

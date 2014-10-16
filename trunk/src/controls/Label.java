@@ -9,9 +9,12 @@ import reports.Report;
 public class Label {
 	private By by;
 	private WebElement lbl;
+	private String desc;
 //	private ElementUtil elementUtil;
 	
+	
 	public Label(String label,String description){
+		desc=description;
 		if(label.startsWith("id")){
 			by=ElementUtil.byID(label);
 		}
@@ -28,6 +31,19 @@ public class Label {
 	}
 	
 	/**
+	 * This constructor is used occasionally when webelement is known
+	 * 
+	 * @author Pradeep Sundaram
+	 * @param label
+	 * @param description
+	 */
+	public Label(WebElement label,String description){
+		lbl=label;
+		desc=description;
+	}
+	
+	
+	/**
 	 * This method will return the content in the Label
 	 * 
 	 * @author Pradeep Sundaram
@@ -35,7 +51,9 @@ public class Label {
 	 * 
 	 */
 	public String getText() {
-		lbl=ElementUtil.findElement(by);
+		if(by!=null){
+			lbl=ElementUtil.findElement(by);	
+		}
 		return lbl.getText();
 	}
 	
@@ -54,8 +72,10 @@ public class Label {
 	 * @return  WebElement
 	 */
 	public WebElement getWebElement() {
-		lbl=ElementUtil.findElement(by);
-		return lbl;
+		if (by != null) {
+			lbl = ElementUtil.findElement(by);
+		}
+		return lbl;	
 	}
 	
 	/**
@@ -65,7 +85,9 @@ public class Label {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
-		lbl=ElementUtil.findElement(by);
+		if(by!=null){
+			lbl=ElementUtil.findElement(by);	
+		}
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(lbl)+"\" is displayed.<BR>");
 		return lbl.isDisplayed();
 	}

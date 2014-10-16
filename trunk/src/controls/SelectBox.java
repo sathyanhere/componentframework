@@ -41,7 +41,9 @@ public class SelectBox {
 	 * @throws IOException
 	 */
 	public void select(int index){
-		selectBox=ElementUtil.findSelect(by);
+		if (by != null) {
+			selectBox=ElementUtil.findSelect(by);			
+		}
 		try {
 			ElementUtil.select(selectBox, index);
 		} catch (CFException e) {
@@ -57,7 +59,9 @@ public class SelectBox {
 	 * @param value
 	 */
 	public void selectByValue(String value){
-		selectBox=ElementUtil.findSelect(by);
+		if (by != null) {
+			selectBox=ElementUtil.findSelect(by);			
+		}
 		try {
 			ElementUtil.selectByValue(selectBox, value);
 		} catch (CFException e) {
@@ -72,7 +76,9 @@ public class SelectBox {
 	 * @param selectString
 	 */
 	public void select(String selectString)  {
-		selectBox=ElementUtil.findSelect(by);
+		if (by != null) {
+			selectBox=ElementUtil.findSelect(by);			
+		}
 		try {
 			ElementUtil.selectByText(selectBox, selectString);
 		} catch (CFException e) {
@@ -86,7 +92,9 @@ public class SelectBox {
 	 * @return String
 	 */
 	public String getSelectedValue() {
-		selectBox=ElementUtil.findSelect(by);
+		if (by != null) {
+			selectBox=ElementUtil.findSelect(by);			
+		}
 		return selectBox.getFirstSelectedOption().getText();
 	}
 
@@ -106,7 +114,9 @@ public class SelectBox {
 	 * @return Select
 	 */
 	public Select getSelect(){
-		selectBox=ElementUtil.findSelect(by);
+		if (by != null) {
+			selectBox=ElementUtil.findSelect(by);			
+		}
 		return selectBox;
 	}
 	
@@ -117,7 +127,9 @@ public class SelectBox {
 	 * @return List
 	 */
 	public List<String> getOptions(){
-		selectBox=ElementUtil.findSelect(by);
+		if (by != null) {
+			selectBox=ElementUtil.findSelect(by);	
+		}
 		List<String> options=new ArrayList<String>();
 		List<WebElement> list=selectBox.getOptions();
 		int size=list.size();
@@ -145,7 +157,9 @@ public class SelectBox {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
-		selectBox=ElementUtil.findSelect(by);
+		if (by != null) {
+			selectBox=ElementUtil.findSelect(by);	
+		}
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(selectBox)+"\" is enabled.<BR>");
       return ElementUtil.findElement(by).isDisplayed();
 	}

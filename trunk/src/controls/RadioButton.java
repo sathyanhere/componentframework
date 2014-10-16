@@ -11,6 +11,20 @@ public class RadioButton {
 	private WebElement radioButton;
 	private By by;
 //	private ElementUtil elementUtil;
+	String desc;
+	/**
+	 * 
+	 * 
+	 * @author Pradeep Sundaram
+	 * @param radioButtonName
+	 * @param description
+	 */
+	public RadioButton(WebElement radioButtonName,String description){
+		radioButton=radioButtonName;
+		desc=description;
+	}
+	
+	
 	
 	/**
 	 * Constructor of radio button 
@@ -44,7 +58,9 @@ public class RadioButton {
 	 * @author Pradeep Sundaram
 	 */
 	public void choose() {
-		radioButton=ElementUtil.findElement(by);
+		if (by != null) {
+			radioButton=ElementUtil.findElement(by);			
+		}
 		try {
 			ElementUtil.choose(radioButton);
 		} catch (CFException e) {
@@ -69,7 +85,9 @@ public class RadioButton {
 	 * @return WebElement
 	 */
 	public WebElement getWebElement(){
-		radioButton=ElementUtil.findElement(by);
+		if (by != null) {
+			radioButton=ElementUtil.findElement(by);	
+		}
 		return radioButton;
 	}
 	
@@ -81,7 +99,9 @@ public class RadioButton {
 	 * @return boolean
 	 */
 	public boolean isDisplayed() {
-		radioButton=ElementUtil.findElement(by);
+		if (by != null) {
+			radioButton=ElementUtil.findElement(by);			
+		}
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(radioButton)+"\" is displayed.<BR>");
       return radioButton.isDisplayed();
 	}
@@ -94,7 +114,9 @@ public class RadioButton {
 	 * @return boolean
 	 */
 	public boolean isEnabled() {
-		radioButton=ElementUtil.findElement(by);
+		if (by != null) {
+			radioButton=ElementUtil.findElement(by);			
+		}
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(radioButton)+"\" is enabled.<BR>");
       return radioButton.isEnabled();
 	}
