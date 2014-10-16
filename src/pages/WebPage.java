@@ -38,6 +38,8 @@ public class WebPage {
 //	public String env=""; 
 	public static boolean screenshotRequired=true;
 	public static Integer  retryCount;
+	public static String firefoxPath="";
+		
 	/*private static String ScreenShotInitial="<a href=\"./screenshot/";
 	private static String ScreenShotEnd=".png\"  target=\"_blank\"> SCREEN SHOT </a> \n";*/
 	
