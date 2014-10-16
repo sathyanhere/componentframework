@@ -29,8 +29,8 @@ import org.testng.annotations.Parameters;
 import pages.WebPage;
 import reports.Report;
 import utils.EventsUtil;
-import utils.KeyEvents;
-import utils.WindowEvents;
+import events.KeyEvents;
+import events.WindowEvents;
 import browser.Browser;
 import controls.Button;
 import controls.CheckBox;
@@ -47,6 +47,7 @@ public class TestPlan {
 	private KeyEvents keyEvents;
 	private WindowEvents windowEvents;
 	private StringBuffer verificationErrors = new StringBuffer();
+
 	
 	/**
 	 * This method will clear the screen shot files of previous run
@@ -54,19 +55,18 @@ public class TestPlan {
 	 * @author Pradeep Sundaram
 	 * @throws IOException 
 	 */
-
-	
-	
-	@Parameters({"screenshotRequired","retryCount","IEDriverPath","ChromeDriverPath"})
+	@Parameters({"screenshotRequired","retryCount","IEDriverPath","ChromeDriverPath","firefoxpath"})
 	@BeforeSuite(groups = "TestPlan")
 	public void setUp(@Optional("true") String screenshotRequired,
 			@Optional("5") String retryCount, @Optional("D:\\selenium drivers\\IEDriverServer.exe") String IEDriverPath,
-			@Optional("D:\\selenium drivers\\chromedriver.exe") String ChromeDriverPath) throws IOException {
+			@Optional("D:\\selenium drivers\\chromedriver.exe") String ChromeDriverPath,
+			@Optional("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe") String firefoxPathTemp) throws IOException {
 		Report.log("Test Execution starts");
 		Browser.IEDriverPath=IEDriverPath;
 		Browser.ChromeDriverPath=ChromeDriverPath;
 		WebPage.screenshotRequired=Boolean.parseBoolean(screenshotRequired);
 		WebPage.retryCount=Integer.parseInt(retryCount);
+		WebPage.firefoxPath=firefoxPathTemp;
 		/*WebPage.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);*/
 		File file = new File(".//src//ReportData.txt");
 		RandomAccessFile raf=new RandomAccessFile(file,"r");
@@ -91,7 +91,6 @@ public class TestPlan {
 	@Parameters(value = "dataFile")
 	@BeforeTest(groups = "TestPlan")
 	public void setPropertyFilePath(@Optional("data.properties") String dataFile) throws Exception {
-		System.out.println("setting property file path");
 		File directory = new File (".");
 		properties.load(new FileInputStream(directory.getCanonicalPath()+"\\src\\properties\\"+dataFile));
 		

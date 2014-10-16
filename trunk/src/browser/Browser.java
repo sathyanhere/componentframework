@@ -8,6 +8,8 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
+import pages.WebPage;
+
 import utils.WebDriverEventListenerClass;
 
 public class Browser {
@@ -29,9 +31,8 @@ public class Browser {
 	 */
 	public static EventFiringWebDriver getInstance(String browerType) {
 		WebDriverEventListenerClass eventListener = new WebDriverEventListenerClass();
-		
 		if (browerType.equals("firefox")) {
-			System.setProperty("webdriver.firefox.bin","C:\\ProgramData\\Mozilla Firefox\\firefox.exe");
+			System.setProperty("webdriver.firefox.bin",WebPage.firefoxPath);
 			FirefoxProfile profile = new FirefoxProfile();
 			profile.setPreference("network.http.phishy-userpass-length", 255);
 			profile.setAssumeUntrustedCertificateIssuer(false);
