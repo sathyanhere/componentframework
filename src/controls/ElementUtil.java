@@ -76,11 +76,15 @@ public class ElementUtil {
 		return By.cssSelector(elementID[1]);
 	}
 	
-	public static void click(WebElement webElement) throws CFException {
+	public static void click(WebElement webElement){
 		 events.click(webElement);
 	 }
 	
-	 public  static void type(WebElement webElement, String text) throws CFException {
+	public static void rightClick(WebElement webElement){
+		 events.rightClick(webElement);
+	 }
+	
+	 public  static void type(WebElement webElement, String text) {
 		 events.type(webElement, text);
 	 }
 	 
@@ -89,7 +93,7 @@ public class ElementUtil {
 		 events.select(selectField, index);
 	 }
 	 
-	 public static void selectByValue(Select selectField, String value) throws CFException {
+	 public static void selectByValue(Select selectField, String value){
 		 events.selectByValue(selectField, value);
 	 }
 	 
@@ -98,18 +102,18 @@ public class ElementUtil {
 		 events.selectByText(selectField, selectString);
 	 }
 	 
-	 public static void check(WebElement webElement) throws CFException {
+	 public static void check(WebElement webElement) {
 		 events.check(webElement);
 	 }
-	 public static void unCheck(WebElement webElement) throws CFException {
+	 public static void unCheck(WebElement webElement){
 		 events.unCheck(webElement);
 	 }
 	 
-	 public static void choose(WebElement webElement) throws CFException {
+	 public static void choose(WebElement webElement) {
 		 events.choose(webElement);
 	 }
 	 
-	 public static void doubleClick(WebElement webElement) throws CFException {
+	 public static void doubleClick(WebElement webElement) {
 		 events.doubleClick(webElement);
 	 }
 	 

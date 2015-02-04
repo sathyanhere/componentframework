@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
-import exception.CFException;
 
 public class TextField {
 	
@@ -75,11 +74,7 @@ public class TextField {
 			textField=ElementUtil.findElement(by);	
 		}
 		WebPage.elementList.put(textField, txtDescription);
-		try {
-			ElementUtil.type(textField, text);
-		} catch (CFException e) {
-			e.printStackTrace();
-		}
+		ElementUtil.type(textField, text);
 	}
 	
 	/**

@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
-import exception.CFException;
 
 public class Button {
 	private WebElement button;
@@ -69,12 +68,8 @@ public class Button {
 		if (by != null) {
 			button = ElementUtil.findElement(by);
 		}
-		try {
 			WebPage.elementList.put(button, desc);
 			ElementUtil.click(button);
-		} catch (CFException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -87,11 +82,7 @@ public class Button {
 			button=ElementUtil.findElement(by);	
 		}
 		WebPage.elementList.put(button, desc);
-		try {
 			ElementUtil.doubleClick(button);
-		} catch (CFException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -133,5 +124,18 @@ public class Button {
 		}
 		Report.log("Getting the tool tip of the button "+WebPage.elementList.get(button) + ".<BR>");
 		return button.getAttribute("title");
+	}
+	
+	/**
+	 * right clicks the button
+	 * 
+	 * @author Pradeep Sundaram
+	 */
+	public void rightClick() {
+		if (by != null) {
+			button = ElementUtil.findElement(by);
+		}
+		WebPage.elementList.put(button, desc);
+		ElementUtil.rightClick(button);
 	}
 }

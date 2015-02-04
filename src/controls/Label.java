@@ -92,4 +92,18 @@ public class Label {
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(lbl)+"\" is displayed.<BR>");
 		return lbl.isDisplayed();
 	}
+	
+	/**
+	 * Right clicks the label
+	 * 
+	 * @author Pradeep Sundaram
+	 */
+	public void rightClick() {
+		if (by != null) {
+			lbl = ElementUtil.findElement(by);
+		}
+		WebPage.elementList.put(lbl, desc);
+		ElementUtil.rightClick(lbl);
+	}
+
 }

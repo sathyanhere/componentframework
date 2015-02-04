@@ -4,19 +4,21 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
-import exception.CFException;
 
 public class DateControl {
+	private String desc;
 	private WebElement dateControl;
 	private By by;
 //	private ElementUtil elementUtil;
 	
-	public DateControl(WebElement date, String desc) {
+	public DateControl(WebElement date, String description) {
+		desc=description;
 		dateControl = date;
 		WebPage.elementList.put(dateControl, desc);
 	}
 	
 	public DateControl(String dateControlName,String description){
+		desc=description;
 		if(dateControlName.startsWith("name")){
 			by=ElementUtil.byName(dateControlName);
 		}
@@ -42,11 +44,7 @@ public class DateControl {
 	 */
 	public void click() {
 		dateControl=ElementUtil.findElement(by);
-		try {
-			ElementUtil.click(dateControl);
-		} catch (CFException e) {
-			e.printStackTrace();
-		}
+		ElementUtil.click(dateControl);
 	}
 	/**
 	 * This method will return By of the dateControl
@@ -66,5 +64,18 @@ public class DateControl {
 	public WebElement getWebElement(){
 		dateControl=ElementUtil.findElement(by);
 		return dateControl;
+	}
+	
+	/**
+	 * Right clicks the Date control
+	 * 
+	 * @author Pradeep Sundaram
+	 */
+	public void rightClick() {
+		if (by != null) {
+			dateControl = ElementUtil.findElement(by);
+		}
+		WebPage.elementList.put(dateControl, desc);
+		ElementUtil.rightClick(dateControl);
 	}
 }

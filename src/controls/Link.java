@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
-import exception.CFException;
 
 public class Link {
 	private WebElement link;
@@ -57,11 +56,7 @@ public class Link {
 			link=ElementUtil.findElement(by);	
 		}
 		WebPage.elementList.put(link, linkDesc);
-		try {
-			ElementUtil.click(link);
-		} catch (CFException e) {
-			e.printStackTrace();
-		}
+		ElementUtil.click(link);
 	}
 	
 	/**
@@ -115,5 +110,17 @@ public class Link {
 		Report.log("Checking whether the field \"" + WebPage.elementList.get(link)+"\" is displayed.<BR>");
 		return link.isDisplayed();
 	}
-
+	
+	/**
+	 * Right click the link
+	 * 
+	 * @author Pradeep Sundaram
+	 */
+	public void rightClick() {
+		if (by != null) {
+			link = ElementUtil.findElement(by);
+		}
+		WebPage.elementList.put(link, linkDesc);
+		ElementUtil.rightClick(link);
+	}
 }
