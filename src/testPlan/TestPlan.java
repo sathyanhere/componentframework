@@ -29,9 +29,6 @@ import org.testng.annotations.Parameters;
 import pages.WebPage;
 import reports.Report;
 import utils.EventsUtil;
-import events.KeyEvents;
-import events.WindowEvents;
-import utils.ZipTestResults;
 import browser.Browser;
 import controls.Button;
 import controls.CheckBox;
@@ -41,6 +38,8 @@ import controls.Link;
 import controls.SelectBox;
 import controls.TextArea;
 import controls.TextField;
+import events.KeyEvents;
+import events.WindowEvents;
 
 public class TestPlan {
 
@@ -49,7 +48,7 @@ public class TestPlan {
 	private WindowEvents windowEvents;
 	private StringBuffer verificationErrors = new StringBuffer();
 
-	
+
 	/**
 	 * This method will clear the screen shot files of previous run
 	 * 
@@ -61,24 +60,29 @@ public class TestPlan {
 	public void setUp(@Optional("true") String screenshotRequired,
 			@Optional("5") String retryCount, @Optional("D:\\selenium drivers\\IEDriverServer.exe") String IEDriverPath,
 			@Optional("D:\\selenium drivers\\chromedriver.exe") String ChromeDriverPath,
-			@Optional("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe") String firefoxPathTemp) throws IOException {
-		Report.log("Test Execution starts");
-		Browser.IEDriverPath=IEDriverPath;
-		Browser.ChromeDriverPath=ChromeDriverPath;
-		WebPage.screenshotRequired=Boolean.parseBoolean(screenshotRequired);
-		WebPage.retryCount=Integer.parseInt(retryCount);
-		WebPage.firefoxPath=firefoxPathTemp;
-		/*WebPage.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);*/
-		File file = new File(".//src//ReportData.txt");
-		RandomAccessFile raf=new RandomAccessFile(file,"r");
-		String previousExecutionTime=raf.readLine();
-		if(!"".equals(previousExecutionTime) && previousExecutionTime !=null ){
-			File directory = new File(".");
-			String oldPath = directory.getCanonicalPath() + "\\test-output\\";
-			File oldfile = new File(oldPath);
-			String newName=oldfile+previousExecutionTime;
-			File newFolderName=new File(newName);
-			oldfile.renameTo(newFolderName);
+			@Optional("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe") String firefoxPathTemp){
+		try{
+			Report.log("Test Execution starts");
+			Browser.IEDriverPath=IEDriverPath;
+			Browser.ChromeDriverPath=ChromeDriverPath;
+			WebPage.screenshotRequired=Boolean.parseBoolean(screenshotRequired);
+			WebPage.retryCount=Integer.parseInt(retryCount);
+			WebPage.firefoxPath=firefoxPathTemp;
+			/*WebPage.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);*/
+			File file = new File(".//src//ReportData.txt");
+			RandomAccessFile raf=new RandomAccessFile(file,"r");
+			String previousExecutionTime=raf.readLine();
+			if(!"".equals(previousExecutionTime) && previousExecutionTime !=null ){
+				File directory = new File(".");
+				String oldPath = directory.getCanonicalPath() + "\\test-output\\";
+				File oldfile = new File(oldPath);
+				String newName=oldfile+previousExecutionTime;
+				File newFolderName=new File(newName);
+				oldfile.renameTo(newFolderName);
+			}
+		}
+		catch(IOException ioe){
+			ioe.printStackTrace();
 		}
 	}
 
@@ -91,10 +95,14 @@ public class TestPlan {
 	 */
 	@Parameters(value = "dataFile")
 	@BeforeTest(groups = "TestPlan")
-	public void setPropertyFilePath(@Optional("data.properties") String dataFile) throws Exception {
-		File directory = new File (".");
-		properties.load(new FileInputStream(directory.getCanonicalPath()+"\\src\\properties\\"+dataFile));
-		
+	public void setPropertyFilePath(@Optional("data.properties") String dataFile){
+		try{
+			File directory = new File (".");
+			properties.load(new FileInputStream(directory.getCanonicalPath()+"\\src\\properties\\"+dataFile));
+		}
+		catch(IOException ioe){
+			ioe.printStackTrace();
+		}
 	}
 	/**
 	 * This method will close the driver instance and open the report in default browser
@@ -103,22 +111,28 @@ public class TestPlan {
 	 * @throws Exception
 	 */
 	@AfterTest(groups = "TestPlan")
-	public void tearDown() throws Exception {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-		Date date = new Date();
-		String exeTime = dateFormat.format(date);
-		File file = new File(".//src//ReportData.txt");
-		Writer output = new BufferedWriter(new FileWriter(file));
-		output.write(exeTime);
-		output.close();
-		File directory = new File(".");
-		String reportPath = directory.getCanonicalPath() + "\\test-output\\index.html";
-		String verificationErrorString = verificationErrors.toString();
-		System.out.println("Test Execution stops and Report is generated in the location \""+reportPath+"\"");
-		if (!"".equals(verificationErrorString)) {
-		      Report.log(verificationErrorString);
-		      fail(verificationErrorString);
+	public void tearDown(){
+		try{
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+			Date date = new Date();
+			String exeTime = dateFormat.format(date);
+			File file = new File(".//src//ReportData.txt");
+			Writer output = new BufferedWriter(new FileWriter(file));
+			output.write(exeTime);
+			output.close();
+			File directory = new File(".");
+			String reportPath = directory.getCanonicalPath() + "\\test-output\\index.html";
+			String verificationErrorString = verificationErrors.toString();
+			System.out.println("Test Execution stops and Report is generated in the location \""+reportPath+"\"");
+			if (!"".equals(verificationErrorString)) {
+			      Report.log(verificationErrorString);
+			      fail(verificationErrorString);
 		    }
+		}
+		catch(IOException ioe){
+			ioe.printStackTrace();
+		}
+			
 	}
 	
 	
