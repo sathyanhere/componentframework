@@ -6,12 +6,19 @@ import events.FlashHandler;
 import exception.CFException;
 
 public class FlashPage {
-	private FlashHandler flashHandler=null;
+	private static FlashHandler flashHandler=null;
 	
 	
 	public FlashPage(final WebDriver webDriver, final String flashObjectId) {
 		flashHandler=new FlashHandler(webDriver,flashObjectId);
 	}
+	
+	
+	public FlashPage(final WebDriver webDriver, String pageURL, final String flashObjectId) {
+		flashHandler=new FlashHandler(webDriver,pageURL,flashObjectId);
+//		webDriver.get(pageURL);
+	}
+	
 	
 	/**
 	 * This method will click on the element whose ID is passed
@@ -21,8 +28,9 @@ public class FlashPage {
 	 * @return
 	 * @throws CFException 
 	 */
-	public void flashClick(final String objectId) throws CFException {
-		flashHandler.flashClick(objectId);
+	public static void flashClick(final String objectId) throws CFException {
+//		WebPage.elementList.put(arg0, arg1)
+		FlashHandler.flashClick(objectId);
 	}
 	/**
 	 * This method will return the value in the element whose ID is passed
@@ -31,8 +39,8 @@ public class FlashPage {
 	 * @param objectId
 	 * @return
 	 */
-	public String getString(final String objectId){
-		return flashHandler.getString(objectId);
+	public static String getString(final String objectId){
+		return FlashHandler.getString(objectId);
 	}
 	
 	/**
@@ -43,7 +51,7 @@ public class FlashPage {
 	 * @param string
 	 * @return
 	 */
-	public void typeString(final String objectId,String string)throws CFException{
-		flashHandler.typeString(objectId,string);
+	public static void typeString(final String objectId,String string)throws CFException{
+		FlashHandler.typeString(objectId,string);
 	}
 }
