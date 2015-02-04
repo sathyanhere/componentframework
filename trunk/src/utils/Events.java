@@ -266,4 +266,18 @@ public class Events implements MouseEvents{
 		}
 		write("<b>Choosing \'" + WebPage.elementList.get(webElement));
 	}
+	
+	/**
+	 * This method will do drag and drop
+	 * 
+	 * @author Pradeep Sundaram
+	 * @param souceElement
+	 * @param destinationElement
+	 */
+	public void dragAndDrop(WebElement souceElement, WebElement destinationElement) throws CFException{
+		action= new Actions(driver); 
+		action.clickAndHold(souceElement).moveToElement(destinationElement)
+				.release(destinationElement).build().perform();
+		write("<b>Moving the element "+WebPage.elementList.get(souceElement)+" into "+ WebPage.elementList.get(destinationElement));	
+	}
 }
