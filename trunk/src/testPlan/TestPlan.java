@@ -31,6 +31,7 @@ import reports.Report;
 import utils.EventsUtil;
 import events.KeyEvents;
 import events.WindowEvents;
+import utils.ZipTestResults;
 import browser.Browser;
 import controls.Button;
 import controls.CheckBox;
@@ -119,6 +120,8 @@ public class TestPlan {
 		      fail(verificationErrorString);
 		    }
 	}
+	
+	
 	/**
 	 * presses esc key
 	 * 
