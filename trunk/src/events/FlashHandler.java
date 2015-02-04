@@ -9,15 +9,22 @@ import exception.CFException;
 
 import utils.Events;
 
-public class FlashHandler implements FlashEvents {
-	private final WebDriver webDriver;
-	private final String flashObjectId;
-	private Events events;
+public class FlashHandler /*implements FlashEvents */{
+	private static WebDriver driver;
+	private static String flashObjectId;
+	private static Events events;
 
 	public FlashHandler(final WebDriver webDriver, final String flashObjectId) {
-		this.webDriver = webDriver;
-		this.flashObjectId = flashObjectId;
-		this.events=new Events(webDriver);
+		FlashHandler.driver = webDriver;
+		FlashHandler.flashObjectId = flashObjectId;
+		FlashHandler.events=new Events(webDriver);
+	}
+	
+	public FlashHandler(final WebDriver webDriver, final String pageURL,final String flashObjectId) {
+		FlashHandler.driver = webDriver;
+		FlashHandler.flashObjectId = flashObjectId;
+		events=new Events(webDriver);
+		driver.get(pageURL);
 	}
 	
 	/**
@@ -28,8 +35,8 @@ public class FlashHandler implements FlashEvents {
 	 * @return
 	 * @throws CFException 
 	 */
-	public void flashClick(final String objectId) throws CFException {
-		callFlashObject(objectId);
+	public static void flashClick(String objectId) throws CFException {
+		FlashHandler.callFlashObject(objectId);
 		events.write("<b>Clicking the element "+WebPage.elementList.get(objectId));
 	}
 	/**
@@ -39,9 +46,8 @@ public class FlashHandler implements FlashEvents {
 	 * @param objectId
 	 * @return
 	 */
-	public String getString(final String objectId){
-		String temp="/:";
-		return callFlashObject("GetVariable",temp+objectId);
+	public static String getString(final String objectId){
+		return callFlashObject("GetVariable/:",objectId);
 	}
 	
 	/**
@@ -52,21 +58,21 @@ public class FlashHandler implements FlashEvents {
 	 * @param string
 	 * @return
 	 */
-	public void typeString(final String objectId,String string)throws CFException{
+	public static void typeString(final String objectId,String string)throws CFException{
 		String temp="/:";
 		callFlashObject("SetVariable",temp+objectId,string);
 		events.write("<b>typing on the element "+WebPage.elementList.get(objectId));
 	}
 	
 	
-	private String callFlashObject(final String functionName,
+	private static String callFlashObject(final String functionName,
 			final String... args) {
-		final Object result = ((JavascriptExecutor) webDriver).executeScript(
+		final Object result = ((JavascriptExecutor)FlashHandler.driver).executeScript(
 				makeJsFunction(functionName, args), new Object[0]);
 		return result != null ? result.toString() : null;
 	}
 
-	private String makeJsFunction(final String functionName,
+	private static String makeJsFunction(final String functionName,
 			final String... args) {
 		final StringBuffer functionArgs = new StringBuffer();
 		
