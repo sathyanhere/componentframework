@@ -27,7 +27,8 @@ public class Label {
 		else if(label.startsWith("//")|| label.startsWith("(")){
 			by=ElementUtil.byXpath(label);
 		}
-		WebPage.elementList.put(lbl, description);
+		lbl=ElementUtil.findElement(by);
+		WebPage.elementList.put(lbl, desc);
 	}
 	
 	/**
