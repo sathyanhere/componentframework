@@ -62,11 +62,7 @@ public class SelectBox {
 		if (by != null) {
 			selectBox=ElementUtil.findSelect(by);			
 		}
-		try {
-			ElementUtil.selectByValue(selectBox, value);
-		} catch (CFException e) {
-			e.printStackTrace();
-		}
+		ElementUtil.selectByValue(selectBox, value);
 	}
 
 	/**

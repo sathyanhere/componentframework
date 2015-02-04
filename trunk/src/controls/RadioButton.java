@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
-import exception.CFException;
 
 public class RadioButton {
 	private WebElement radioButton;
@@ -61,11 +60,7 @@ public class RadioButton {
 		if (by != null) {
 			radioButton=ElementUtil.findElement(by);			
 		}
-		try {
-			ElementUtil.choose(radioButton);
-		} catch (CFException e) {
-			e.printStackTrace();
-		}
+		ElementUtil.choose(radioButton);
 	}
 	
 	/**

@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
-import exception.CFException;
 
 public class TextArea {
 	private WebElement textArea;
@@ -50,11 +49,7 @@ public class TextArea {
 		if (by != null) {
 			textArea=ElementUtil.findElement(by);			
 		}
-		try {
-			ElementUtil.type(textArea, text);
-		} catch (CFException e) {
-			e.printStackTrace();
-		}
+		ElementUtil.type(textArea, text);
 	}
 	
 	/**

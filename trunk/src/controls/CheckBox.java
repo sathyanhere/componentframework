@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 
 import pages.WebPage;
 import reports.Report;
-import exception.CFException;
 
 public class CheckBox {
 	private WebElement checkBox;
@@ -50,12 +49,8 @@ public class CheckBox {
 	public void check() {
 		if (by != null) {
 			checkBox = ElementUtil.findElement(by);
-			try {
-				WebPage.elementList.put(checkBox, desc);
-				ElementUtil.click(checkBox);
-			} catch (CFException e) {
-				e.printStackTrace();
-			}
+			WebPage.elementList.put(checkBox, desc);
+			ElementUtil.click(checkBox);
 		}
 	}
 
@@ -69,11 +64,7 @@ public class CheckBox {
 		if (by != null) {
 			checkBox=ElementUtil.findElement(by);			
 		}
-		try {
-			ElementUtil.unCheck(checkBox);
-		} catch (CFException e) {
-			e.printStackTrace();
-		}
+		ElementUtil.unCheck(checkBox);
 	}
 	
 	/**
