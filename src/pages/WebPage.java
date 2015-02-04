@@ -20,6 +20,8 @@ import org.testng.Assert;
 import reports.Report;
 import utils.Events;
 import controls.ElementUtil;
+import controls.Label;
+import exception.CFException;
 
 public class WebPage {
 
@@ -159,6 +161,13 @@ public class WebPage {
 		wait.until(ExpectedConditions.presenceOfElementLocated(by));
 	}
 	
+	/**
+	 * Thread.sleep is mocked here
+	 * 
+	 * @author Pradeep Sundaram
+	 * @param timeInSec
+	 * @throws InterruptedException
+	 */
 	public void sleep(long timeInSec) throws InterruptedException{
 		Thread.sleep(timeInSec);
 	}
@@ -242,35 +251,58 @@ public class WebPage {
 	 * wait for text to present in the page
 	 * @author Pradeep Sundaram
 	 * @param text
-	 * @throws Exception 
 	 */
-	public void waitForTextPresent(String text) throws Exception {
-		Assert.assertNotNull(text, "Text can't be null");
-		Report.log("waitForTextPresent " + text + "<BR>");
-		for (int sec = 1; sec < 60; sec += 1) {
-			if ((isTextPresent(text))) {
+	public void waitForTextPresent(String text){
+		boolean present=false;
+		try{
+			Assert.assertNotNull(text, "Text can't be null");
+			Report.log("waitForTextPresent " + text + "<BR>");
+			for (int sec = 1; sec < 60; sec += 1) {
+				if ((isTextPresent(text))) {
+					present=true;
+				}
+			}	
+			if(present){
+			}
+			else{
+				throw new Exception("Text is not available in the page");
 			}
 		}
-		Report.log("The passed Text is not present in the page");
-		throw new Exception("Text is not available in the page");
+		catch(Exception e){
+			e.printStackTrace();
+			Report.log("The passed Text is not present in the page");
+		}
 	}
 	
 	/**
 	 * wait for text to disappear from the page
 	 * @author Pradeep Sundaram
 	 * @param text
-	 * @throws Exception
 	 */
-	public void waitForTextToDisappear(String text)throws Exception  {
-		Assert.assertNotNull(text, "Text can't be null");
-		Report.log("waitForTextToDisappear " + text + "<BR>");
-		for (int sec = 0; sec < 60; sec += 1) {
-			if (!(isTextPresent(text))) {
-				break;
+	public void waitForTextToDisappear(String text){
+		boolean disappeared=false;
+		try{
+			Assert.assertNotNull(text, "Text can't be null");
+			Report.log("waitForTextToDisappear " + text + "<BR>");
+			for (int sec = 0; sec < 60; sec += 1) {
+				if (!(isTextPresent(text))) {
+					disappeared=true;
+					break;
+				}
 			}
+			if(disappeared){
+			}
+			else{
+				Report.log("The passed Text does not disappear from the page");
+				throw new Exception("The passed Text does not disappear from the page");	
+			}
+			
 		}
-		Report.log("The passed Text does not disappear from the page");
-		throw new Exception("The passed Text does not disappear from the page");
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	/**
@@ -349,4 +381,20 @@ public class WebPage {
 		return frames;
 	}
 	
+	/**
+	 * This method will do drag and drop
+	 * 
+	 * @author Pradeep Sundaram
+	 * @param sourceElement
+	 * @param destinationElement
+	 */
+	public void dragAndDrop(Label sourceElement, Label destinationElement){
+		try{
+			events.dragAndDrop(sourceElement.getWebElement(), destinationElement.getWebElement());	
+		}
+		catch(CFException exception){
+			exception.printStackTrace();
+		}
+		
+	}	
 }
