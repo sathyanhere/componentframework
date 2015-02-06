@@ -23,7 +23,7 @@ public class FlashControl {
 	 * @return
 	 * @throws CFException 
 	 */
-	public void flashClick(/*final String objectId*/) throws CFException {
+	public void flashClick() throws CFException {
 		FlashHandler.flashClick(controlID);
 	}
 	/**
@@ -33,7 +33,7 @@ public class FlashControl {
 	 * @param objectId
 	 * @return
 	 */
-	public String getString(/*final String objectId*/){
+	public String getString(){
 		return FlashHandler.getString(controlID);
 	}
 	
@@ -45,7 +45,7 @@ public class FlashControl {
 	 * @param string
 	 * @return
 	 */
-	public void typeString(/*final String objectId,*/String string)throws CFException{
+	public void typeString(String string)throws CFException{
 		FlashHandler.typeString(controlID,string);
 	}
 }
