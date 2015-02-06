@@ -13,7 +13,7 @@ public class FlashHandler /*implements FlashEvents */{
 	private static WebDriver driver;
 	private static String flashObjectId;
 	private static Events events;
-
+	private static String temp="/:";
 	public FlashHandler(final WebDriver webDriver, final String flashObjectId) {
 		FlashHandler.driver = webDriver;
 		FlashHandler.flashObjectId = flashObjectId;
@@ -47,7 +47,7 @@ public class FlashHandler /*implements FlashEvents */{
 	 * @return
 	 */
 	public static String getString(final String objectId){
-		return callFlashObject("GetVariable/:",objectId);
+		return callFlashObject("GetVariable",temp+objectId);
 	}
 	
 	/**
@@ -59,7 +59,6 @@ public class FlashHandler /*implements FlashEvents */{
 	 * @return
 	 */
 	public static void typeString(final String objectId,String string)throws CFException{
-		String temp="/:";
 		callFlashObject("SetVariable",temp+objectId,string);
 		events.write("<b>typing on the element "+WebPage.elementList.get(objectId));
 	}
@@ -84,6 +83,7 @@ public class FlashHandler /*implements FlashEvents */{
 				functionArgs.append(String.format("'%1$s'", args[i]));
 			}
 		}
+		System.out.println(String.format("return document.%1$s.%2$s(%3$s);", flashObjectId,functionName,functionArgs));
 		return String.format("return document.%1$s.%2$s(%3$s);", flashObjectId,
 				functionName, functionArgs);
 	}
