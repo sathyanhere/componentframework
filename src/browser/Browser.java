@@ -15,6 +15,7 @@ import utils.WebDriverEventListenerClass;
 public class Browser {
 	public static String IEDriverPath=null;
 	public static String ChromeDriverPath=null;
+	public static String firefoxPath=null;
 	
 	/**
 	 * This method will return the EventFiringWebDriver's Instance which can be stored in WebDriver's reference

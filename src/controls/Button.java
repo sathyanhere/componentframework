@@ -66,6 +66,7 @@ public class Button {
 	 */
 	public void click() {
 		if (by != null) {
+			System.out.println("by is "+by);
 			button = ElementUtil.findElement(by);
 		}
 			WebPage.elementList.put(button, desc);
