@@ -60,14 +60,16 @@ public class TestPlan {
 	public void setUp(@Optional("true") String screenshotRequired,
 			@Optional("5") String retryCount, @Optional("D:\\selenium drivers\\IEDriverServer.exe") String IEDriverPath,
 			@Optional("D:\\selenium drivers\\chromedriver.exe") String ChromeDriverPath,
-			@Optional("C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe") String firefoxPathTemp){
+			@Optional("C:\\Program Files\\Mozilla Firefox\\firefox.exe") String firefoxPath){
+		
 		try{
 			Report.log("Test Execution starts");
 			Browser.IEDriverPath=IEDriverPath;
 			Browser.ChromeDriverPath=ChromeDriverPath;
+			Browser.firefoxPath=firefoxPath;
 			WebPage.screenshotRequired=Boolean.parseBoolean(screenshotRequired);
 			WebPage.retryCount=Integer.parseInt(retryCount);
-			WebPage.firefoxPath=firefoxPathTemp;
+			WebPage.firefoxPath=firefoxPath;
 			/*WebPage.driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);*/
 			File file = new File(".//src//ReportData.txt");
 			RandomAccessFile raf=new RandomAccessFile(file,"r");
